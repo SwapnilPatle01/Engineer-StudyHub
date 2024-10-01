@@ -1,27 +1,39 @@
 import React, { useState } from "react";
-import { Layout, Button, Select, Menu, Card, Row, Col } from "antd";
+import {Menu, Layout, Button, Select, Tabs, Card, Row, Col } from "antd";
 import HeroSection from "../Home/HeroSection";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
+const { TabPane } = Tabs;
 
 const mockData = {
-  notes: ["Note 1", "Note 2", "Note 3"],
-  pyqs: ["PYQ 1", "PYQ 2", "PYQ 3"],
-  syllabus: ["Syllabus 1", "Syllabus 2", "Syllabus 3"],
-  videoLectures: ["Lecture 1", "Lecture 2", "Lecture 3"],
+  notes: [
+    { title: "Note 1", pdf: "https://docs.google.com/document/d/1hlskK9_sxeY5WeB7ar9cuvltlehZYFrSJkcY8eL8mz8/edit" },
+    { title: "Note 2", pdf: "/path/to/note2.pdf" },
+    { title: "Note 3", pdf: "/path/to/note3.pdf" }
+  ],
+  pyqs: [
+    { title: "PYQ 1", pdf: "/path/to/pyq1.pdf" },
+    { title: "PYQ 2", pdf: "/path/to/pyq2.pdf" },
+    { title: "PYQ 3", pdf: "/path/to/pyq3.pdf" }
+  ],
+  syllabus: [
+    { title: "Syllabus 1", pdf: "/path/to/syllabus1.pdf" },
+    { title: "Syllabus 2", pdf: "/path/to/syllabus2.pdf" },
+    { title: "Syllabus 3", pdf: "/path/to/syllabus3.pdf" }
+  ],
+  videoLectures: [
+    { title: "Lecture 1", link: "https://youtu.be/lecture1" },
+    { title: "Lecture 2", link: "https://youtu.be/lecture2" },
+    { title: "Lecture 3", link: "https://youtu.be/lecture3" }
+  ]
 };
 
 // Subjects for each semester
 const subjectsBySemester = {
   "1st": ["Mathematics", "Physics", "Basic Electrical Engineering", "Chemistry", "Programming in C"],
   "2nd": ["Discrete Mathematics", "Data Structures", "Digital Electronics", "Operating Systems", "OOPS in Java"],
-  "3rd": ["Algorithms", "Computer Organization", "Theory of Computation", "Database Management Systems", "Computer Networks"],
-  "4th": ["Software Engineering", "Compiler Design", "Artificial Intelligence", "Web Technologies", "Microprocessors"],
-  "5th": ["Machine Learning", "Big Data Analytics", "Cloud Computing", "Cryptography", "Network Security"],
-  "6th": ["Data Mining", "Natural Language Processing", "Mobile Computing", "IoT", "Parallel Computing"],
-  "7th": ["Cyber Security", "Blockchain Technology", "Quantum Computing", "Augmented Reality", "Distributed Systems"],
-  "8th": ["Project Management", "Advanced Machine Learning", "Deep Learning", "DevOps", "Final Year Project"],
+  // Add other semesters as needed
 };
 
 function LearningMaterial() {
@@ -141,172 +153,124 @@ function LearningMaterial() {
       <Layout style={{ background: "#f0f0f0" }}>
         {showContent ? (
           <Content style={{ padding: "24px" }}>
-            <Row gutter={[16, 16]}>
-              <Col span={24}>
-                <Card title="Notes" bordered={false}>
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="Notes" key="1">
+                <Row gutter={[16, 16]}>
                   {mockData.notes.map((note, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span>{note}</span>
-                      <div>
-                        <Button
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            marginRight: "10px",
-                          }}
-                        >
-                          View
-                        </Button>
-                        <Button
-                          type="primary"
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            border: "none",
-                          }}
-                        >
-                          Download
-                        </Button>
-                      </div>
-                    </div>
+                    <Col span={24} key={index}>
+                      <Card title={note.title} bordered={false}>
+                        <div>
+                          <Button
+                            style={{ marginRight: "10px" }}
+                            onClick={() => window.open(note.pdf, "_blank")}
+                          >
+                            View
+                          </Button>
+                          <Button
+                            type="primary"
+                            style={{ border: "none" }}
+                            onClick={() => {
+                              const link = document.createElement("a");
+                              link.href = note.pdf;
+                              link.setAttribute("download", note.title);
+                              document.body.appendChild(link);
+                              link.click();
+                              link.remove();
+                            }}
+                          >
+                            Download
+                          </Button>
+                        </div>
+                      </Card>
+                    </Col>
                   ))}
-                </Card>
-              </Col>
-              <Col span={24}>
-                <Card title="Previous Year Questions" bordered={false}>
+                </Row>
+              </TabPane>
+
+              <TabPane tab="Previous Year Questions" key="2">
+                <Row gutter={[16, 16]}>
                   {mockData.pyqs.map((pyq, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span>{pyq}</span>
-                      <div>
-                        <Button
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            marginRight: "10px",
-                          }}
-                        >
-                          View
-                        </Button>
-                        <Button
-                          type="primary"
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            border: "none",
-                          }}
-                        >
-                          Download
-                        </Button>
-                      </div>
-                    </div>
+                    <Col span={24} key={index}>
+                      <Card title={pyq.title} bordered={false}>
+                        <div>
+                          <Button
+                            style={{ marginRight: "10px" }}
+                            onClick={() => window.open(pyq.pdf, "_blank")}
+                          >
+                            View
+                          </Button>
+                          <Button
+                            type="primary"
+                            style={{ border: "none" }}
+                            onClick={() => {
+                              const link = document.createElement("a");
+                              link.href = pyq.pdf;
+                              link.setAttribute("download", pyq.title);
+                              document.body.appendChild(link);
+                              link.click();
+                              link.remove();
+                            }}
+                          >
+                            Download
+                          </Button>
+                        </div>
+                      </Card>
+                    </Col>
                   ))}
-                </Card>
-              </Col>
-              <Col span={24}>
-                <Card title="Syllabus" bordered={false}>
+                </Row>
+              </TabPane>
+
+              <TabPane tab="Syllabus" key="3">
+                <Row gutter={[16, 16]}>
                   {mockData.syllabus.map((syllabus, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span>{syllabus}</span>
-                      <div>
-                        <Button
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            marginRight: "10px",
-                          }}
-                        >
-                          View
-                        </Button>
-                        <Button
-                          type="primary"
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            border: "none",
-                          }}
-                        >
-                          Download
-                        </Button>
-                      </div>
-                    </div>
+                    <Col span={24} key={index}>
+                      <Card title={syllabus.title} bordered={false}>
+                        <div>
+                          <Button
+                            style={{ marginRight: "10px" }}
+                            onClick={() => window.open(syllabus.pdf, "_blank")}
+                          >
+                            View
+                          </Button>
+                          <Button
+                            type="primary"
+                            style={{ border: "none" }}
+                            onClick={() => {
+                              const link = document.createElement("a");
+                              link.href = syllabus.pdf;
+                              link.setAttribute("download", syllabus.title);
+                              document.body.appendChild(link);
+                              link.click();
+                              link.remove();
+                            }}
+                          >
+                            Download
+                          </Button>
+                        </div>
+                      </Card>
+                    </Col>
                   ))}
-                </Card>
-              </Col>
-              <Col span={24}>
-                <Card title="Video Lectures" bordered={false}>
+                </Row>
+              </TabPane>
+
+              <TabPane tab="Video Lectures" key="4">
+                <Row gutter={[16, 16]}>
                   {mockData.videoLectures.map((lecture, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span>{lecture}</span>
-                      <div>
-                        <Button
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            marginRight: "10px",
-                          }}
-                        >
-                          View
-                        </Button>
+                    <Col span={24} key={index}>
+                      <Card title={lecture.title} bordered={false}>
                         <Button
                           type="primary"
-                          style={{
-                            width: "auto",
-                            height: "auto",
-                            padding: "5px 30px",
-                            marginBottom: "10px",
-                            border: "none",
-                          }}
+                          style={{ border: "none" }}
+                          onClick={() => window.open(lecture.link, "_blank")}
                         >
-                          Download
+                          Watch
                         </Button>
-                      </div>
-                    </div>
+                      </Card>
+                    </Col>
                   ))}
-                </Card>
-              </Col>
-            </Row>
+                </Row>
+              </TabPane>
+            </Tabs>
           </Content>
         ) : (
           <HeroSection />
