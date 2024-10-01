@@ -1,0 +1,63 @@
+.hero-section {
+  position: relative;
+  height: 100vh;
+  background: url("../../assets/images/UniversityStudents.jpg") no-repeat center
+    center/cover;
+}
+
+.hero-background {
+  background: rgba(0, 0, 0, 0.1); /* Overlay */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  width: 100%;
+  text-align: left;
+  color: #fff;
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 20px;
+}
+
+.cta-button {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.cta-button-secondary {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.university-carousel {
+  margin-top: 3rem;
+}
+
+.carousel-slide {
+  text-align: center;
+}
+
+.university-name {
+  color: #1890ff;
+}

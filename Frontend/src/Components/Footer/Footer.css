@@ -1,0 +1,17 @@
+.Footer-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .Footer-links a:hover {
+    color: #2baffc;
+  }
+  
+  .Footer-social-icons a {
+    color: #fff;
+  }
+  
+  .Footer-social-icons a:hover {
+    color: #2baffc;
+  }
+  
