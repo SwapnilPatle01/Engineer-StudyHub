@@ -1,14 +1,17 @@
-import { Button, Modal, Input, Card, Image } from "antd";
+import { Button, Modal, Input, theme, Card, Typography, Image ,Space,Popconfirm } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import AddResource from "./AddResource";
 import { Layout, Menu, Select } from "antd";
 import "./Dashboard.css";
 import "antd/dist/reset.css";
+import axios from "axios";
+import { message } from 'antd';
 
 const { Option } = Select;
 const { Sider } = Layout;
 const { Search } = Input;
+const { Title } = Typography;
 
 const tabList = [
   { key: "tab1", tab: "PYQ" },
@@ -24,7 +27,22 @@ const Dashboard = () => {
   const [initialValues, setInitialValues] = useState(null);
   const [activeTabKeys, setActiveTabKeys] = useState({});
 
-  const handleTabChange = (index, key) => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/v1/resource/resources');
+      console.log(response.data);
+      setSubmittedData(response.data); // Update the state with the fetched data
+    } catch (error) {
+      console.error("Error fetching resources:", error);
+    }
+  };
+
+
+const handleTabChange = (index, key) => {
     setActiveTabKeys((prevState) => ({
       ...prevState,
       [index]: key,
@@ -39,23 +57,52 @@ const Dashboard = () => {
     setIsModalVisible(false);
   };
 
-  const handleNewSubmission = (newSubmission) => {
-    if (isEdit) {
-      const updatedData = submittedData.map((item, index) =>
-        index === editIndex ? newSubmission : item
-      );
-      setSubmittedData(updatedData);
-      setIsEdit(false);
-      setEditIndex(null);
-    } else {
-      setSubmittedData((prevData) => [...prevData, newSubmission]);
+  // const handleNewSubmission = (newSubmission) => {
+  //   if (isEdit) {
+  //     const updatedData = submittedData.map((item, index) =>
+  //       index === editIndex ? newSubmission : item
+  //     );
+  //     setSubmittedData(updatedData);
+  //     setIsEdit(false);
+  //     setEditIndex(null);
+  //   } else {
+  //     setSubmittedData((prevData) => [...prevData, newSubmission]);
+  //   }
+  //   setIsModalVisible(false);
+  //   setInitialValues(null);
+  // };
+
+  const handleNewSubmission = async (newSubmission) => {
+    try {
+      if (isEdit) {
+        // Update the existing resource using axios.put
+        const updatedResource = await axios.put(`http://localhost:5000/api/v1/resource/${submittedData[editIndex]._id}`, newSubmission);
+        // Update the state with the updated resource
+        const updatedData = submittedData.map((item, index) =>
+          index === editIndex ? updatedResource.data : item
+        );
+        setSubmittedData(updatedData);
+        setIsEdit(false);
+        setEditIndex(null);
+      } else {
+        // Add new resource using axios.post
+        const addedResource = await axios.post("http://localhost:5000/api/v1/resource", newSubmission);
+        // Add the new resource to the state
+        setSubmittedData((prevData) => [...prevData, addedResource.data]);
+      }
+      setIsModalVisible(false);
+      setInitialValues(null);
+      message.success("Resource saved successfully!");
+    } catch (error) {
+      console.error("Error saving resource:", error);
+      message.error("Failed to save the resource!");
     }
-    setIsModalVisible(false);
-    setInitialValues(null);
   };
 
   const viewPdf = (file) => {
+    console.log(file,"file");
     const fileURL = URL.createObjectURL(file);
+    // const fileURL = http://localhost:5000/uploads/pdfs/${file};
     window.open(fileURL, "_blank");
   };
 
@@ -64,8 +111,20 @@ const Dashboard = () => {
   };
 
   //  delete an submition
-  const handleDelete = (index) => {
-    setSubmittedData((prevData) => prevData.filter((_, i) => i !== index));
+  // const handleDelete = (index) => {
+  //   setSubmittedData((prevData) => prevData.filter((_, i) => i !== index));
+  // };
+
+
+  const handleDelete = async (id, index) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/v1/resource/${id}`);
+      setSubmittedData((prevData) => prevData.filter((_, i) => i !== index));
+      message.success('Successfully deleted the resource!');
+    } catch (error) {
+      console.error('Error deleting resource:', error);
+      message.error('Failed to delete the resource!');
+    }
   };
 
   //update submition
@@ -219,150 +278,72 @@ const Dashboard = () => {
             {/* Display Submitted Details */}
 
             <div className="submitted-details" style={{ marginTop: "50px" }}>
-              <div
-                className="cards"
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "20px",
-                  width: "100%",
-                  justifyContent: "flex-start",
-                }}
-              >
+              <div className="cards" style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
                 {submittedData.length > 0 ? (
                   submittedData.map((submission, index) => {
-                    const activeTabKey = activeTabKeys[index] || "tab1"; // Default to 'tab1' if not set
+                    const activeTabKey = activeTabKeys[index] || "tab1"; 
 
                     return (
                       <Card
                         key={index}
                         title={
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
-                          >
+                          <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <div>
-                              <b>
-                                {submission.university} {submission.branch}{" "}
-                                {submission.semester}
-                              </b>
-                              {submission.subject && (
-                                <p>
-                                  <strong>Subject:</strong> {submission.subject}
-                                </p>
-                              )}
+                              <b>{submission.university} {submission.branch} {submission.semester}</b>
+                              {submission.subject && <p><strong>Subject:</strong> {submission.subject}</p>}
                             </div>
                             <div>
-                              <Button
-                                style={{
-                                  marginRight: "10px",
-                                  background: "white",
-                                  color: "black",
-                                }}
-                                onClick={() => handleDelete(index)}
-                                icon={<DeleteFilled />}
-                              />
-                              <Button
-                                onClick={() => handleUpdate(index)}
-                                icon={<EditFilled />}
-                              />
+                              <Space>
+                              <Popconfirm
+                               title="Are you sure you want to delete?"
+                                onConfirm={() => handleDelete(submission._id, index)}
+                                >
+                                    <Button 
+                                  style={{ marginRight: "10px" }} 
+                                  icon={<DeleteFilled />} 
+                                       />
+                                 </Popconfirm>
+                              </Space>
+                            
+                              {/* <Button style={{ marginRight: "10px" }} 
+                              onClick={() => handleDelete(submission._id, index)} 
+                              icon={<DeleteFilled />} />
+                               */}
+
+                              <Button onClick={() => handleUpdate(index)} icon={<EditFilled />} />
                             </div>
                           </div>
                         }
-                        style={{
-                          flex: "1 1 300px",
-                          minWidth: "300px",
-                          maxWidth: "400px",
-                          margin: "10px",
-                        }}
                         tabList={tabList}
                         activeTabKey={activeTabKey}
-                        onTabChange={(key) => handleTabChange(index, key)} // Pass index and key
+                        onTabChange={(key) => handleTabChange(index, key)} 
                       >
-                        {activeTabKey === "tab1" && (
+                        {/* Render content based on active tab */}
+                        {activeTabKey === "tab1" && submission.pyq && (
                           <>
-                            {submission.title && submission.file && (
-                              <>
-                                <p>
-                                  <strong>TitleOfPYQ:</strong>{" "}
-                                  {submission.title}
-                                </p>
-                                <Button
-                                  type="primary"
-                                  onClick={() => viewPdf(submission.file)}
-                                >
-                                  PYQ PDF
-                                </Button>
-                              </>
-                            )}
+                            <p><strong>Title Of PYQ:</strong> {submission.pyq.title}</p>
+                            <Button type="primary" onClick={() => viewPdf(submission.pyq.pdfUrl)}>PYQ PDF</Button>
                           </>
                         )}
 
-                        {activeTabKey === "tab2" && (
+                        {activeTabKey === "tab2" && submission.note && (
                           <>
-                            {submission.noteTitle && submission.fileNote && (
-                              <>
-                                <p>
-                                  <strong>TitleOfNotes:</strong>{" "}
-                                  {submission.noteTitle}
-                                </p>
-                                <Button
-                                  type="primary"
-                                  onClick={() => viewPdf(submission.fileNote)}
-                                >
-                                  Notes PDF
-                                </Button>
-                              </>
-                            )}
+                            <p><strong>Title Of Notes:</strong> {submission.note.title}</p>
+                            <Button type="primary" onClick={() => viewPdf(submission.note.pdfUrl)}>Notes PDF</Button>
                           </>
                         )}
 
-                        {activeTabKey === "tab3" && (
-                          <div
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
-                            {submission.thumbnailPreview && (
-                              <div
-                                style={{
-                                  marginRight: "20px",
-                                  minWidth: "50px",
-                                }}
-                              >
-                                <Image
-                                  width={80}
-                                  height={100}
-                                  src={submission.thumbnailPreview}
-                                  alt="Video Thumbnail Preview"
-                                  style={{ objectFit: "cover" }}
-                                />
+                        {activeTabKey === "tab3" && submission.video && (
+                          <div style={{ display: "flex", alignItems: "center" }}>
+                            {submission.video.imageUrl && (
+                              <div style={{ marginRight: "20px" }}>
+                                <Image width={80} height={100} src={submission.video.imageUrl} alt="Video Thumbnail Preview" style={{ objectFit: "cover" }} />
                               </div>
                             )}
                             <div>
-                              {submission.videoTitle && (
-                                <p>
-                                  <strong>Title Video:</strong>{" "}
-                                  {submission.videoTitle}
-                                </p>
-                              )}
-                              {submission.videoDes && (
-                                <p>
-                                  <strong>Description:</strong>{" "}
-                                  {submission.videoDes}
-                                </p>
-                              )}
-                              {submission.videoLink && (
-                                <Button
-                                  type="primary"
-                                  onClick={() =>
-                                    openVideoLink(submission.videoLink)
-                                  }
-                                >
-                                  Watch Video
-                                </Button>
-                              )}
+                              {submission.video.title && <p><strong>Title Video:</strong> {submission.video.title}</p>}
+                              {submission.video.description && <p><strong>Description:</strong> {submission.video.description}</p>}
+                              {submission.video.videoUrl && <Button type="primary" onClick={() => openVideoLink(submission.video.videoUrl)}>Watch Video</Button>}
                             </div>
                           </div>
                         )}

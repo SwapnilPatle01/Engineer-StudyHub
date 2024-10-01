@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Form, Checkbox, Select, Upload, Input, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import axios from 'axios'
+// import { message } from 'antd'
+
 
 const AddResource = ({ onClose, onSubmit, initialValues }) => {
   const [university, setUniversity] = useState("");
@@ -66,7 +69,7 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
     if (file && file.type === "application/pdf") {
       setNoteFile(file);
     } else {
-      message.error("Please select a valid PDF file.");
+      // message.error("Please select a valid PDF file.");
     }
   };
 
@@ -88,27 +91,70 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
     return Promise.resolve();
   };
 
-  const handleSubmit = () => {
-    const newSubmission = {
-      university,
-      branch,
-      subject,
-      semester,
-      title,
-      noteTitle,
-      videoTitle,
-      videoDes,
-      videoLink,
-      thumbnailPreview,
-      file: pyqFile,
-      fileNote: noteFile,
-      selectedOptions, // Ensure you include the selected resource types
-    };
+  const handleSubmit =async () => {
 
-    onSubmit(newSubmission);
+    // Create a new FormData object
+  const formData = new FormData();
+  console.log(formData ,"formdata")
+  // Append all the form data fields
+  formData.append('university', university);
+  formData.append('branch', branch);
+  formData.append('semester', semester);
+  formData.append('subject', subject);
+  formData.append('videoTitle', videoTitle);
+  formData.append('description', videoDes);
+  formData.append('videoUrl', videoLink);
+  formData.append('noteTitle', noteTitle);
+  formData.append('pyqTitle', title);
+  
+  // Append the files (ensure they are files, not strings)
+  formData.append('pyqFile', pyqFile); // pyqFile should be a file object
+  formData.append('noteFile', noteFile); // noteFile should be a file object
+  formData.append('videoImage', thumbnailPreview); // assuming thumbnailPreview is a file
+
+  try {
+    // Make an API request using Axios
+    const response = await axios.post('http://localhost:5000/api/v1/resource/create', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    
+    // Handle success response
+    if (response.status === 200) {
+      message.success("Resource added successfully!");
+      form.resetFields(); // Clear input fields after submission
+    }
+  } catch (error) {
+    // console.log();
+    // Handle error response
+    console.error("Error submitting the form", error);
+    message.error("Failed to add resource. Please try again.");
+  }
+
+ 
+
+    // const newSubmission = {
+    //   university,
+    //   branch,
+    //   subject,
+    //   semester,
+    //   title,
+    //   noteTitle,
+    //   videoTitle,
+    //   videoDes,
+    //   videoLink,
+    //   thumbnailPreview,
+    //   file: pyqFile,
+    //   fileNote: noteFile,
+    //   selectedOptions, // Ensure you include the selected resource types
+    // };
+
+    onSubmit(formData);
     message.success("Resource added successfully!");
     form.resetFields(); // Clear input fields after submission
   };
+  
 
   return (
     <div className="add-container" style={{backgroundColor:"#f5f5f5", borderRadius:"6px"}}>
