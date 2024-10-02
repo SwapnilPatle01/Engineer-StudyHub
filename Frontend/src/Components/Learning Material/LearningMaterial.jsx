@@ -1,6 +1,17 @@
 import React, { useState } from "react";
-import {Menu, Layout, Button, Select, Tabs, Card, Row, Col } from "antd";
-import HeroSection from "../Home/HeroSection";
+import {
+  Menu,
+  Layout,
+  Button,
+  Select,
+  Tabs,
+  Card,
+  Row,
+  Col,
+  Empty,
+  Typography,
+  Image,
+} from "antd";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
@@ -8,31 +19,61 @@ const { TabPane } = Tabs;
 
 const mockData = {
   notes: [
-    { title: "Note 1", pdf: "https://docs.google.com/document/d/1hlskK9_sxeY5WeB7ar9cuvltlehZYFrSJkcY8eL8mz8/edit" },
+    {
+      title: "Note 1",
+      pdf: "https://docs.google.com/document/d/1hlskK9_sxeY5WeB7ar9cuvltlehZYFrSJkcY8eL8mz8/edit",
+    },
     { title: "Note 2", pdf: "/path/to/note2.pdf" },
-    { title: "Note 3", pdf: "/path/to/note3.pdf" }
+    { title: "Note 3", pdf: "/path/to/note3.pdf" },
   ],
   pyqs: [
     { title: "PYQ 1", pdf: "/path/to/pyq1.pdf" },
     { title: "PYQ 2", pdf: "/path/to/pyq2.pdf" },
-    { title: "PYQ 3", pdf: "/path/to/pyq3.pdf" }
+    { title: "PYQ 3", pdf: "/path/to/pyq3.pdf" },
   ],
   syllabus: [
     { title: "Syllabus 1", pdf: "/path/to/syllabus1.pdf" },
     { title: "Syllabus 2", pdf: "/path/to/syllabus2.pdf" },
-    { title: "Syllabus 3", pdf: "/path/to/syllabus3.pdf" }
+    { title: "Syllabus 3", pdf: "/path/to/syllabus3.pdf" },
   ],
   videoLectures: [
-    { title: "Lecture 1", link: "https://youtu.be/lecture1" },
-    { title: "Lecture 2", link: "https://youtu.be/lecture2" },
-    { title: "Lecture 3", link: "https://youtu.be/lecture3" }
-  ]
+    {
+      title: "Create server in node js & callback function javascript",
+      link: "https://www.youtube.com/watch?v=bflieVmJQeg",
+      thumbnail:
+        "https://i.ytimg.com/vi/bflieVmJQeg/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDvFXeCP9aZqpNqfScwHTtwLosaxw",
+    },
+    {
+      title: "Why should you (not) write GATE Exam?",
+      link: "https://www.youtube.com/watch?v=RoussHHwZGI",
+      thumbnail:
+        "https://i.ytimg.com/vi/RoussHHwZGI/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCcalEkAqaHnv8qmtzDSo5H7Fz8wA",
+    },
+    {
+      title: "Express js tutorial for beginners | REST api node js express | ",
+      link: "https://www.youtube.com/watch?v=qthiEMUDCkU&list=PLzjZaW71kMwScTRKzoasdyB1sX-a9EbFp&index=5",
+      thumbnail:
+        "https://i.ytimg.com/vi/qthiEMUDCkU/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBvOZ61X5OcIlwQMYYtDPKp91JbqA",
+    },
+  ],
 };
 
 // Subjects for each semester
 const subjectsBySemester = {
-  "1st": ["Mathematics", "Physics", "Basic Electrical Engineering", "Chemistry", "Programming in C"],
-  "2nd": ["Discrete Mathematics", "Data Structures", "Digital Electronics", "Operating Systems", "OOPS in Java"],
+  "1st": [
+    "Mathematics",
+    "Physics",
+    "Basic Electrical Engineering",
+    "Chemistry",
+    "Programming in C",
+  ],
+  "2nd": [
+    "Discrete Mathematics",
+    "Data Structures",
+    "Digital Electronics",
+    "Operating Systems",
+    "OOPS in Java",
+  ],
   // Add other semesters as needed
 };
 
@@ -70,7 +111,9 @@ function LearningMaterial() {
               alignItems: "center",
             }}
           >
-            <h1 style={{ color: "#553CDF", fontWeight: "700", marginTop: "50px" }}>
+            <h1
+              style={{ color: "#553CDF", fontWeight: "700", marginTop: "50px" }}
+            >
               Engineer's Library
             </h1>
             <h2 style={{ fontSize: "16px", color: "#000", marginTop: "50px" }}>
@@ -78,7 +121,9 @@ function LearningMaterial() {
             </h2>
           </div>
 
-          <div style={{ marginBottom: "30px", width: "250px", marginTop: "20px" }}>
+          <div
+            style={{ marginBottom: "30px", width: "250px", marginTop: "20px" }}
+          >
             <Select
               placeholder="Select University"
               style={{ width: "100%" }}
@@ -257,14 +302,42 @@ function LearningMaterial() {
                 <Row gutter={[16, 16]}>
                   {mockData.videoLectures.map((lecture, index) => (
                     <Col span={24} key={index}>
-                      <Card title={lecture.title} bordered={false}>
-                        <Button
-                          type="primary"
-                          style={{ border: "none" }}
-                          onClick={() => window.open(lecture.link, "_blank")}
-                        >
-                          Watch
-                        </Button>
+                      <Card bordered={false}>
+                        <Row align="middle">
+                          {/* Thumbnail on the left */}
+                          <Col flex="80px">
+                            <Image
+                              width={240}
+                              height={130}
+                              style={{
+                                borderRadius: "9px",
+                              }}
+                              src={
+                                lecture.thumbnail ||
+                                "https://via.placeholder.com/80"
+                              }
+                              alt={lecture.title}
+                            />
+                          </Col>
+
+                          {/* Title in the middle */}
+                          <Col flex="auto" style={{ padding: "0 16px" }}>
+                            <h3>{lecture.title}</h3>
+                          </Col>
+
+                          {/* Watch button on the right */}
+                          <Col>
+                            <Button
+                              type="primary"
+                              style={{ border: "none" }}
+                              onClick={() =>
+                                window.open(lecture.link, "_blank")
+                              }
+                            >
+                              Watch
+                            </Button>
+                          </Col>
+                        </Row>
                       </Card>
                     </Col>
                   ))}
@@ -273,7 +346,19 @@ function LearningMaterial() {
             </Tabs>
           </Content>
         ) : (
-          <HeroSection />
+          <Empty
+          style={{marginTop:"200px"}}
+            image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+            imageStyle={{
+              height: 170,
+            }}
+            description={
+              <Typography.Text>
+                No data availabe! Head towards the sidebar and search you will find your resources
+              </Typography.Text>
+            }
+          >
+          </Empty>
         )}
       </Layout>
     </Layout>
