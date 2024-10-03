@@ -9,10 +9,10 @@ import DeveloperPage from "./pages/DeveloperPage";
 import LearningMaterial from "./Components/Learning Material/LearningMaterial";
 import RegisterPage from "./pages/RegistrationPage";
 import JobDetails from "./Components/JobPortal/JobDetails";
-import ApplyAndKnowMore from "./Components/JobPortal/ApplyAndKnowMore";
 import Dashboardpage from "./pages/Dashboardpage";
 import AboutUsComponent from "./Components/AboutUs/AboutUsComponent";
 import ContactUs from "./Components/ContactUs/ContactUs";
+import KnowMorePage from "./Components/JobPortal/KnowMore";
 
 function App() {
   return (
@@ -28,12 +28,12 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="learning-material" element={<LearningMaterial />} />
             <Route path="JobPortal" element={<JobPortalPage />} />
+
             <Route path="DevelopersHub" element={<DeveloperPage />} />
             <Route path="job/:id" element={<JobDetails />} />
-            <Route
-              path="job/:id/applynowandknowmore"
-              element={<ApplyAndKnowMore />}
-            />
+            
+                        <Route path="/know-more/:jobId" element={<KnowMorePage />} /> {/* Dynamic route */}
+
             <Route path="AboutUs" element={<AboutUsComponent />} />
             <Route path="ContactUs" element={<ContactUs />} />
             <Route path="engineerLib" element={<LearningMaterial />} />
