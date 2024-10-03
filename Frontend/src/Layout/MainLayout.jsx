@@ -217,6 +217,7 @@ const MainLayout = () => {
             padding: "18px 25px",
             borderRadius: "6px",
             color: "#fff",
+            border:"none"
           }}
           type="primary"
         >

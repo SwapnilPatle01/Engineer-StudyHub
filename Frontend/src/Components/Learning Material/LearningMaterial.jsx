@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Menu, Layout, Button, Select, Tabs, Card, Row, Col } from "antd";
 import HeroSection from "../Home/HeroSection";
@@ -6,6 +7,7 @@ import axios from "axios";
 const { Sider, Content } = Layout;
 const { Option } = Select;
 const { TabPane } = Tabs;
+
 
 function LearningMaterial() {
   const [universities, setUniversities] = useState([]);
@@ -140,8 +142,10 @@ function LearningMaterial() {
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
+
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <h1 style={{ color: "#553CDF", fontWeight: "700", marginTop: "50px" }}>
+
               Engineer's Library
             </h1>
             <h2 style={{ fontSize: "16px", color: "#000", marginTop: "50px" }}>
@@ -149,7 +153,9 @@ function LearningMaterial() {
             </h2>
           </div>
 
-          <div style={{ marginBottom: "30px", width: "250px", marginTop: "20px" }}>
+          <div
+            style={{ marginBottom: "30px", width: "250px", marginTop: "20px" }}
+          >
             <Select
               placeholder="Select University"
               style={{ width: "100%" }}
@@ -339,6 +345,7 @@ function LearningMaterial() {
                 <Row gutter={[16, 16]}>
                   {filteredVideos.map((video, index) => (
                     <Col span={24} key={index}>
+
                       <Card title={video.title} bordered={false}>
                         <div>
                           <Button
@@ -347,6 +354,7 @@ function LearningMaterial() {
                             Watch Video
                           </Button>
                         </div>
+
                       </Card>
                     </Col>
                   ))}
@@ -355,10 +363,12 @@ function LearningMaterial() {
             </Tabs>
           </Content>
         ) : (
+
           <Content style={{ padding: "24px", textAlign: "center" }}>
             {/* <h2>Please select the options to display the learning materials.</h2> */}
             <HeroSection/>
           </Content>
+
         )}
       </Layout>
     </Layout>
