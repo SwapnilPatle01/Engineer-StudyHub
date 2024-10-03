@@ -74,6 +74,13 @@ const subjectsBySemester = {
     "Operating Systems",
     "OOPS in Java",
   ],
+  "8th": [
+    "Computer and Network Security",
+    "Natural Language Processing",
+    "Deep Learning",
+    "Waste management",
+    "Final Year Project",
+  ],
   // Add other semesters as needed
 };
 
@@ -142,7 +149,7 @@ function LearningMaterial() {
               onChange={(value) => setBranch(value)}
               disabled={!university}
             >
-              <Option value="CS">Computer Science</Option>
+              <Option value="CS">Computer Science and Engineering</Option>
               <Option value="IT">Information Technology</Option>
             </Select>
           </div>
