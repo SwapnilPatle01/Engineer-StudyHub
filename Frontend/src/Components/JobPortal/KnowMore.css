@@ -1,0 +1,26 @@
+.know-more-container {
+  padding: 50px 20px;
+  background-color: #f0f2f5;
+}
+
+.job-details-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.icon-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.icon {
+  font-size: 20px;
+  color: #1890ff;
+  margin-right: 10px;
+}
+
+ul {
+  padding-left: 20px;
+}
