@@ -48,17 +48,16 @@
 
 .job-container {
   display: flex;
-  justify-content: flex-start; /* Aligns items to the left */
-  align-items: flex-start; /* Ensures they are aligned at the top */
+  justify-content: flex-start;
+  align-items: flex-start; 
   padding: 20px;
 }
 
 .job-grid {
   display: flex;
-  flex-wrap: wrap;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
- 
+  flex-wrap: wrap; 
+  /* justify-content: space-between; */
+  gap: 20px; 
 }
 
 .job-info {
@@ -149,16 +148,6 @@
   color: #8c8c8c;
 }
 
-.job-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  justify-content: center;
-  margin-top: 30px;
-  padding: 0 50px;
-}
 
 .job-card {
   background-color: white;
@@ -252,7 +241,7 @@
 .job-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px; /* Space between buttons */
+  gap: 10px;
 }
 
 .btn {
@@ -265,25 +254,25 @@
 }
 
 .btn:first-child {
-  background-color: #007bff; /* Apply Now - Blue */
+  background-color: #007bff; 
 }
 
 .btn:nth-child(2) {
-  background-color: #6f42c1; /* Referrals - Purple */
+  background-color: #6f42c1; 
 }
 
 .btn:last-child {
-  background-color: #ffffff; /* View Details - White */
-  color: #333; /* Text color for better visibility */
-  border: 1px solid #007bff; /* Blue border for contrast */
+  background-color: #ffffff; 
+  color: #333; 
+  border: 1px solid #007bff; 
 }
 
 .btn:hover {
-  filter: brightness(85%); /* Darker shade on hover */
+  filter: brightness(85%); 
 }
 
 .job-info img {
-  width: 100px; /* Logo size */
+  width: 100px; 
   height: auto;
-  margin-right: 10px; /* Space between logo and job title */
+  margin-right: 10px; 
 }
