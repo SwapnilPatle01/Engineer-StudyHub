@@ -1,93 +1,131 @@
-import React, { useState } from "react";
-import {
-  Menu,
-  Layout,
-  Button,
-  Select,
-  Tabs,
-  Card,
-  Row,
-  Col,
-  Empty,
-  Typography,
-  Image,
-} from "antd";
+
+import React, { useState, useEffect } from "react";
+import { Menu, Layout, Button, Select, Tabs, Card, Row, Col } from "antd";
+import HeroSection from "../Home/HeroSection";
+import axios from "axios";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
 const { TabPane } = Tabs;
 
-const mockData = {
-  notes: [
-    {
-      title: "Note 1",
-      pdf: "https://docs.google.com/document/d/1hlskK9_sxeY5WeB7ar9cuvltlehZYFrSJkcY8eL8mz8/edit",
-    },
-    { title: "Note 2", pdf: "/path/to/note2.pdf" },
-    { title: "Note 3", pdf: "/path/to/note3.pdf" },
-  ],
-  pyqs: [
-    { title: "PYQ 1", pdf: "/path/to/pyq1.pdf" },
-    { title: "PYQ 2", pdf: "/path/to/pyq2.pdf" },
-    { title: "PYQ 3", pdf: "/path/to/pyq3.pdf" },
-  ],
-  syllabus: [
-    { title: "Syllabus 1", pdf: "/path/to/syllabus1.pdf" },
-    { title: "Syllabus 2", pdf: "/path/to/syllabus2.pdf" },
-    { title: "Syllabus 3", pdf: "/path/to/syllabus3.pdf" },
-  ],
-  videoLectures: [
-    {
-      title: "Create server in node js & callback function javascript",
-      link: "https://www.youtube.com/watch?v=bflieVmJQeg",
-      thumbnail:
-        "https://i.ytimg.com/vi/bflieVmJQeg/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDvFXeCP9aZqpNqfScwHTtwLosaxw",
-    },
-    {
-      title: "Why should you (not) write GATE Exam?",
-      link: "https://www.youtube.com/watch?v=RoussHHwZGI",
-      thumbnail:
-        "https://i.ytimg.com/vi/RoussHHwZGI/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCcalEkAqaHnv8qmtzDSo5H7Fz8wA",
-    },
-    {
-      title: "Express js tutorial for beginners | REST api node js express | ",
-      link: "https://www.youtube.com/watch?v=qthiEMUDCkU&list=PLzjZaW71kMwScTRKzoasdyB1sX-a9EbFp&index=5",
-      thumbnail:
-        "https://i.ytimg.com/vi/qthiEMUDCkU/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBvOZ61X5OcIlwQMYYtDPKp91JbqA",
-    },
-  ],
-};
-
-// Subjects for each semester
-const subjectsBySemester = {
-  "1st": [
-    "Mathematics",
-    "Physics",
-    "Basic Electrical Engineering",
-    "Chemistry",
-    "Programming in C",
-  ],
-  "2nd": [
-    "Discrete Mathematics",
-    "Data Structures",
-    "Digital Electronics",
-    "Operating Systems",
-    "OOPS in Java",
-  ],
-  // Add other semesters as needed
-};
 
 function LearningMaterial() {
-  const [university, setUniversity] = useState(null);
-  const [branch, setBranch] = useState(null);
-  const [semester, setSemester] = useState(null);
-  const [subject, setSubject] = useState(null);
+  const [universities, setUniversities] = useState([]);
+  const [branches, setBranches] = useState([]); // Changed to plural for clarity
+  const [semesters, setSemesters] = useState([]); // Changed to plural for clarity
+  const [subjects, setSubjects] = useState([]); // Changed to plural for clarity
+  const [selectedUniversity, setSelectedUniversity] = useState(null);
+  const [selectedBranch, setSelectedBranch] = useState(null);
+  const [selectedSemester, setSelectedSemester] = useState(null);
+  const [selectedSubject, setSelectedSubject] = useState(null); // Track selected subject
   const [showContent, setShowContent] = useState(false);
+  const [submittedLearning, setSubmittedLearning] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [pyqs, setPyqs] = useState([]);
+  const [videoLectures, setVideoLectures] = useState([]);
+  // const [syllabus,setSyllabus] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/v1/resource/resources');
+        const learningData = response.data;
+        setSubmittedLearning(learningData);
+        console.log(learningData);
+
+        // Extract unique universities
+        const uniqueUniversities = [...new Set(learningData.map(item => item.university))];
+        setUniversities(uniqueUniversities);
+        
+        // Extract notes, pyqs, and video lectures
+        const notesData = learningData.map(item => ({
+          title: item.note?.title || 'No title',  
+          pdf: item.note?.pdfUrl
+        })).filter(note => note.pdf);
+
+        const pyqsData = learningData.map(item => ({
+          title: item.pyq?.title || 'No title',
+          pdf: item.pyq?.pdfUrl
+        })).filter(pyq => pyq.pdf);
+
+        // const syllabusData = learningData.map(item => ({
+        //     title: item.syllabus?.title || 'No title',
+        //    pdf: item.syllabus?.pdfUrl
+        //    })).filter(syllabus => syllabus.pdf);
+
+        const videoLecturesData = learningData.map(item => ({
+          title: item.video?.title || 'No title',
+          link: item.video?.videoUrl
+        })).filter(video => video.link);
+
+        setNotes(notesData);
+        setPyqs(pyqsData);
+        // setSyllabus(syllabusData);
+        setVideoLectures(videoLecturesData);
+
+      } catch (error) {
+        console.error("Error fetching universities:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Handle university change
+  const handleUniversityChange = (value) => {
+    setSelectedUniversity(value);
+    const filteredBranches = submittedLearning.filter(item => item.university === value);
+    const uniqueBranches = [...new Set(filteredBranches.map(item => item.branch))];
+    setBranches(uniqueBranches);
+    
+    // Reset the dependent fields
+    setSelectedBranch(null);
+    setSelectedSemester([]);
+    setSubjects([]);
+  };
+
+  // Handle branch change
+  const handleBranchChange = (value) => {
+    setSelectedBranch(value);
+    const filteredSemesters = submittedLearning.filter(item => item.university === selectedUniversity && item.branch === value);
+    const uniqueSemesters = [...new Set(filteredSemesters.map(item => item.semester))];
+    setSemesters(uniqueSemesters);
+    
+    // Reset the dependent fields
+    setSelectedSemester(null);
+    setSubjects([]);
+  };
+
+  // Handle semester change
+  const handleSemesterChange = (value) => {
+    setSelectedSemester(value);
+    const filteredSubjects = submittedLearning.filter(item => item.university === selectedUniversity && item.branch === selectedBranch && item.semester === value);
+    const uniqueSubjects = [...new Set(filteredSubjects.map(item => item.subject))];
+    setSubjects(uniqueSubjects);
+  };
+
+  // Handle subject change
+  const handleSubjectChange = (value) => {
+    setSelectedSubject(value);
+  };
 
   // Handle Search button click
   const handleSearch = () => {
     setShowContent(true);
   };
+
+  // Filter notes, pyqs, and videos based on selected subject
+  const filteredNotes = notes.filter(note => 
+    submittedLearning.some(item => item.note?.title === note.title && item.subject === selectedSubject)
+  );
+
+  const filteredPyqs = pyqs.filter(pyq => 
+    submittedLearning.some(item => item.pyq?.title === pyq.title && item.subject === selectedSubject)
+  );
+
+  const filteredVideos = videoLectures.filter(video => 
+    submittedLearning.some(item => item.video?.title === video.title && item.subject === selectedSubject)
+  );
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -104,16 +142,10 @@ function LearningMaterial() {
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <h1
-              style={{ color: "#553CDF", fontWeight: "700", marginTop: "50px" }}
-            >
+
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <h1 style={{ color: "#553CDF", fontWeight: "700", marginTop: "50px" }}>
+
               Engineer's Library
             </h1>
             <h2 style={{ fontSize: "16px", color: "#000", marginTop: "50px" }}>
@@ -127,11 +159,14 @@ function LearningMaterial() {
             <Select
               placeholder="Select University"
               style={{ width: "100%" }}
-              onChange={(value) => setUniversity(value)}
+              onChange={handleUniversityChange}
+              value={selectedUniversity}
             >
-              <Option value="RGPV">RGPV</Option>
-              <Option value="IITD">IIT Delhi</Option>
-              <Option value="DU">University of Delhi</Option>
+              {universities.map((uni, index) => (
+                <Option key={index} value={uni}>
+                  {uni}
+                </Option>
+              ))}
             </Select>
           </div>
 
@@ -139,11 +174,15 @@ function LearningMaterial() {
             <Select
               placeholder="Select Branch"
               style={{ width: "100%" }}
-              onChange={(value) => setBranch(value)}
-              disabled={!university}
+              onChange={handleBranchChange}
+              value={selectedBranch}
+              disabled={!selectedUniversity}
             >
-              <Option value="CS">Computer Science</Option>
-              <Option value="IT">Information Technology</Option>
+              {branches.map((br, index) => (
+                <Option key={index} value={br}>
+                  {br}
+                </Option>
+              ))}
             </Select>
           </div>
 
@@ -151,12 +190,13 @@ function LearningMaterial() {
             <Select
               placeholder="Select Semester"
               style={{ width: "100%" }}
-              onChange={(value) => setSemester(value)}
-              disabled={!branch}
+              onChange={handleSemesterChange}
+              value={selectedSemester}
+              disabled={!selectedBranch}
             >
-              {Object.keys(subjectsBySemester).map((sem) => (
-                <Option key={sem} value={sem}>
-                  {sem} Semester
+              {semesters.map((sem, index) => (
+                <Option key={index} value={sem}>
+                  {sem}
                 </Option>
               ))}
             </Select>
@@ -166,15 +206,15 @@ function LearningMaterial() {
             <Select
               placeholder="Select Subject"
               style={{ width: "100%" }}
-              onChange={(value) => setSubject(value)}
-              disabled={!semester}
+              onChange={handleSubjectChange}
+              value={selectedSubject}
+              disabled={!selectedSemester}
             >
-              {semester &&
-                subjectsBySemester[semester].map((subject) => (
-                  <Option key={subject} value={subject}>
-                    {subject}
-                  </Option>
-                ))}
+              {Array.isArray(subjects) && subjects.map((sub, index) => (
+                <Option key={index} value={sub}>
+                  {sub}
+                </Option>
+              ))}
             </Select>
           </div>
 
@@ -187,7 +227,7 @@ function LearningMaterial() {
                 width: "100%",
               }}
               onClick={handleSearch}
-              disabled={!subject}
+              disabled={!selectedSubject}
             >
               Search
             </Button>
@@ -201,7 +241,7 @@ function LearningMaterial() {
             <Tabs defaultActiveKey="1">
               <TabPane tab="Notes" key="1">
                 <Row gutter={[16, 16]}>
-                  {mockData.notes.map((note, index) => (
+                  {filteredNotes.map((note, index) => (
                     <Col span={24} key={index}>
                       <Card title={note.title} bordered={false}>
                         <div>
@@ -234,7 +274,7 @@ function LearningMaterial() {
 
               <TabPane tab="Previous Year Questions" key="2">
                 <Row gutter={[16, 16]}>
-                  {mockData.pyqs.map((pyq, index) => (
+                  {filteredPyqs.map((pyq, index) => (
                     <Col span={24} key={index}>
                       <Card title={pyq.title} bordered={false}>
                         <div>
@@ -265,15 +305,18 @@ function LearningMaterial() {
                 </Row>
               </TabPane>
 
-              <TabPane tab="Syllabus" key="3">
+
+              {/* comment for syllabus */}
+
+              {/* <TabPane tab="Syllabus" key="3">
                 <Row gutter={[16, 16]}>
-                  {mockData.syllabus.map((syllabus, index) => (
+                  {syllabus.map((syllabusItem, index) => (
                     <Col span={24} key={index}>
-                      <Card title={syllabus.title} bordered={false}>
+                      <Card title={syllabusItem.title} bordered={false}>
                         <div>
                           <Button
                             style={{ marginRight: "10px" }}
-                            onClick={() => window.open(syllabus.pdf, "_blank")}
+                            onClick={() => window.open(syllabusItem.pdf, "_blank")}
                           >
                             View
                           </Button>
@@ -282,8 +325,8 @@ function LearningMaterial() {
                             style={{ border: "none" }}
                             onClick={() => {
                               const link = document.createElement("a");
-                              link.href = syllabus.pdf;
-                              link.setAttribute("download", syllabus.title);
+                              link.href = syllabusItem.pdf;
+                              link.setAttribute("download", syllabusItem.title);
                               document.body.appendChild(link);
                               link.click();
                               link.remove();
@@ -296,48 +339,22 @@ function LearningMaterial() {
                     </Col>
                   ))}
                 </Row>
-              </TabPane>
+              </TabPane>  */}
 
-              <TabPane tab="Video Lectures" key="4">
+              <TabPane tab="Video Lectures" key="3">
                 <Row gutter={[16, 16]}>
-                  {mockData.videoLectures.map((lecture, index) => (
+                  {filteredVideos.map((video, index) => (
                     <Col span={24} key={index}>
-                      <Card bordered={false}>
-                        <Row align="middle">
-                          {/* Thumbnail on the left */}
-                          <Col flex="80px">
-                            <Image
-                              width={240}
-                              height={130}
-                              style={{
-                                borderRadius: "9px",
-                              }}
-                              src={
-                                lecture.thumbnail ||
-                                "https://via.placeholder.com/80"
-                              }
-                              alt={lecture.title}
-                            />
-                          </Col>
 
-                          {/* Title in the middle */}
-                          <Col flex="auto" style={{ padding: "0 16px" }}>
-                            <h3>{lecture.title}</h3>
-                          </Col>
+                      <Card title={video.title} bordered={false}>
+                        <div>
+                          <Button
+                            onClick={() => window.open(video.link, "_blank")}
+                          >
+                            Watch Video
+                          </Button>
+                        </div>
 
-                          {/* Watch button on the right */}
-                          <Col>
-                            <Button
-                              type="primary"
-                              style={{ border: "none" }}
-                              onClick={() =>
-                                window.open(lecture.link, "_blank")
-                              }
-                            >
-                              Watch
-                            </Button>
-                          </Col>
-                        </Row>
                       </Card>
                     </Col>
                   ))}
@@ -346,19 +363,12 @@ function LearningMaterial() {
             </Tabs>
           </Content>
         ) : (
-          <Empty
-          style={{marginTop:"200px"}}
-            image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-            imageStyle={{
-              height: 170,
-            }}
-            description={
-              <Typography.Text>
-                No data availabe! Head towards the sidebar and search you will find your resources
-              </Typography.Text>
-            }
-          >
-          </Empty>
+
+          <Content style={{ padding: "24px", textAlign: "center" }}>
+            {/* <h2>Please select the options to display the learning materials.</h2> */}
+            <HeroSection/>
+          </Content>
+
         )}
       </Layout>
     </Layout>
