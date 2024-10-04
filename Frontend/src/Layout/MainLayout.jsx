@@ -1,15 +1,18 @@
-import React from "react";
-import { Layout, Menu, Button } from "antd";
+import React ,{useState, useEffect}from "react";
+import { Layout, Menu, Button , Dropdown,Avatar} from "antd";
 import {
   DownOutlined,
   HomeOutlined,
   MailOutlined,
   PhoneOutlined,
+  LogoutOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
 import FooterComponent from "../Components/Footer/FooterComponent";
 import logo from "../assets/images/Engineer_StudyHub_-removebg-preview.png";
+// import { useEffect, useState } from "react";
 
 const { Header, Content } = Layout;
 
@@ -33,6 +36,27 @@ const MainLayout = () => {
 
   // Get active key based on the current path
   const activeKey = pathKeyMap[location.pathname] || "1"; // Default to "1" if path doesn't match
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState("");
+
+  // Effect to check the token in localStorage when the component mounts
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Check for token
+    if (token) {
+      setIsLoggedIn(true); // If token exists, user is logged in
+    } else {
+      setIsLoggedIn(false); // If no token, user is not logged in
+    }
+  }, [location.pathname]); // Re-run when the pathname changes
+
+  // Logout handler - remove token and set isLoggedIn to false
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/login"); // Redirect to login page after logout
+  };
 
   const items = [
     {
@@ -101,6 +125,17 @@ const MainLayout = () => {
     },
   ];
 
+  // Profile Dropdown Menu
+  const profileMenu = (
+    <Menu>
+      <Menu.Item key="profile" onClick={() => navigate("/profile")}>
+        <UserOutlined /> Profile
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined /> Logout
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
       {/* info banner */}
@@ -205,6 +240,17 @@ const MainLayout = () => {
             border: "none",
           }}
         />
+
+
+           {isLoggedIn ? (
+          <Dropdown overlay={profileMenu} trigger={['click']}>
+            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+              <Avatar icon={<UserOutlined />} />
+              <span style={{ marginLeft: '8px', fontSize: '16px' }}>Profile</span>
+            </div>
+          </Dropdown>
+        ) : (
+          <>
         <Button
           onClick={() => navigate("/login")}
           style={{
@@ -232,6 +278,8 @@ const MainLayout = () => {
         >
           Sign Up
         </Button>
+        </>
+        )}
       </Header>
       <Layout
         style={{
