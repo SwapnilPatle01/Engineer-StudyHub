@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Card, Col, Layout, Row } from "antd";
+import { Button, Card, Layout } from "antd";
 import {
   HomeOutlined,
   UsergroupAddOutlined,
   SolutionOutlined,
   ProfileOutlined,
   MessageOutlined,
-  SettingOutlined,
-  UserOutlined,
-  LockOutlined,
   BookOutlined,
   ReadOutlined,
   TeamOutlined,
-  UserAddOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./JobDetails.css";
@@ -37,7 +33,6 @@ const JobDetails = () => {
       buttonColor: "#87CEEB",
       startDate: "2024-01-01",
       experience: "0-1 years",
-
     },
     {
       id: 2,
@@ -106,7 +101,7 @@ const JobDetails = () => {
       views: 1251,
       logo: require("../../assets/images/grow.png"),
       buttonColor: "#FFDD87",
-      formUrl: "https://groww.in/"
+      formUrl: "https://groww.in/",
     },
     {
       id: 2,
@@ -118,8 +113,7 @@ const JobDetails = () => {
       views: 2092,
       logo: require("../../assets/images/anthology.png"),
       buttonColor: "#87CEEB",
-      formUrl: "https://www.anthology.com/en-in/our-offices"
-
+      formUrl: "https://www.anthology.com/en-in/our-offices",
     },
     {
       id: 3,
@@ -131,8 +125,7 @@ const JobDetails = () => {
       views: 2042,
       logo: require("../../assets/images/tecnoarch.png"),
       buttonColor: "#B2FF87",
-      formUrl: "https://www.technoarchsoftwares.com/"
-
+      formUrl: "https://www.technoarchsoftwares.com/",
     },
     {
       id: 4,
@@ -144,8 +137,7 @@ const JobDetails = () => {
       views: 2042,
       logo: require("../../assets/images/zebra.png"),
       buttonColor: "#B2FF87",
-      formUrl: "https://www.zebra.com/ap/en.html"
-
+      formUrl: "https://www.zebra.com/ap/en.html",
     },
     {
       id: 5,
@@ -157,8 +149,7 @@ const JobDetails = () => {
       views: 2042,
       logo: require("../../assets/images/impetus.png"),
       buttonColor: "#B2FF87",
-      formUrl: "https://www.impetus.com/"
-
+      formUrl: "https://www.impetus.com/",
     },
     {
       id: 6,
@@ -170,8 +161,7 @@ const JobDetails = () => {
       views: 2042,
       logo: require("../../assets/images/Robols.png"),
       buttonColor: "#B2FF87",
-      formUrl: "https://excellencetechnologies.in/"
-
+      formUrl: "https://excellencetechnologies.in/",
     },
   ];
   const ExperiencedJobCards = [
@@ -315,13 +305,12 @@ const JobDetails = () => {
 
   if (!job) return <div>Job not found</div>;
 
-
   const handleApplyNow = (formUrl) => {
     window.open(formUrl, "_blank");
   };
 
   const handleKnowMore = (jobId) => {
-    navigate(`/know-more/${jobId}`); 
+    navigate(`/know-more/${jobId}`);
   };
   return (
     <Layout>
@@ -334,12 +323,19 @@ const JobDetails = () => {
         }}
       >
         <div className="icon-container">
-          <div className="icon-item" onClick={() => setSelectedJobType("")}>
+          <div className="icon-item" style={{marginTop:"20px"}}>
             <span
               style={{ fontSize: "20px", color: "#553cdf", fontWeight: "700" }}
             >
-              All Opportunities
+              Engineer Career Hub
             </span>
+          </div>
+          <div className="icon-item">
+            <span style={{ color: "#000" }}>Home</span>
+          </div>
+          <div className="icon-item" onClick={() => setSelectedJobType("")}>
+            <HomeOutlined style={{ fontSize: "24px", color: "#52c41a" }} />
+            <span style={{ color: "#000" }}>All Opportunities</span>
           </div>
           <div className="icon-item">
             <span style={{ color: "#000" }}>Jobs</span>
@@ -404,46 +400,51 @@ const JobDetails = () => {
           {selectedJobType === "freshers" && (
             <div>
               <h2>Freshers Jobs</h2>
-              <div className="job-grid">
+              <div className="job-grid" style={{ padding: "0px" }}>
                 {FreshersJobCards.map((job) => (
                   <Card
-                  key={job.id}
-                  bordered={false}
-                  hoverable
-                  style={{
-                    flex: "1 1 calc(33.333% - 40px)",
-                    margin: "20px",
-                    padding: "20px",
-                    height: "auto",
-                    borderRadius: "20px",
-                    border: "1px solid #f0f0f0",
-                    boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
-                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  }}
-                  bodyStyle={{ padding: "20px" }}
-                >
+                    key={job.id}
+                    bordered={false}
+                    hoverable
+                    style={{
+                      width: "350px",
+                      height: "350px",
+                      borderRadius: "12px",
+                      border: "1px solid #f0f0f0",
+                      boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                  >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img
                         src={job.logo}
                         alt={`${job.company} logo`}
                         style={{
                           width: "80px",
-                          borderRadius: "50%",
-                          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
                           marginRight: "15px",
                         }}
                       />
                       <div>
-                        <h3 style={{ fontSize: "20px", margin: "0", color: "#333" }}>
+                        <h3
+                          style={{
+                            fontSize: "20px",
+                            margin: "0",
+                            color: "#333",
+                          }}
+                        >
                           {job.title}
                         </h3>
-                        <p style={{ margin: "0", fontSize: "14px", color: "#999" }}>
+                        <p
+                          style={{
+                            margin: "0",
+                            fontSize: "14px",
+                            color: "#999",
+                          }}
+                        >
                           {job.company}
                         </p>
                       </div>
                     </div>
-
-
 
                     <div style={{ marginTop: "15px", color: "#666" }}>
                       <p style={{ marginBottom: "5px" }}>
@@ -459,20 +460,22 @@ const JobDetails = () => {
                         <strong>Start Date:</strong> {job.startDate || "TBD"}
                       </p>
                       <p style={{ marginBottom: "5px" }}>
-                        <strong>Experience:</strong> {job.experience || "Not Required"}
+                        <strong>Experience:</strong>{" "}
+                        {job.experience || "Not Required"}
                       </p>
                     </div>
 
-                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "20px",
+                      }}
+                    >
                       <Button
                         type="primary"
-                        shape="round"
                         size="large"
                         style={{
-                          backgroundColor: "#4CAF50",
-                          borderColor: "#4CAF50",
-                          width: "120px",
-                          height: "40px",
                           boxShadow: "0 4px 10px rgba(0, 128, 0, 0.2)",
                         }}
                         onClick={() => handleApplyNow(job.formUrl)}
@@ -480,15 +483,10 @@ const JobDetails = () => {
                         Apply
                       </Button>
                       <Button
-                        type="default"
-                        shape="round"
                         size="large"
                         style={{
-                          width: "120px",
-                          height: "40px",
                           borderColor: "#1890ff",
                           color: "#1890ff",
-                          boxShadow: "0 4px 10px rgba(24, 144, 255, 0.2)",
                         }}
                         onClick={() => handleKnowMore(job.id)}
                       >
@@ -505,97 +503,99 @@ const JobDetails = () => {
               <h2>Experienced Jobs</h2>
               <div className="job-grid">
                 {ExperiencedJobCards.map((job) => (
-                   <Card
-                   key={job.id}
-                   bordered={false}
-                   hoverable
-                   style={{
-                     margin: "20px",
-                     padding: "20px",
-                     maxWidth: "500px",
-                     height: "auto",
-                     borderRadius: "20px",
-                     border: "1px solid #f0f0f0",
-                     boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
-                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                   }}
-                   bodyStyle={{ padding: "20px" }}
-                   onHover={{ boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
-                 >
-                   <div style={{ display: "flex", alignItems: "center" }}>
-                     <img
-                       src={job.logo}
-                       alt={`${job.company} logo`}
-                       style={{
-                         width: "80px",
-                         borderRadius: "50%",
-                         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                         marginRight: "15px",
-                       }}
-                     />
-                     <div>
-                       <h3 style={{ fontSize: "20px", margin: "0", color: "#333" }}>
-                         {job.title}
-                       </h3>
-                       <p style={{ margin: "0", fontSize: "14px", color: "#999" }}>
-                         {job.company}
-                       </p>
-                     </div>
-                   </div>
+                  <Card
+                    key={job.id}
+                    bordered={false}
+                    hoverable
+                    style={{
+                      width: "350px",
+                      height: "350px",
+                      borderRadius: "12px",
+                      border: "1px solid #f0f0f0",
+                      boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                    onHover={{ boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <img
+                        src={job.logo}
+                        alt={`${job.company} logo`}
+                        style={{
+                          width: "80px",
+                          marginRight: "15px",
+                        }}
+                      />
+                      <div>
+                        <h3
+                          style={{
+                            fontSize: "20px",
+                            margin: "0",
+                            color: "#333",
+                          }}
+                        >
+                          {job.title}
+                        </h3>
+                        <p
+                          style={{
+                            margin: "0",
+                            fontSize: "14px",
+                            color: "#999",
+                          }}
+                        >
+                          {job.company}
+                        </p>
+                      </div>
+                    </div>
 
+                    <div style={{ marginTop: "15px", color: "#666" }}>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Package:</strong> {job.package}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Location:</strong> {job.location}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Views:</strong> {job.views}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Start Date:</strong> {job.startDate || "TBD"}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Experience:</strong>{" "}
+                        {job.experience || "Not Required"}
+                      </p>
+                    </div>
 
-
-                   <div style={{ marginTop: "15px", color: "#666" }}>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Package:</strong> {job.package}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Location:</strong> {job.location}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Views:</strong> {job.views}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Start Date:</strong> {job.startDate || "TBD"}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Experience:</strong> {job.experience || "Not Required"}
-                     </p>
-                   </div>
-
-                   <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                     <Button
-                       type="primary"
-                       shape="round"
-                       size="large"
-                       style={{
-                         backgroundColor: "#4CAF50",
-                         borderColor: "#4CAF50",
-                         width: "120px",
-                         height: "40px",
-                         boxShadow: "0 4px 10px rgba(0, 128, 0, 0.2)",
-                       }}
-                       onClick={() => handleApplyNow(job.formUrl)}
-                     >
-                       Apply
-                     </Button>
-                     <Button
-                       type="default"
-                       shape="round"
-                       size="large"
-                       style={{
-                         width: "120px",
-                         height: "40px",
-                         borderColor: "#1890ff",
-                         color: "#1890ff",
-                         boxShadow: "0 4px 10px rgba(24, 144, 255, 0.2)",
-                       }}
-                       onClick={() => handleKnowMore(job.id)}
-                     >
-                       Know More
-                     </Button>
-                   </div>
-                 </Card>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "20px",
+                      }}
+                    >
+                      <Button
+                        type="primary"
+                        size="large"
+                        style={{
+                          boxShadow: "0 4px 10px rgba(0, 128, 0, 0.2)",
+                        }}
+                        onClick={() => handleApplyNow(job.formUrl)}
+                      >
+                        Apply
+                      </Button>
+                      <Button
+                        size="large"
+                        style={{
+                          borderColor: "#1890ff",
+                          color: "#1890ff",
+                        }}
+                        onClick={() => handleKnowMore(job.id)}
+                      >
+                        Know More
+                      </Button>
+                    </div>
+                  </Card>
                 ))}
               </div>
             </div>
@@ -605,97 +605,99 @@ const JobDetails = () => {
               <h2>Internships</h2>
               <div className="job-grid">
                 {InternshipJobCards.map((job) => (
-                   <Card
-                   key={job.id}
-                   bordered={false}
-                   hoverable
-                   style={{
-                     margin: "20px",
-                     padding: "20px",
-                     maxWidth: "500px",
-                     height: "auto",
-                     borderRadius: "20px",
-                     border: "1px solid #f0f0f0",
-                     boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
-                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                   }}
-                   bodyStyle={{ padding: "20px" }}
-                   onHover={{ boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
-                 >
-                   <div style={{ display: "flex", alignItems: "center" }}>
-                     <img
-                       src={job.logo}
-                       alt={`${job.company} logo`}
-                       style={{
-                         width: "80px",
-                         borderRadius: "50%",
-                         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                         marginRight: "15px",
-                       }}
-                     />
-                     <div>
-                       <h3 style={{ fontSize: "20px", margin: "0", color: "#333" }}>
-                         {job.title}
-                       </h3>
-                       <p style={{ margin: "0", fontSize: "14px", color: "#999" }}>
-                         {job.company}
-                       </p>
-                     </div>
-                   </div>
+                  <Card
+                    key={job.id}
+                    bordered={false}
+                    hoverable
+                    style={{
+                      width: "350px",
+                      height: "350px",
+                      borderRadius: "12px",
+                      border: "1px solid #f0f0f0",
+                      boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                    onHover={{ boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <img
+                        src={job.logo}
+                        alt={`${job.company} logo`}
+                        style={{
+                          width: "80px",
+                          marginRight: "15px",
+                        }}
+                      />
+                      <div>
+                        <h3
+                          style={{
+                            fontSize: "20px",
+                            margin: "0",
+                            color: "#333",
+                          }}
+                        >
+                          {job.title}
+                        </h3>
+                        <p
+                          style={{
+                            margin: "0",
+                            fontSize: "14px",
+                            color: "#999",
+                          }}
+                        >
+                          {job.company}
+                        </p>
+                      </div>
+                    </div>
 
+                    <div style={{ marginTop: "15px", color: "#666" }}>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Package:</strong> {job.package}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Location:</strong> {job.location}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Views:</strong> {job.views}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Start Date:</strong> {job.startDate || "TBD"}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Experience:</strong>{" "}
+                        {job.experience || "Not Required"}
+                      </p>
+                    </div>
 
-
-                   <div style={{ marginTop: "15px", color: "#666" }}>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Package:</strong> {job.package}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Location:</strong> {job.location}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Views:</strong> {job.views}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Start Date:</strong> {job.startDate || "TBD"}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Experience:</strong> {job.experience || "Not Required"}
-                     </p>
-                   </div>
-
-                   <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                     <Button
-                       type="primary"
-                       shape="round"
-                       size="large"
-                       style={{
-                         backgroundColor: "#4CAF50",
-                         borderColor: "#4CAF50",
-                         width: "120px",
-                         height: "40px",
-                         boxShadow: "0 4px 10px rgba(0, 128, 0, 0.2)",
-                       }}
-                       onClick={() => handleApplyNow(job.formUrl)}
-                     >
-                       Apply
-                     </Button>
-                     <Button
-                       type="default"
-                       shape="round"
-                       size="large"
-                       style={{
-                         width: "120px",
-                         height: "40px",
-                         borderColor: "#1890ff",
-                         color: "#1890ff",
-                         boxShadow: "0 4px 10px rgba(24, 144, 255, 0.2)",
-                       }}
-                       onClick={() => handleKnowMore(job.id)}
-                     >
-                       Know More
-                     </Button>
-                   </div>
-                 </Card>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "20px",
+                      }}
+                    >
+                      <Button
+                        type="primary"
+                        size="large"
+                        style={{
+                          boxShadow: "0 4px 10px rgba(0, 128, 0, 0.2)",
+                        }}
+                        onClick={() => handleApplyNow(job.formUrl)}
+                      >
+                        Apply
+                      </Button>
+                      <Button
+                        size="large"
+                        style={{
+                          borderColor: "#1890ff",
+                          color: "#1890ff",
+                        }}
+                        onClick={() => handleKnowMore(job.id)}
+                      >
+                        Know More
+                      </Button>
+                    </div>
+                  </Card>
                 ))}
               </div>
             </div>
@@ -703,103 +705,101 @@ const JobDetails = () => {
           {selectedJobType === "" && (
             <div
               style={{
-                width: "100%",
+                padding: "0px",
+                margin: "0px",
               }}
             >
               <h2>All Opportunities</h2>
               <div className="job-grid">
                 {FeaturedJobCards.map((job) => (
-                   <Card
-                   key={job.id}
-                   bordered={false}
-                   hoverable
-                   style={{
-                     margin: "20px",
-                     padding: "20px",
-                     maxWidth: "500px",
-                     height: "auto",
-                     borderRadius: "20px",
-                     border: "1px solid #f0f0f0",
-                     boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
-                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                   }}
-                   bodyStyle={{ padding: "20px" }}
-                   onHover={{ boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
-                 >
-                   <div style={{ display: "flex", alignItems: "center" }}>
-                     <img
-                       src={job.logo}
-                       alt={`${job.company} logo`}
-                       style={{
-                         width: "80px",
-                         borderRadius: "50%",
-                         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                         marginRight: "15px",
-                       }}
-                     />
-                     <div>
-                       <h3 style={{ fontSize: "20px", margin: "0", color: "#333" }}>
-                         {job.title}
-                       </h3>
-                       <p style={{ margin: "0", fontSize: "14px", color: "#999" }}>
-                         {job.company}
-                       </p>
-                     </div>
-                   </div>
+                  <Card
+                    key={job.id}
+                    bordered={false}
+                    hoverable
+                    style={{
+                      width: "350px",
+                      height: "350px",
+                      borderRadius: "12px",
+                      border: "1px solid #f0f0f0",
+                      boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                    onHover={{ boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <img
+                        src={job.logo}
+                        alt={`${job.company} logo`}
+                        style={{
+                          width: "80px",
+                          marginRight: "15px",
+                        }}
+                      />
+                      <div>
+                        <h3
+                          style={{
+                            fontSize: "20px",
+                            margin: "0",
+                            color: "#333",
+                          }}
+                        >
+                          {job.title}
+                        </h3>
+                        <p
+                          style={{
+                            color: "#999",
+                          }}
+                        >
+                          {job.company}
+                        </p>
+                      </div>
+                    </div>
 
+                    <div style={{ marginTop: "15px", color: "#666" }}>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Package:</strong> {job.package}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Location:</strong> {job.location}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Views:</strong> {job.views}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Start Date:</strong> {job.startDate || "TBD"}
+                      </p>
+                      <p style={{ marginBottom: "5px" }}>
+                        <strong>Experience:</strong>{" "}
+                        {job.experience || "Not Required"}
+                      </p>
+                    </div>
 
-
-                   <div style={{ marginTop: "15px", color: "#666" }}>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Package:</strong> {job.package}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Location:</strong> {job.location}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Views:</strong> {job.views}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Start Date:</strong> {job.startDate || "TBD"}
-                     </p>
-                     <p style={{ marginBottom: "5px" }}>
-                       <strong>Experience:</strong> {job.experience || "Not Required"}
-                     </p>
-                   </div>
-
-                   <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                     <Button
-                       type="primary"
-                       shape="round"
-                       size="large"
-                       style={{
-                         backgroundColor: "#4CAF50",
-                         borderColor: "#4CAF50",
-                         width: "120px",
-                         height: "40px",
-                         boxShadow: "0 4px 10px rgba(0, 128, 0, 0.2)",
-                       }}
-                       onClick={() => handleApplyNow(job.formUrl)}
-                     >
-                       Apply
-                     </Button>
-                     <Button
-                       type="default"
-                       shape="round"
-                       size="large"
-                       style={{
-                         width: "120px",
-                         height: "40px",
-                         borderColor: "#1890ff",
-                         color: "#1890ff",
-                         boxShadow: "0 4px 10px rgba(24, 144, 255, 0.2)",
-                       }}
-                       onClick={() => handleKnowMore(job.id)}
-                     >
-                       Know More
-                     </Button>
-                   </div>
-                 </Card>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "20px",
+                      }}
+                    >
+                      <Button
+                        type="primary"
+                        size="large"
+                        onClick={() => handleApplyNow(job.formUrl)}
+                      >
+                        Apply
+                      </Button>
+                      <Button
+                        size="large"
+                        style={{
+                          borderColor: "#1890ff",
+                          color: "#1890ff",
+                        }}
+                        onClick={() => handleKnowMore(job.id)}
+                      >
+                        Know More
+                      </Button>
+                    </div>
+                  </Card>
                 ))}
               </div>
             </div>

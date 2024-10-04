@@ -15,6 +15,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
 }
+
 .custom-search-input .ant-input {
   border-radius: 25px 0 0 25px;
   padding: 10px 15px;
@@ -48,16 +49,11 @@
 
 .job-container {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start; 
   padding: 20px;
 }
 
 .job-grid {
   display: flex;
-  flex-wrap: wrap; 
-  /* justify-content: space-between; */
-  gap: 20px; 
 }
 
 .job-info {
@@ -114,7 +110,7 @@
 
 .tags {
   margin: 10px 0;
-}
+}a
 
 .tag {
   background-color: #f0f0f0;
@@ -276,3 +272,4 @@
   height: auto;
   margin-right: 10px; 
 }
+

@@ -1,12 +1,13 @@
 .know-more-container {
-  padding: 50px 20px;
-  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  max-width: 1400px;
+  margin:auto;
 }
 
 .job-details-card {
   background-color: #fff;
-  border-radius: 15px;
-  padding: 25px;
+  border-radius:"9px"
 }
 
 .icon-details {
