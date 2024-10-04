@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Form,
@@ -10,65 +10,91 @@ import {
 } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../redux/authSlice"; // Assuming you have an authSlice for handling loading state
 import "./RegistrationPage.css";
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const RegisterPage = () => {
+  const [input, setInput] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    role: "",
+    companyName: "",
+    companyEmail: "",
+    linkedinProfile: "",
+    websiteUrl: "",
+    hiringType: "",
+  });
   const [currentStep, setCurrentStep] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false); // Track if form is submitted
-  const [role, setRole] = useState(""); // State for selected role
-  const navigate = useNavigate(); // To redirect to login page
+  const dispatch = useDispatch();
+  const { loading, user } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
 
-  const onFinish = async (values) => {
-    setLoading(true);
-    console.log(values);
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const onFinish = async () => {
+    const formData = new FormData();
+    formData.append("firstName", input.firstName);
+    formData.append("lastName", input.lastName);
+    formData.append("email", input.email);
+    formData.append("password", input.password);
+    formData.append("role", input.role);
+
+    if (input.role === "company") {
+      formData.append("companyName", input.companyName);
+      formData.append("companyEmail", input.companyEmail);
+      formData.append("linkedinProfile", input.linkedinProfile);
+      formData.append("websiteUrl", input.websiteUrl);
+      formData.append("hiringType", input.hiringType);
+    }
+
     try {
-      // Make the POST request to the backend
-      await axios.post("http://localhost:5000/api/v1/user/register", {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        password: values.password,
-        role: values.role,
-        ...(values.role === "company" && {
-          companyDetails: {
-            companyName: values.companyName,
-            companyEmail: values.companyEmail,
-            linkedinProfile: values.linkedinProfile,
-            websiteUrl: values.websiteUrl,
-            hiringType: values.hiringType,
-          },
-        }),
-      });
+      dispatch(setLoading(true)); // Show loader
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/user/register",
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
 
-      // Notify the user of success
-      notification.success({
-        message: "Account created successfully!",
-        description: "Redirecting you to the login page...",
-      });
-
-      // Set submitted to true to hide Next/Previous buttons
-      setSubmitted(true);
-
-      // Redirect to login page after 2 seconds
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      if (res.data.success) {
+        notification.success({
+          message: "Account created successfully!",
+          description: "Redirecting you to the login page...",
+        });
+        setSubmitted(true); // Mark form as submitted
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); // Delay for 2 seconds to show success message
+      }
     } catch (error) {
       notification.error({
         message: "Registration failed",
         description: error.response?.data?.message || "An error occurred",
       });
+    } finally {
+      dispatch(setLoading(false)); // Hide loader
     }
-    setLoading(false);
   };
 
-  // Step navigation for "Next" and "Previous"
+  useEffect(() => {
+    if (user) {
+      navigate("/"); // If user is already logged in, redirect to home
+    }
+  }, [user, navigate]);
+
   const next = () => {
-    if (currentStep < (role === "company" ? 3 : 2)) {
+    if (currentStep < (input.role === "company" ? 3 : 2)) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -79,9 +105,8 @@ const RegisterPage = () => {
     }
   };
 
-  // Handle role change
   const handleRoleChange = (value) => {
-    setRole(value);
+    setInput({ ...input, role: value });
     setCurrentStep(1); // Reset the form to step 1 on role change
   };
 
@@ -105,22 +130,17 @@ const RegisterPage = () => {
             Sign Up to Your Account👋
           </Title>
 
-          {/* Progress Bar - Conditional based on Role */}
-          {role === "company" && <Progress percent={(currentStep / 3) * 100} />}
-          {role !== "company" && (
+          {input.role === "company" && (
+            <Progress percent={(currentStep / 3) * 100} />
+          )}
+          {input.role !== "company" && (
             <Progress percent={currentStep === 1 ? 50 : 100} />
           )}
 
-          <Form
-            name="register"
-            layout="vertical"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-          >
+          <Form name="register" layout="vertical" onFinish={onFinish}>
             {currentStep === 1 && (
               <>
                 <Form.Item
-                  name="firstName"
                   label="First Name"
                   rules={[
                     {
@@ -129,37 +149,46 @@ const RegisterPage = () => {
                     },
                   ]}
                 >
-                  <Input size="large" />
+                  <Input
+                    name="firstName"
+                    value={input.firstName}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
                 <Form.Item
-                  name="lastName"
                   label="Last Name"
                   rules={[
                     { required: true, message: "Please input your last name!" },
                   ]}
                 >
-                  <Input size="large" />
+                  <Input
+                    name="lastName"
+                    value={input.lastName}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
                 <Form.Item
-                  name="email"
                   label="Email"
                   rules={[
                     { required: true, message: "Please input your email!" },
                   ]}
                 >
-                  <Input size="large" />
+                  <Input
+                    name="email"
+                    value={input.email}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
                 <Form.Item
-                  name="role"
                   label="Select your role"
                   rules={[
                     { required: true, message: "Please select your role!" },
                   ]}
                 >
                   <Select
-                    size="large"
-                    placeholder="Select role"
+                    value={input.role}
                     onChange={handleRoleChange}
+                    placeholder="Select role"
                   >
                     <Option value="student">Student</Option>
                     <Option value="company">Company</Option>
@@ -169,41 +198,47 @@ const RegisterPage = () => {
               </>
             )}
 
-            {currentStep === 2 && role === "company" && (
+            {currentStep === 2 && input.role === "company" && (
               <>
-                {/* Company fields, only shown if "company" role is selected */}
-                <Form.Item
-                  name="companyName"
-                  label="Company Name"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your company name!",
-                    },
-                  ]}
-                >
-                  <Input size="large" />
+                <Form.Item label="Company Name" rules={[{ required: true }]}>
+                  <Input
+                    name="companyName"
+                    value={input.companyName}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
                 <Form.Item
-                  name="companyEmail"
                   label="Company Work Email"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your company work email!",
-                    },
-                  ]}
+                  rules={[{ required: true }]}
                 >
-                  <Input size="large" />
+                  <Input
+                    name="companyEmail"
+                    value={input.companyEmail}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
-                <Form.Item name="linkedinProfile" label="LinkedIn Profile Link">
-                  <Input size="large" />
+                <Form.Item label="LinkedIn Profile">
+                  <Input
+                    name="linkedinProfile"
+                    value={input.linkedinProfile}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
-                <Form.Item name="websiteUrl" label="Website URL">
-                  <Input size="large" />
+                <Form.Item label="Website URL">
+                  <Input
+                    name="websiteUrl"
+                    value={input.websiteUrl}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
-                <Form.Item name="hiringType" label="Hiring For">
-                  <Select size="large" placeholder="Select Hiring Type">
+                <Form.Item label="Hiring For">
+                  <Select
+                    value={input.hiringType}
+                    onChange={(value) =>
+                      setInput({ ...input, hiringType: value })
+                    }
+                    placeholder="Select Hiring Type"
+                  >
                     <Option value="full-time">Full Time</Option>
                     <Option value="intern">Intern</Option>
                     <Option value="part-time">Part Time</Option>
@@ -213,47 +248,35 @@ const RegisterPage = () => {
               </>
             )}
 
-            {currentStep === (role === "company" ? 3 : 2) && (
+            {currentStep === (input.role === "company" ? 3 : 2) && (
               <>
                 <Form.Item
-                  name="password"
                   label="Password"
-                  rules={[
-                    { required: true, message: "Please input your password!" },
-                    {
-                      min: 6,
-                      message: "Password must be at least 6 characters long",
-                    },
-                  ]}
+                  rules={[{ required: true, min: 6 }]}
                 >
-                  <Input.Password size="large" />
+                  <Input.Password
+                    name="password"
+                    value={input.password}
+                    onChange={changeEventHandler}
+                  />
                 </Form.Item>
                 <Form.Item
-                  name="confirmPassword"
                   label="Confirm Password"
                   rules={[
                     {
                       required: true,
-                      message: "Please confirm your password!",
+                      validator: (_, value) =>
+                        value === input.password
+                          ? Promise.resolve()
+                          : Promise.reject("The two passwords do not match!"),
                     },
-                    ({ getFieldValue }) => ({
-                      validator(_, value) {
-                        if (!value || getFieldValue("password") === value) {
-                          return Promise.resolve();
-                        }
-                        return Promise.reject(
-                          new Error("The two passwords do not match!")
-                        );
-                      },
-                    }),
                   ]}
                 >
-                  <Input.Password size="large" />
+                  <Input.Password />
                 </Form.Item>
               </>
             )}
 
-            {/* Navigation and Submit Buttons */}
             {!submitted && (
               <div className="form-navigation">
                 {currentStep > 1 && (
@@ -261,24 +284,30 @@ const RegisterPage = () => {
                     Previous
                   </Button>
                 )}
-                {currentStep < (role === "company" ? 3 : 2) && (
+                {currentStep < (input.role === "company" ? 3 : 2) && (
                   <Button onClick={next} disabled={loading} size="large">
                     Next
                   </Button>
                 )}
-                {currentStep === (role === "company" ? 3 : 2) && (
+                {currentStep === (input.role === "company" ? 3 : 2) && (
                   <Button
                     type="primary"
                     htmlType="submit"
-                    size="large"
-                    className="register-button"
                     loading={loading}
+                    size="large"
                   >
                     Register
                   </Button>
                 )}
               </div>
             )}
+
+            <div className="login-redirect">
+              Already have an account?{" "}
+              <Link to="/login" className="register-link">
+                Sign In
+              </Link>
+            </div>
           </Form>
         </div>
       </div>

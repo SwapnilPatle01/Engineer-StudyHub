@@ -23,13 +23,14 @@ const LoginPage = () => {
     setLoading(true);
     try {
       // Make the POST request to the backend
-      const response = await axios.post("http://localhost:5000/api/v1/user/login", {
-     
-        
-        email: values.email,
-        password: values.password,
-        role: values.role,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/user/login",
+        {
+          email: values.email,
+          password: values.password,
+          role: values.role,
+        }
+      );
       console.log(response);
       // Store the JWT token
       localStorage.setItem("token", response.data.token);
@@ -37,7 +38,7 @@ const LoginPage = () => {
       notification.success({ message: "Login successful" });
       // Redirect or update UI as needed
       // For example, navigate to a dashboard:
-      // window.location.href = '/dashboard';
+      window.location.href = "/homePage";
     } catch (error) {
       notification.error({
         message: "Login failed",
@@ -86,10 +87,13 @@ const LoginPage = () => {
             <Form.Item
               name="email"
               label="Email address"
-               rules={[
-    { type: "email", message: "Please enter a valid email address!" },
-    { required: true, message: "Please input your email!" }
-  ]}
+              rules={[
+                {
+                  type: "email",
+                  message: "Please enter a valid email address!",
+                },
+                { required: true, message: "Please input your email!" },
+              ]}
             >
               <Input size="large" />
             </Form.Item>
