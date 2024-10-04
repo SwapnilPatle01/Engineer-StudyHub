@@ -62,8 +62,8 @@ const MainLayout = () => {
     {
       key: "4",
       label: (
-        <Link to="/EngineersCarrerHub-DashBoard" className="menu-link">
-         Company DashBoard
+        <Link to="/company-dashboard" className="menu-link">
+         Company Dashboard
         </Link>
       ),
     },

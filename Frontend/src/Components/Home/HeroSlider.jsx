@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Carousel, Typography, Row, Col } from "antd";
-import { BulbOutlined, BookOutlined, LaptopOutlined } from "@ant-design/icons"; // Icons for animation
 import "./Home.css";
 import Girl from "../../assets/images/01.webp";
 
