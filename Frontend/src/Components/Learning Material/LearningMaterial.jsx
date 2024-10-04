@@ -1,13 +1,10 @@
-
 import React, { useState, useEffect } from "react";
-import { Menu, Layout, Button, Select, Tabs, Card, Row, Col } from "antd";
-import HeroSection from "../Home/HeroSection";
+import { Menu, Layout, Button, Select, Tabs, Card, Row, Col, Empty, Typography } from "antd";
 import axios from "axios";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
 const { TabPane } = Tabs;
-
 
 function LearningMaterial() {
   const [universities, setUniversities] = useState([]);
@@ -28,41 +25,50 @@ function LearningMaterial() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/resource/resources');
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/resource/resources"
+        );
         const learningData = response.data;
         setSubmittedLearning(learningData);
         console.log(learningData);
 
         // Extract unique universities
-        const uniqueUniversities = [...new Set(learningData.map(item => item.university))];
+        const uniqueUniversities = [
+          ...new Set(learningData.map((item) => item.university)),
+        ];
         setUniversities(uniqueUniversities);
-        
-        // Extract notes, pyqs, and video lectures
-        const notesData = learningData.map(item => ({
-          title: item.note?.title || 'No title',  
-          pdf: item.note?.pdfUrl
-        })).filter(note => note.pdf);
 
-        const pyqsData = learningData.map(item => ({
-          title: item.pyq?.title || 'No title',
-          pdf: item.pyq?.pdfUrl
-        })).filter(pyq => pyq.pdf);
+        // Extract notes, pyqs, and video lectures
+        const notesData = learningData
+          .map((item) => ({
+            title: item.note?.title || "No title",
+            pdf: item.note?.pdfUrl,
+          }))
+          .filter((note) => note.pdf);
+
+        const pyqsData = learningData
+          .map((item) => ({
+            title: item.pyq?.title || "No title",
+            pdf: item.pyq?.pdfUrl,
+          }))
+          .filter((pyq) => pyq.pdf);
 
         // const syllabusData = learningData.map(item => ({
         //     title: item.syllabus?.title || 'No title',
         //    pdf: item.syllabus?.pdfUrl
         //    })).filter(syllabus => syllabus.pdf);
 
-        const videoLecturesData = learningData.map(item => ({
-          title: item.video?.title || 'No title',
-          link: item.video?.videoUrl
-        })).filter(video => video.link);
+        const videoLecturesData = learningData
+          .map((item) => ({
+            title: item.video?.title || "No title",
+            link: item.video?.videoUrl,
+          }))
+          .filter((video) => video.link);
 
         setNotes(notesData);
         setPyqs(pyqsData);
         // setSyllabus(syllabusData);
         setVideoLectures(videoLecturesData);
-
       } catch (error) {
         console.error("Error fetching universities:", error);
       }
@@ -74,10 +80,14 @@ function LearningMaterial() {
   // Handle university change
   const handleUniversityChange = (value) => {
     setSelectedUniversity(value);
-    const filteredBranches = submittedLearning.filter(item => item.university === value);
-    const uniqueBranches = [...new Set(filteredBranches.map(item => item.branch))];
+    const filteredBranches = submittedLearning.filter(
+      (item) => item.university === value
+    );
+    const uniqueBranches = [
+      ...new Set(filteredBranches.map((item) => item.branch)),
+    ];
     setBranches(uniqueBranches);
-    
+
     // Reset the dependent fields
     setSelectedBranch(null);
     setSelectedSemester([]);
@@ -87,10 +97,14 @@ function LearningMaterial() {
   // Handle branch change
   const handleBranchChange = (value) => {
     setSelectedBranch(value);
-    const filteredSemesters = submittedLearning.filter(item => item.university === selectedUniversity && item.branch === value);
-    const uniqueSemesters = [...new Set(filteredSemesters.map(item => item.semester))];
+    const filteredSemesters = submittedLearning.filter(
+      (item) => item.university === selectedUniversity && item.branch === value
+    );
+    const uniqueSemesters = [
+      ...new Set(filteredSemesters.map((item) => item.semester)),
+    ];
     setSemesters(uniqueSemesters);
-    
+
     // Reset the dependent fields
     setSelectedSemester(null);
     setSubjects([]);
@@ -99,8 +113,15 @@ function LearningMaterial() {
   // Handle semester change
   const handleSemesterChange = (value) => {
     setSelectedSemester(value);
-    const filteredSubjects = submittedLearning.filter(item => item.university === selectedUniversity && item.branch === selectedBranch && item.semester === value);
-    const uniqueSubjects = [...new Set(filteredSubjects.map(item => item.subject))];
+    const filteredSubjects = submittedLearning.filter(
+      (item) =>
+        item.university === selectedUniversity &&
+        item.branch === selectedBranch &&
+        item.semester === value
+    );
+    const uniqueSubjects = [
+      ...new Set(filteredSubjects.map((item) => item.subject)),
+    ];
     setSubjects(uniqueSubjects);
   };
 
@@ -115,16 +136,25 @@ function LearningMaterial() {
   };
 
   // Filter notes, pyqs, and videos based on selected subject
-  const filteredNotes = notes.filter(note => 
-    submittedLearning.some(item => item.note?.title === note.title && item.subject === selectedSubject)
+  const filteredNotes = notes.filter((note) =>
+    submittedLearning.some(
+      (item) =>
+        item.note?.title === note.title && item.subject === selectedSubject
+    )
   );
 
-  const filteredPyqs = pyqs.filter(pyq => 
-    submittedLearning.some(item => item.pyq?.title === pyq.title && item.subject === selectedSubject)
+  const filteredPyqs = pyqs.filter((pyq) =>
+    submittedLearning.some(
+      (item) =>
+        item.pyq?.title === pyq.title && item.subject === selectedSubject
+    )
   );
 
-  const filteredVideos = videoLectures.filter(video => 
-    submittedLearning.some(item => item.video?.title === video.title && item.subject === selectedSubject)
+  const filteredVideos = videoLectures.filter((video) =>
+    submittedLearning.some(
+      (item) =>
+        item.video?.title === video.title && item.subject === selectedSubject
+    )
   );
 
   return (
@@ -142,10 +172,16 @@ function LearningMaterial() {
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
-
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <h1 style={{ color: "#553CDF", fontWeight: "700", marginTop: "50px" }}>
-
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <h1
+              style={{ color: "#553CDF", fontWeight: "700", marginTop: "50px" }}
+            >
               Engineer's Library
             </h1>
             <h2 style={{ fontSize: "16px", color: "#000", marginTop: "50px" }}>
@@ -210,11 +246,12 @@ function LearningMaterial() {
               value={selectedSubject}
               disabled={!selectedSemester}
             >
-              {Array.isArray(subjects) && subjects.map((sub, index) => (
-                <Option key={index} value={sub}>
-                  {sub}
-                </Option>
-              ))}
+              {Array.isArray(subjects) &&
+                subjects.map((sub, index) => (
+                  <Option key={index} value={sub}>
+                    {sub}
+                  </Option>
+                ))}
             </Select>
           </div>
 
@@ -305,7 +342,6 @@ function LearningMaterial() {
                 </Row>
               </TabPane>
 
-
               {/* comment for syllabus */}
 
               {/* <TabPane tab="Syllabus" key="3">
@@ -345,7 +381,6 @@ function LearningMaterial() {
                 <Row gutter={[16, 16]}>
                   {filteredVideos.map((video, index) => (
                     <Col span={24} key={index}>
-
                       <Card title={video.title} bordered={false}>
                         <div>
                           <Button
@@ -354,7 +389,6 @@ function LearningMaterial() {
                             Watch Video
                           </Button>
                         </div>
-
                       </Card>
                     </Col>
                   ))}
@@ -363,12 +397,18 @@ function LearningMaterial() {
             </Tabs>
           </Content>
         ) : (
-
           <Content style={{ padding: "24px", textAlign: "center" }}>
             {/* <h2>Please select the options to display the learning materials.</h2> */}
-            <HeroSection/>
+            <Empty
+              image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+              imageStyle={{ height: 200, marginTop:"150px" }}
+              description={
+                <Typography.Text style={{fontSize:"16px"}}>
+                  There is nothing to show! Just head towards the sider menu to search for Notes, PYQs, Syllabus, Video Lecture 
+                </Typography.Text>
+              }
+            ></Empty>
           </Content>
-
         )}
       </Layout>
     </Layout>
