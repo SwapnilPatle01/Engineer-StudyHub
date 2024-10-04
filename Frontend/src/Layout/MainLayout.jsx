@@ -22,12 +22,13 @@ const MainLayout = () => {
     "/homePage": "1",
     "/learning-material": "2",
     "/JobPortal": "3",
-    "/DevelopersHub": "4",
-    "/Dashboard": "5",
-    "/AboutUs": "6",
-    "/ContactUs": "7",
-    "/login": "8",
-    "/register": "9",
+    "/EngineersCarrerHub-DashBoard": "4",
+    "/DevelopersHub": "5",
+    "/Dashboard": "6",
+    "/AboutUs": "7",
+    "/ContactUs": "8",
+    "/login": "9",
+    "/register": "10",
   };
 
   // Get active key based on the current path
@@ -61,13 +62,21 @@ const MainLayout = () => {
     {
       key: "4",
       label: (
+        <Link to="/EngineersCarrerHub-DashBoard" className="menu-link">
+         Company DashBoard
+        </Link>
+      ),
+    },
+    {
+      key: "5",
+      label: (
         <Link to="/DevelopersHub" className="menu-link">
           Developement Hub
         </Link>
       ),
     },
     {
-      key: "5",
+      key: "6",
       label: (
         <Link to="/Dashboard" className="menu-link">
           Admin Dashboard
@@ -75,7 +84,7 @@ const MainLayout = () => {
       ),
     },
     {
-      key: "6",
+      key: "7",
       label: (
         <Link to="/AboutUs" className="menu-link">
           About Us
@@ -83,7 +92,7 @@ const MainLayout = () => {
       ),
     },
     {
-      key: "7",
+      key: "8",
       label: (
         <Link to="/ContactUs" className="menu-link">
           Contact Us
@@ -217,7 +226,7 @@ const MainLayout = () => {
             padding: "18px 25px",
             borderRadius: "6px",
             color: "#fff",
-            border:"none"
+            border: "none"
           }}
           type="primary"
         >

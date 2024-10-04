@@ -13,6 +13,7 @@ import Dashboardpage from "./pages/Dashboardpage";
 import AboutUsComponent from "./Components/AboutUs/AboutUsComponent";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import KnowMorePage from "./Components/JobPortal/KnowMore";
+import EngineersDashboard from "./pages/EngineersHubDashboard";
 
 function App() {
   return (
@@ -28,11 +29,11 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="learning-material" element={<LearningMaterial />} />
             <Route path="JobPortal" element={<JobPortalPage />} />
-
+            <Route path="/EngineersCarrerHub-DashBoard" element={<EngineersDashboard/>}></Route>
             <Route path="DevelopersHub" element={<DeveloperPage />} />
             <Route path="job/:id" element={<JobDetails />} />
-            
-                        <Route path="/know-more/:jobId" element={<KnowMorePage />} /> {/* Dynamic route */}
+
+            <Route path="/know-more/:jobId" element={<KnowMorePage />} /> {/* Dynamic route */}
 
             <Route path="AboutUs" element={<AboutUsComponent />} />
             <Route path="ContactUs" element={<ContactUs />} />
