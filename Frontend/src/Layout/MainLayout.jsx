@@ -8,11 +8,14 @@ import {
   LogoutOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+// import {jwt_decode} from "jwt-decode";
+
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
 import FooterComponent from "../Components/Footer/FooterComponent";
 import logo from "../assets/images/Engineer_StudyHub_-removebg-preview.png";
-// import { useEffect, useState } from "react";
+// const { default: jwt_decode } = require("jwt-decode");
+
 
 const { Header, Content } = Layout;
 
@@ -43,87 +46,113 @@ const MainLayout = () => {
 
   // Effect to check the token in localStorage when the component mounts
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Check for token
+    const token = localStorage.getItem("token"); // Retrieve token from localStorage
     if (token) {
-      setIsLoggedIn(true); // If token exists, user is logged in
+      setIsLoggedIn(true);
+      // const decodedToken = jwt_decode(token); 
+      // setRole(decodedToken.role)
+      setRole("admin"); 
     } else {
-      setIsLoggedIn(false); // If no token, user is not logged in
+      setIsLoggedIn(false);
+      setRole(null); 
     }
-  }, [location.pathname]); // Re-run when the pathname changes
+  }, [location.pathname]);
 
-  // Logout handler - remove token and set isLoggedIn to false
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/login"); // Redirect to login page after logout
+    setRole(null); // Clear role on logout
+    navigate("/login");
   };
 
-  const items = [
-    {
-      key: "1",
-      label: (
-        <Link to="/homePage" className="menu-link">
-          <HomeOutlined style={{ fontSize: "22px", marginTop: "10px" }} />
-        </Link>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <Link to="/learning-material" className="menu-link">
-          Engineer’s Library
-        </Link>
-      ),
-    },
-    {
-      key: "3",
-      label: (
-        <Link to="/JobPortal" className="menu-link">
-          Engineer's CareerHub
-        </Link>
-      ),
-    },
-    {
-      key: "4",
-      label: (
-        <Link to="/EngineersCarrerHub-DashBoard" className="menu-link">
-         Company DashBoard
-        </Link>
-      ),
-    },
-    {
-      key: "5",
-      label: (
-        <Link to="/DevelopersHub" className="menu-link">
-          Developement Hub
-        </Link>
-      ),
-    },
-    {
-      key: "6",
-      label: (
-        <Link to="/Dashboard" className="menu-link">
-          Admin Dashboard
-        </Link>
-      ),
-    },
-    {
-      key: "7",
-      label: (
-        <Link to="/AboutUs" className="menu-link">
-          About Us
-        </Link>
-      ),
-    },
-    {
-      key: "8",
-      label: (
-        <Link to="/ContactUs" className="menu-link">
-          Contact Us
-        </Link>
-      ),
-    },
-  ];
+  const getMenuItems = () => {
+    const baseItems = [
+      {
+        key: "1",
+        label: (
+          <Link to="/homePage" className="menu-link">
+            <HomeOutlined style={{ fontSize: "22px", marginTop: "10px" }} />
+          </Link>
+        ),
+      },
+      {
+        key: "2",
+        label: (
+          <Link to="/learning-material" className="menu-link">
+            Engineer’s Library
+          </Link>
+        ),
+      },
+      {
+        key: "3",
+        label: (
+          <Link to="/JobPortal" className="menu-link">
+            Engineer's CareerHub
+          </Link>
+        ),
+      },
+      {
+        key: "5",
+        label: (
+          <Link to="/DevelopersHub" className="menu-link">
+            Development Hub
+          </Link>
+        ),
+      },
+      {
+        key: "7",
+        label: (
+          <Link to="/AboutUs" className="menu-link">
+            About Us
+          </Link>
+        ),
+      },
+      {
+        key: "8",
+        label: (
+          <Link to="/ContactUs" className="menu-link">
+            Contact Us
+          </Link>
+        ),
+      },
+    ];
+
+    // Add extra items based on the role
+    if (role === "admin") {
+      return [
+        ...baseItems,
+        {
+          key: "4",
+          label: (
+            <Link to="/company-dashboard" className="menu-link">
+              Company Dashboard
+            </Link>
+          ),
+        },
+        {
+          key: "6",
+          label: (
+            <Link to="/Dashboard" className="menu-link">
+              Admin Dashboard
+            </Link>
+          ),
+        },
+      ];
+    } else if (role === "company") {
+      return [
+        ...baseItems,
+        {
+          key: "4",
+          label: (
+            <Link to="/company-dashboard" className="menu-link">
+              Company Dashboard
+            </Link>
+          ),
+        },
+      ];
+    }
+    // For student and not logged in, return the base items only
+    return baseItems; }
 
   // Profile Dropdown Menu
   const profileMenu = (
@@ -231,7 +260,8 @@ const MainLayout = () => {
           mode="horizontal"
           selectedKeys={[activeKey]} // Set active key dynamically
           className="Menu-links"
-          items={items}
+          // items={items}
+          items={getMenuItems()}
           style={{
             flex: 1,
             minWidth: 0,
