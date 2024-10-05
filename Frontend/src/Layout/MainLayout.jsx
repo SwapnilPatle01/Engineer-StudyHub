@@ -1,5 +1,5 @@
-import React ,{useState, useEffect}from "react";
-import { Layout, Menu, Button , Dropdown,Avatar} from "antd";
+import React, { useState, useEffect } from "react";
+import { Layout, Menu, Button, Dropdown, Avatar } from "antd";
 import {
   DownOutlined,
   HomeOutlined,
@@ -8,14 +8,12 @@ import {
   LogoutOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-// import {jwt_decode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; // Correct import
 
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
 import FooterComponent from "../Components/Footer/FooterComponent";
 import logo from "../assets/images/Engineer_StudyHub_-removebg-preview.png";
-// const { default: jwt_decode } = require("jwt-decode");
-
 
 const { Header, Content } = Layout;
 
@@ -23,7 +21,6 @@ const MainLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Path to key mapping
   const pathKeyMap = {
     "/homePage": "1",
     "/learning-material": "2",
@@ -37,30 +34,26 @@ const MainLayout = () => {
     "/register": "10",
   };
 
-  // Get active key based on the current path
-  const activeKey = pathKeyMap[location.pathname] || "1"; // Default to "1" if path doesn't match
+  const activeKey = pathKeyMap[location.pathname] || "1"; // Default to "1"
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(""); // Initially empty string
 
-  // Effect to check the token in localStorage when the component mounts
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Retrieve token from localStorage
+    const token = localStorage.getItem("token"); // Retrieve token
     if (token) {
       setIsLoggedIn(true);
-      // const decodedToken = jwt_decode(token); 
-      // setRole(decodedToken.role)
-      setRole("admin"); 
+      const decodedToken = jwtDecode(token); // Decode token
+      setRole(decodedToken.role); // Set role from decoded token
     } else {
-      setIsLoggedIn(false);
-      setRole(null); 
+      setRole(""); // Reset role if no token
     }
   }, [location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    setRole(null); // Clear role on logout
+    setRole(""); // Reset role on logout
     navigate("/login");
   };
 
@@ -150,10 +143,9 @@ const MainLayout = () => {
         },
       ];
     }
-    // For student and not logged in, return the base items only
-    return baseItems; }
+    return baseItems; // For student or not logged in
+  };
 
-  // Profile Dropdown Menu
   const profileMenu = (
     <Menu>
       <Menu.Item key="profile" onClick={() => navigate("/profile")}>
@@ -164,9 +156,9 @@ const MainLayout = () => {
       </Menu.Item>
     </Menu>
   );
+
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
-      {/* info banner */}
       <div
         style={{ backgroundColor: "#553CDF", width: "100%", height: "45px" }}
       >
@@ -183,11 +175,10 @@ const MainLayout = () => {
             height: "100%",
           }}
         >
-          {/* Left section - Contact Info */}
           <div
             style={{
               display: "flex",
-              gap: "15px", // Reduced gap for compactness
+              gap: "15px",
               alignItems: "center",
               height: "100%",
             }}
@@ -198,8 +189,6 @@ const MainLayout = () => {
                   paddingRight: "5px",
                   fontSize: "18px",
                   color: "#fff",
-                  fontWeight: "400",
-                  fontStyle: "normal",
                 }}
               />
               info@engineerstudyhub.in
@@ -209,8 +198,6 @@ const MainLayout = () => {
                 style={{
                   paddingRight: "5px",
                   fontSize: "18px",
-                  fontWeight: "400",
-                  fontStyle: "normal",
                   color: "#fff",
                 }}
               />
@@ -218,13 +205,8 @@ const MainLayout = () => {
             </p>
           </div>
 
-          {/* Right section - Country Selector */}
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              height: "100%",
-            }}
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
             <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
               <DownOutlined style={{ paddingRight: "5px", fontSize: "14px" }} />
@@ -240,17 +222,13 @@ const MainLayout = () => {
           backgroundColor: "#ffffff",
           width: "100%",
           color: "#6441A3",
-          marginRight: 20,
           boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.1)",
           position: "sticky",
           top: 0,
           zIndex: 1000,
         }}
       >
-        <div
-          className="logo-container flex"
-          style={{ height: "100%", margin: 0 }}
-        >
+        <div className="logo-container" style={{ height: "100%", margin: 0 }}>
           <img src={logo} alt="logo" style={{ width: "220px" }} />
         </div>
 
@@ -259,7 +237,6 @@ const MainLayout = () => {
           mode="horizontal"
           selectedKeys={[activeKey]} // Set active key dynamically
           className="Menu-links"
-          // items={items}
           items={getMenuItems()}
           style={{
             flex: 1,
@@ -270,61 +247,56 @@ const MainLayout = () => {
           }}
         />
 
-
-           {isLoggedIn ? (
-          <Dropdown overlay={profileMenu} trigger={['click']}>
-            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+        {isLoggedIn ? (
+          <Dropdown overlay={profileMenu} trigger={["click"]}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
               <Avatar icon={<UserOutlined />} />
-              <span style={{ marginLeft: '8px', fontSize: '16px' }}>Profile</span>
+              <span style={{ marginLeft: "8px", fontSize: "16px" }}>
+                Profile
+              </span>
             </div>
           </Dropdown>
         ) : (
           <>
-        <Button
-          onClick={() => navigate("/login")}
-          style={{
-            padding: "18px 30px",
-            borderRadius: "6px",
-            color: "#6441A3",
-            fontWeight: "bold",
-            marginRight: "10px",
-            border: "1px solid #6441A3",
-            background: "transparent",
-          }}
-        >
-          Login
-        </Button>
-        <Button
-          onClick={() => navigate("/register")}
-          style={{
-            backgroundColor: "#553CDF",
-            padding: "18px 25px",
-            borderRadius: "6px",
-            color: "#fff",
-            border: "none"
-          }}
-          type="primary"
-        >
-          Sign Up
-        </Button>
-        </>
+            <Button
+              onClick={() => navigate("/login")}
+              style={{
+                padding: "18px 30px",
+                borderRadius: "6px",
+                color: "#6441A3",
+                fontWeight: "bold",
+                marginRight: "10px",
+                border: "1px solid #6441A3",
+                background: "transparent",
+              }}
+            >
+              Login
+            </Button>
+            <Button
+              onClick={() => navigate("/register")}
+              style={{
+                backgroundColor: "#553CDF",
+                padding: "18px 25px",
+                borderRadius: "6px",
+                color: "#fff",
+                border: "none",
+              }}
+              type="primary"
+            >
+              Sign Up
+            </Button>
+          </>
         )}
       </Header>
-      <Layout
-        style={{
-          margin: 0,
-          padding: "0px",
-        }}
-      >
+      <Layout style={{ margin: 0, padding: "0px" }}>
         <Layout style={{ padding: "0" }}>
-          <Content
-            style={{
-              margin: 0,
-              minHeight: "100vh",
-              borderRadius: 0,
-            }}
-          >
-            {/* Outlet renders the child routes */}
+          <Content style={{ margin: 0, minHeight: "100vh", borderRadius: 0 }}>
             <Outlet />
           </Content>
         </Layout>
