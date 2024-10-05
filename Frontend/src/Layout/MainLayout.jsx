@@ -1,15 +1,21 @@
-import React from "react";
-import { Layout, Menu, Button } from "antd";
+import React ,{useState, useEffect}from "react";
+import { Layout, Menu, Button , Dropdown,Avatar} from "antd";
 import {
   DownOutlined,
   HomeOutlined,
   MailOutlined,
   PhoneOutlined,
+  LogoutOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
+// import {jwt_decode} from "jwt-decode";
+
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
 import FooterComponent from "../Components/Footer/FooterComponent";
 import logo from "../assets/images/Engineer_StudyHub_-removebg-preview.png";
+// const { default: jwt_decode } = require("jwt-decode");
+
 
 const { Header, Content } = Layout;
 
@@ -34,73 +40,130 @@ const MainLayout = () => {
   // Get active key based on the current path
   const activeKey = pathKeyMap[location.pathname] || "1"; // Default to "1" if path doesn't match
 
-  const items = [
-    {
-      key: "1",
-      label: (
-        <Link to="/homePage" className="menu-link">
-          <HomeOutlined style={{ fontSize: "22px", marginTop: "10px" }} />
-        </Link>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <Link to="/learning-material" className="menu-link">
-          Engineer’s Library
-        </Link>
-      ),
-    },
-    {
-      key: "3",
-      label: (
-        <Link to="/JobPortal" className="menu-link">
-          Engineer's CareerHub
-        </Link>
-      ),
-    },
-    {
-      key: "4",
-      label: (
-        <Link to="/company-dashboard" className="menu-link">
-         Company Dashboard
-        </Link>
-      ),
-    },
-    {
-      key: "5",
-      label: (
-        <Link to="/DevelopersHub" className="menu-link">
-          Developement Hub
-        </Link>
-      ),
-    },
-    {
-      key: "6",
-      label: (
-        <Link to="/Dashboard" className="menu-link">
-          Admin Dashboard
-        </Link>
-      ),
-    },
-    {
-      key: "7",
-      label: (
-        <Link to="/AboutUs" className="menu-link">
-          About Us
-        </Link>
-      ),
-    },
-    {
-      key: "8",
-      label: (
-        <Link to="/ContactUs" className="menu-link">
-          Contact Us
-        </Link>
-      ),
-    },
-  ];
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState("");
 
+  // Effect to check the token in localStorage when the component mounts
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Retrieve token from localStorage
+    if (token) {
+      setIsLoggedIn(true);
+      // const decodedToken = jwt_decode(token); 
+      // setRole(decodedToken.role)
+      setRole("admin"); 
+    } else {
+      setIsLoggedIn(false);
+      setRole(null); 
+    }
+  }, [location.pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setRole(null); // Clear role on logout
+    navigate("/login");
+  };
+
+  const getMenuItems = () => {
+    const baseItems = [
+      {
+        key: "1",
+        label: (
+          <Link to="/homePage" className="menu-link">
+            <HomeOutlined style={{ fontSize: "22px", marginTop: "10px" }} />
+          </Link>
+        ),
+      },
+      {
+        key: "2",
+        label: (
+          <Link to="/learning-material" className="menu-link">
+            Engineer’s Library
+          </Link>
+        ),
+      },
+      {
+        key: "3",
+        label: (
+          <Link to="/JobPortal" className="menu-link">
+            Engineer's CareerHub
+          </Link>
+        ),
+      },
+      {
+        key: "5",
+        label: (
+          <Link to="/DevelopersHub" className="menu-link">
+            Development Hub
+          </Link>
+        ),
+      },
+      {
+        key: "7",
+        label: (
+          <Link to="/AboutUs" className="menu-link">
+            About Us
+          </Link>
+        ),
+      },
+      {
+        key: "8",
+        label: (
+          <Link to="/ContactUs" className="menu-link">
+            Contact Us
+          </Link>
+        ),
+      },
+    ];
+
+    // Add extra items based on the role
+    if (role === "admin") {
+      return [
+        ...baseItems,
+        {
+          key: "4",
+          label: (
+            <Link to="/company-dashboard" className="menu-link">
+              Company Dashboard
+            </Link>
+          ),
+        },
+        {
+          key: "6",
+          label: (
+            <Link to="/Dashboard" className="menu-link">
+              Admin Dashboard
+            </Link>
+          ),
+        },
+      ];
+    } else if (role === "company") {
+      return [
+        ...baseItems,
+        {
+          key: "4",
+          label: (
+            <Link to="/company-dashboard" className="menu-link">
+              Company Dashboard
+            </Link>
+          ),
+        },
+      ];
+    }
+    // For student and not logged in, return the base items only
+    return baseItems; }
+
+  // Profile Dropdown Menu
+  const profileMenu = (
+    <Menu>
+      <Menu.Item key="profile" onClick={() => navigate("/profile")}>
+        <UserOutlined /> Profile
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined /> Logout
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
       {/* info banner */}
@@ -196,7 +259,8 @@ const MainLayout = () => {
           mode="horizontal"
           selectedKeys={[activeKey]} // Set active key dynamically
           className="Menu-links"
-          items={items}
+          // items={items}
+          items={getMenuItems()}
           style={{
             flex: 1,
             minWidth: 0,
@@ -205,6 +269,17 @@ const MainLayout = () => {
             border: "none",
           }}
         />
+
+
+           {isLoggedIn ? (
+          <Dropdown overlay={profileMenu} trigger={['click']}>
+            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+              <Avatar icon={<UserOutlined />} />
+              <span style={{ marginLeft: '8px', fontSize: '16px' }}>Profile</span>
+            </div>
+          </Dropdown>
+        ) : (
+          <>
         <Button
           onClick={() => navigate("/login")}
           style={{
@@ -232,6 +307,8 @@ const MainLayout = () => {
         >
           Sign Up
         </Button>
+        </>
+        )}
       </Header>
       <Layout
         style={{

@@ -39,6 +39,18 @@ const RegisterPage = () => {
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+  
+  // i only add this 
+useEffect(() => {
+  if (submitted) {
+    const timer = setTimeout(() => {
+      console.log("Navigating to login after submission...");
+      navigate("/login");
+    }, 2000); // Delay to show success message
+
+    return () => clearTimeout(timer); // Cleanup the timeout on component unmount or on subsequent renders
+  }
+}, [submitted, navigate]);
 
   const onFinish = async () => {
     const formData = new FormData();
@@ -48,14 +60,23 @@ const RegisterPage = () => {
     formData.append("password", input.password);
     formData.append("role", input.role);
 
+    // if (input.role === "company") {
+    //   formData.append("companyName", input.companyName);
+    //   formData.append("companyEmail", input.companyEmail);
+    //   formData.append("linkedinProfile", input.linkedinProfile);
+    //   formData.append("websiteUrl", input.websiteUrl);
+    //   formData.append("hiringType", input.hiringType);
+    // }
+        
+    // add this for store company data in database 
     if (input.role === "company") {
-      formData.append("companyName", input.companyName);
-      formData.append("companyEmail", input.companyEmail);
-      formData.append("linkedinProfile", input.linkedinProfile);
-      formData.append("websiteUrl", input.websiteUrl);
-      formData.append("hiringType", input.hiringType);
+      formData.append("companyDetails[companyName]", input.companyName);
+      formData.append("companyDetails[companyEmail]", input.companyEmail);
+      formData.append("companyDetails[linkedinProfile]", input.linkedinProfile);
+      formData.append("companyDetails[websiteUrl]", input.websiteUrl);
+      formData.append("companyDetails[hiringType]", input.hiringType);
     }
-
+    
     try {
       dispatch(setLoading(true)); // Show loader
       const res = await axios.post(
@@ -67,16 +88,19 @@ const RegisterPage = () => {
         }
       );
 
-      if (res.data.success) {
+      // if (res.data.success) {          //i comment this
+       
         notification.success({
           message: "Account created successfully!",
           description: "Redirecting you to the login page...",
         });
         setSubmitted(true); // Mark form as submitted
+        
         setTimeout(() => {
           navigate("/login");
         }, 2000); // Delay for 2 seconds to show success message
-      }
+      // }
+
     } catch (error) {
       notification.error({
         message: "Registration failed",
@@ -86,6 +110,7 @@ const RegisterPage = () => {
       dispatch(setLoading(false)); // Hide loader
     }
   };
+ 
 
   useEffect(() => {
     if (user) {
