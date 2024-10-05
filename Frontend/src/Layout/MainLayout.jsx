@@ -40,7 +40,6 @@ const MainLayout = () => {
   // Get active key based on the current path
   const activeKey = pathKeyMap[location.pathname] || "1"; // Default to "1" if path doesn't match
 
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState("");
 
