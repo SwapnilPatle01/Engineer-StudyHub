@@ -37,23 +37,23 @@ const MainLayout = () => {
   const activeKey = pathKeyMap[location.pathname] || "1"; // Default to "1"
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [role, setRole] = useState(""); // Initially empty string
+  const [role, setRole] = useState(""); 
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Retrieve token
+    const token = localStorage.getItem("token"); 
     if (token) {
       setIsLoggedIn(true);
-      const decodedToken = jwtDecode(token); // Decode token
-      setRole(decodedToken.role); // Set role from decoded token
+      const decodedToken = jwtDecode(token); 
+      setRole(decodedToken.role); 
     } else {
-      setRole(""); // Reset role if no token
+      setRole(""); 
     }
   }, [location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    setRole(""); // Reset role on logout
+    setRole(""); 
     navigate("/login");
   };
 
@@ -152,7 +152,7 @@ const MainLayout = () => {
         <UserOutlined /> Profile
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
-        <LogoutOutlined /> Logout
+        <LogoutOutlined /> Logive me profile componngout
       </Menu.Item>
     </Menu>
   );
@@ -256,10 +256,12 @@ const MainLayout = () => {
                 cursor: "pointer",
               }}
             >
-              <Avatar icon={<UserOutlined />} />
-              <span style={{ marginLeft: "8px", fontSize: "16px" }}>
-                Profile
-              </span>
+            <Avatar
+                   size={45}
+                 icon={<UserOutlined style={{ color: "white" }} />}  
+                  style={{ backgroundColor: 'blue' }}  
+                 />
+                 <span style={{ marginLeft: "8px", fontSize: "16px" }}></span>
             </div>
           </Dropdown>
         ) : (
