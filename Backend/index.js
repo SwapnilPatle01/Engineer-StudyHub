@@ -40,6 +40,8 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
 
+app.use("/uploads", express.static("./uploads"));
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
