@@ -1,12 +1,12 @@
-import { Button, Modal, Input, Card,  Image ,Space,Popconfirm } from "antd";
+import { Button, Modal, Input, Card, Image, Space, Popconfirm } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AddResource from "./AddResource";
 import { Layout, Menu, Select } from "antd";
 import "./Dashboard.css";
 import "antd/dist/reset.css";
 import axios from "axios";
-import { message } from 'antd';
+import { message } from "antd";
 
 const { Option } = Select;
 const { Sider } = Layout;
@@ -32,7 +32,9 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/resource/resources');
+      const response = await axios.get(
+        "http://localhost:5000/api/v1/resource/resources",
+      );
       console.log(response.data);
       setSubmittedData(response.data); // Update the state with the fetched data
     } catch (error) {
@@ -40,8 +42,7 @@ const Dashboard = () => {
     }
   };
 
-
-const handleTabChange = (index, key) => {
+  const handleTabChange = (index, key) => {
     setActiveTabKeys((prevState) => ({
       ...prevState,
       [index]: key,
@@ -75,17 +76,23 @@ const handleTabChange = (index, key) => {
     try {
       if (isEdit) {
         // Update the existing resource using axios.put
-        const updatedResource = await axios.put(`http://localhost:5000/api/v1/resource/${submittedData[editIndex]._id}`, newSubmission);
+        const updatedResource = await axios.put(
+          `http://localhost:5000/api/v1/resource/${submittedData[editIndex]._id}`,
+          newSubmission,
+        );
         // Update the state with the updated resource
         const updatedData = submittedData.map((item, index) =>
-          index === editIndex ? updatedResource.data : item
+          index === editIndex ? updatedResource.data : item,
         );
         setSubmittedData(updatedData);
         setIsEdit(false);
         setEditIndex(null);
       } else {
         // Add new resource using axios.post
-        const addedResource = await axios.post("http://localhost:5000/api/v1/resource", newSubmission);
+        const addedResource = await axios.post(
+          "http://localhost:5000/api/v1/resource",
+          newSubmission,
+        );
         // Add the new resource to the state
         setSubmittedData((prevData) => [...prevData, addedResource.data]);
       }
@@ -99,9 +106,10 @@ const handleTabChange = (index, key) => {
   };
 
   const viewPdf = (file) => {
-    console.log(file,"file");
-    const fileURL = URL.createObjectURL(file);
-    // const fileURL = http://localhost:5000/uploads/pdfs/${file};
+    console.log(file, "file");
+
+    const fileURL = `http://localhost:5000/${file}`;
+    // const fileURL = `http://localhost:5000/uploads/pdfs/${file}`;
     window.open(fileURL, "_blank");
   };
 
@@ -114,15 +122,14 @@ const handleTabChange = (index, key) => {
   //   setSubmittedData((prevData) => prevData.filter((_, i) => i !== index));
   // };
 
-
   const handleDelete = async (id, index) => {
     try {
       await axios.delete(`http://localhost:5000/api/v1/resource/${id}`);
       setSubmittedData((prevData) => prevData.filter((_, i) => i !== index));
-      message.success('Successfully deleted the resource!');
+      message.success("Successfully deleted the resource!");
     } catch (error) {
-      console.error('Error deleting resource:', error);
-      message.error('Failed to delete the resource!');
+      console.error("Error deleting resource:", error);
+      message.error("Failed to delete the resource!");
     }
   };
 
@@ -151,13 +158,24 @@ const handleTabChange = (index, key) => {
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <div className="head-sty" style={{display:"flex", flexDirection:"column"}}>
-            <h1 style={{color:"#553CDF", fontWeight:"700"}}>Admin Dashboard</h1>
-            <h2 style={{justifyContent:"left",fontSize:"16px",color:"#000"}}>All Filter</h2>
-          </div>
           <div
-            style={{ marginBottom: "30px", width: "250px", }}
+            className="head-sty"
+            style={{ display: "flex", flexDirection: "column" }}
           >
+            <h1 style={{ color: "#553CDF", fontWeight: "700" }}>
+              Admin Dashboard
+            </h1>
+            <h2
+              style={{
+                justifyContent: "left",
+                fontSize: "16px",
+                color: "#000",
+              }}
+            >
+              All Filter
+            </h2>
+          </div>
+          <div style={{ marginBottom: "30px", width: "250px" }}>
             <Select placeholder="Select Subject" style={{ width: "100%" }}>
               <Option value="Data Structures">Data Structures</Option>
               <Option value="Algorithms">Algorithms</Option>
@@ -172,9 +190,7 @@ const handleTabChange = (index, key) => {
             </Select>
           </div>
 
-          <div
-            style={{ marginBottom: "30px", width: "250px", }}
-          >
+          <div style={{ marginBottom: "30px", width: "250px" }}>
             <Select placeholder="Select Semester" style={{ width: "100%" }}>
               <Option value="1st">1st Semester</Option>
               <Option value="2nd">2nd Semester</Option>
@@ -187,9 +203,7 @@ const handleTabChange = (index, key) => {
             </Select>
           </div>
 
-          <div
-            style={{ marginBottom: "30px", width: "250px",}}
-          >
+          <div style={{ marginBottom: "30px", width: "250px" }}>
             <Select placeholder="Select University" style={{ width: "100%" }}>
               <Option value="RGPV">
                 Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)
@@ -210,9 +224,7 @@ const handleTabChange = (index, key) => {
             </Select>
           </div>
 
-          <div
-            style={{ marginBottom: "30px", width: "250px",}}
-          >
+          <div style={{ marginBottom: "30px", width: "250px" }}>
             <Select placeholder="Select Branch" style={{ width: "100%" }}>
               <Option value="">Select a Branch</Option>
               <Option value="EC">Electronics and Communication</Option>
@@ -233,23 +245,29 @@ const handleTabChange = (index, key) => {
               color: "black",
             }}
           >
-            <Button style={{ backgroundColor: "#553CDF", color: "#fff", padding:"10px 50px"}}>
+            <Button
+              style={{
+                backgroundColor: "#553CDF",
+                color: "#fff",
+                padding: "10px 50px",
+              }}
+            >
               Apply
             </Button>
           </div>
         </Menu>
       </Sider>
 
-      <Layout style={{ padding: "0 24px", background: "#f0f0f0",  }}>
-        <div className="dash-container" >
+      <Layout style={{ padding: "0 24px", background: "#f0f0f0" }}>
+        <div className="dash-container">
           <div className="dash-content">
-            <div className="flex-container" >
+            <div className="flex-container">
               <Search
                 placeholder="Search Resources"
                 allowClear
                 size="medium"
-                style={{ 
-                  marginBottom:"0px"
+                style={{
+                  marginBottom: "0px",
                 }}
                 onSearch={(value) => console.log(value)}
               />
@@ -259,8 +277,8 @@ const handleTabChange = (index, key) => {
                   backgroundColor: "#553CDF",
                   borderRadius: "6px",
                   color: "#fff",
-                  marginBottom:"0px",
-                  padding:"10px 50px",
+                  marginBottom: "0px",
+                  padding: "10px 50px",
                 }}
               >
                 Add Resource
@@ -277,72 +295,137 @@ const handleTabChange = (index, key) => {
             {/* Display Submitted Details */}
 
             <div className="submitted-details" style={{ marginTop: "50px" }}>
-              <div className="cards" style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+              <div
+                className="cards"
+                style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
+              >
                 {submittedData.length > 0 ? (
                   submittedData.map((submission, index) => {
-                    const activeTabKey = activeTabKeys[index] || "tab1"; 
+                    const activeTabKey = activeTabKeys[index] || "tab1";
 
                     return (
                       <Card
                         key={index}
                         title={
-                          <div style={{ display: "flex", justifyContent: "space-between" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
                             <div>
-                              <b>{submission.university} {submission.branch} {submission.semester}</b>
-                              {submission.subject && <p><strong>Subject:</strong> {submission.subject}</p>}
+                              <b>
+                                {submission.university} {submission.branch}{" "}
+                                {submission.semester}
+                              </b>
+                              {submission.subject && (
+                                <p>
+                                  <strong>Subject:</strong> {submission.subject}
+                                </p>
+                              )}
                             </div>
                             <div>
                               <Space>
-                              <Popconfirm
-                               title="Are you sure you want to delete?"
-                                onConfirm={() => handleDelete(submission._id, index)}
+                                <Popconfirm
+                                  title="Are you sure you want to delete?"
+                                  onConfirm={() =>
+                                    handleDelete(submission._id, index)
+                                  }
                                 >
-                                    <Button 
-                                  style={{ marginRight: "10px" }} 
-                                  icon={<DeleteFilled />} 
-                                       />
-                                 </Popconfirm>
+                                  <Button
+                                    style={{ marginRight: "10px" }}
+                                    icon={<DeleteFilled />}
+                                  />
+                                </Popconfirm>
                               </Space>
-                            
+
                               {/* <Button style={{ marginRight: "10px" }} 
                               onClick={() => handleDelete(submission._id, index)} 
                               icon={<DeleteFilled />} />
                                */}
 
-                              <Button onClick={() => handleUpdate(index)} icon={<EditFilled />} />
+                              <Button
+                                onClick={() => handleUpdate(index)}
+                                icon={<EditFilled />}
+                              />
                             </div>
                           </div>
                         }
                         tabList={tabList}
                         activeTabKey={activeTabKey}
-                        onTabChange={(key) => handleTabChange(index, key)} 
+                        onTabChange={(key) => handleTabChange(index, key)}
                       >
                         {/* Render content based on active tab */}
                         {activeTabKey === "tab1" && submission.pyq && (
                           <>
-                            <p><strong>Title Of PYQ:</strong> {submission.pyq.title}</p>
-                            <Button type="primary" onClick={() => viewPdf(submission.pyq.pdfUrl)}>PYQ PDF</Button>
+                            <p>
+                              <strong>Title Of PYQ:</strong>{" "}
+                              {submission.pyq.title}
+                            </p>
+                            <Button
+                              disabled={!submission.pyq.pdfUrl}
+                              type="primary"
+                              onClick={() => viewPdf(submission.pyq.pdfUrl)}
+                            >
+                              PYQ PDF
+                            </Button>
                           </>
                         )}
 
                         {activeTabKey === "tab2" && submission.note && (
                           <>
-                            <p><strong>Title Of Notes:</strong> {submission.note.title}</p>
-                            <Button type="primary" onClick={() => viewPdf(submission.note.pdfUrl)}>Notes PDF</Button>
+                            <p>
+                              <strong>Title Of Notes:</strong>{" "}
+                              {submission.note.title}
+                            </p>
+                            <Button
+                              disabled={!submission.note.pdfUrl}
+                              type="primary"
+                              onClick={() => viewPdf(submission.note.pdfUrl)}
+                            >
+                              Notes PDF
+                            </Button>
                           </>
                         )}
 
                         {activeTabKey === "tab3" && submission.video && (
-                          <div style={{ display: "flex", alignItems: "center" }}>
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
                             {submission.video.imageUrl && (
                               <div style={{ marginRight: "20px" }}>
-                                <Image width={80} height={100} src={submission.video.imageUrl} alt="Video Thumbnail Preview" style={{ objectFit: "cover" }} />
+                                <Image
+                                  width={80}
+                                  height={100}
+                                  src={submission.video.imageUrl}
+                                  alt="Video Thumbnail Preview"
+                                  style={{ objectFit: "cover" }}
+                                />
                               </div>
                             )}
                             <div>
-                              {submission.video.title && <p><strong>Title Video:</strong> {submission.video.title}</p>}
-                              {submission.video.description && <p><strong>Description:</strong> {submission.video.description}</p>}
-                              {submission.video.videoUrl && <Button type="primary" onClick={() => openVideoLink(submission.video.videoUrl)}>Watch Video</Button>}
+                              {submission.video.title && (
+                                <p>
+                                  <strong>Title Video:</strong>{" "}
+                                  {submission.video.title}
+                                </p>
+                              )}
+                              {submission.video.description && (
+                                <p>
+                                  <strong>Description:</strong>{" "}
+                                  {submission.video.description}
+                                </p>
+                              )}
+                              {submission.video.videoUrl && (
+                                <Button
+                                  type="primary"
+                                  onClick={() =>
+                                    openVideoLink(submission.video.videoUrl)
+                                  }
+                                >
+                                  Watch Video
+                                </Button>
+                              )}
                             </div>
                           </div>
                         )}
@@ -362,3 +445,4 @@ const handleTabChange = (index, key) => {
 };
 
 export default Dashboard;
+
