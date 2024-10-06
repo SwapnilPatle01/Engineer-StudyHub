@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Menu, Layout, Button, Select, Tabs, Card, Row, Col, Empty, Typography } from "antd";
+import {
+  Menu,
+  Layout,
+  Button,
+  Select,
+  Tabs,
+  Card,
+  Row,
+  Col,
+  Empty,
+  Typography,
+} from "antd";
 import axios from "axios";
 
 const { Sider, Content } = Layout;
@@ -15,7 +26,7 @@ function LearningMaterial() {
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [selectedSemester, setSelectedSemester] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null); // Track selected subject
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(true);
   const [submittedLearning, setSubmittedLearning] = useState([]);
   const [notes, setNotes] = useState([]);
   const [pyqs, setPyqs] = useState([]);
@@ -26,7 +37,7 @@ function LearningMaterial() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/resource/resources"
+          "http://localhost:5000/api/v1/resource/resources",
         );
         const learningData = response.data;
         setSubmittedLearning(learningData);
@@ -81,7 +92,7 @@ function LearningMaterial() {
   const handleUniversityChange = (value) => {
     setSelectedUniversity(value);
     const filteredBranches = submittedLearning.filter(
-      (item) => item.university === value
+      (item) => item.university === value,
     );
     const uniqueBranches = [
       ...new Set(filteredBranches.map((item) => item.branch)),
@@ -98,7 +109,7 @@ function LearningMaterial() {
   const handleBranchChange = (value) => {
     setSelectedBranch(value);
     const filteredSemesters = submittedLearning.filter(
-      (item) => item.university === selectedUniversity && item.branch === value
+      (item) => item.university === selectedUniversity && item.branch === value,
     );
     const uniqueSemesters = [
       ...new Set(filteredSemesters.map((item) => item.semester)),
@@ -117,7 +128,7 @@ function LearningMaterial() {
       (item) =>
         item.university === selectedUniversity &&
         item.branch === selectedBranch &&
-        item.semester === value
+        item.semester === value,
     );
     const uniqueSubjects = [
       ...new Set(filteredSubjects.map((item) => item.subject)),
@@ -139,22 +150,22 @@ function LearningMaterial() {
   const filteredNotes = notes.filter((note) =>
     submittedLearning.some(
       (item) =>
-        item.note?.title === note.title && item.subject === selectedSubject
-    )
+        item.note?.title === note.title && item.subject === selectedSubject,
+    ),
   );
 
   const filteredPyqs = pyqs.filter((pyq) =>
     submittedLearning.some(
       (item) =>
-        item.pyq?.title === pyq.title && item.subject === selectedSubject
-    )
+        item.pyq?.title === pyq.title && item.subject === selectedSubject,
+    ),
   );
 
   const filteredVideos = videoLectures.filter((video) =>
     submittedLearning.some(
       (item) =>
-        item.video?.title === video.title && item.subject === selectedSubject
-    )
+        item.video?.title === video.title && item.subject === selectedSubject,
+    ),
   );
 
   return (
@@ -401,10 +412,11 @@ function LearningMaterial() {
             {/* <h2>Please select the options to display the learning materials.</h2> */}
             <Empty
               image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-              imageStyle={{ height: 200, marginTop:"150px" }}
+              imageStyle={{ height: 200, marginTop: "150px" }}
               description={
-                <Typography.Text style={{fontSize:"16px"}}>
-                  There is nothing to show! Just head towards the sider menu to search for Notes, PYQs, Syllabus, Video Lecture 
+                <Typography.Text style={{ fontSize: "16px" }}>
+                  There is nothing to show! Just head towards the sider menu to
+                  search for Notes, PYQs, Syllabus, Video Lecture
                 </Typography.Text>
               }
             ></Empty>
