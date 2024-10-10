@@ -1,16 +1,93 @@
-/* .Menu-links .ant-menu-item-selected {
-  
-} */
-
-/* .Menu-links .ant-menu-item:hover {
-  background-color: #553cdf;
-  color: #553cdf;
-} */
-
-.menu-link {
-  color: #553cdf;
+/* Drawer and Menu Animations */
+.ant-drawer {
+  transition: transform 0.5s ease-in-out; /* For smooth sliding */
 }
 
-/* .menu-link:hover {
-  color: #553cdf;
-} */
+.drawer-menu-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.drawer-menu-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.drawer-menu-leave {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.drawer-menu-leave-active {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.mobile-menu-icon {
+  display: none;
+}
+.menu-close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #6441a3;
+  cursor: pointer;
+}
+.menu-link {
+  animation: slide-in 0.5s ease forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* When drawer is opened, reduce width of content */
+.content-blur {
+  filter: blur(5px); /* Adds blur to background */
+  opacity: 0.5;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.drawer-open .content-blur {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+  .authbtn {
+    display: none;
+  }
+  .avatar {
+    display: none;
+  }
+  .mobile-menu-icon {
+    display: inline-block; /* Show hamburger icon */
+    color: #6441a3;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .desktop-menu {
+    display: none;
+  }
+  .authbtn {
+    display: none;
+  }
+  .avatar {
+    display: none;
+  }
+  .mobile-menu-icon {
+    display: inline-block; /* Show hamburger icon */
+    color: #6441a3;
+  }
+}

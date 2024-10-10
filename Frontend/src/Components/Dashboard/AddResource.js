@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Checkbox, Select, Upload, Input, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import axios from 'axios'
+import axios from "axios";
 // import { message } from 'antd'
-
 
 const AddResource = ({ onClose, onSubmit, initialValues }) => {
   const [university, setUniversity] = useState("");
@@ -91,48 +90,49 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
     return Promise.resolve();
   };
 
-  const handleSubmit =async () => {
-
+  const handleSubmit = async () => {
     // Create a new FormData object
-  const formData = new FormData();
-  console.log(formData ,"formdata")
-  // Append all the form data fields
-  formData.append('university', university);
-  formData.append('branch', branch);
-  formData.append('semester', semester);
-  formData.append('subject', subject);
-  formData.append('videoTitle', videoTitle);
-  formData.append('description', videoDes);
-  formData.append('videoUrl', videoLink);
-  formData.append('noteTitle', noteTitle);
-  formData.append('pyqTitle', title);
-  
-  // Append the files (ensure they are files, not strings)
-  formData.append('pyqFile', pyqFile); // pyqFile should be a file object
-  formData.append('noteFile', noteFile); // noteFile should be a file object
-  formData.append('videoImage', thumbnailPreview); // assuming thumbnailPreview is a file
+    const formData = new FormData();
+    console.log(formData, "formdata");
+    // Append all the form data fields
+    formData.append("university", university);
+    formData.append("branch", branch);
+    formData.append("semester", semester);
+    formData.append("subject", subject);
+    formData.append("videoTitle", videoTitle);
+    formData.append("description", videoDes);
+    formData.append("videoUrl", videoLink);
+    formData.append("noteTitle", noteTitle);
+    formData.append("pyqTitle", title);
 
-  try {
-    // Make an API request using Axios
-    const response = await axios.post('http://localhost:5000/api/v1/resource/create', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    
-    // Handle success response
-    if (response.status === 200) {
-      message.success("Resource added successfully!");
-      form.resetFields(); // Clear input fields after submission
+    // Append the files (ensure they are files, not strings)
+    formData.append("pyqFile", pyqFile); // pyqFile should be a file object
+    formData.append("noteFile", noteFile); // noteFile should be a file object
+    formData.append("videoImage", thumbnailPreview); // assuming thumbnailPreview is a file
+
+    try {
+      // Make an API request using Axios
+      const response = await axios.post(
+        "https://engineer-study-hub.vercel.app/api/v1/resource/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Handle success response
+      if (response.status === 200) {
+        message.success("Resource added successfully!");
+        form.resetFields(); // Clear input fields after submission
+      }
+    } catch (error) {
+      // console.log();
+      // Handle error response
+      console.error("Error submitting the form", error);
+      message.error("Failed to add resource. Please try again.");
     }
-  } catch (error) {
-    // console.log();
-    // Handle error response
-    console.error("Error submitting the form", error);
-    message.error("Failed to add resource. Please try again.");
-  }
-
- 
 
     // const newSubmission = {
     //   university,
@@ -154,10 +154,12 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
     message.success("Resource added successfully!");
     form.resetFields(); // Clear input fields after submission
   };
-  
 
   return (
-    <div className="add-container" style={{backgroundColor:"#f5f5f5", borderRadius:"6px"}}>
+    <div
+      className="add-container"
+      style={{ backgroundColor: "#f5f5f5", borderRadius: "6px" }}
+    >
       <h1>{initialValues ? "Edit Resource" : "Add Resources"}</h1>
       <div className="add-content">
         <Form onFinish={handleSubmit} form={form} layout="vertical">
@@ -189,7 +191,9 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
               </Option>
               <Option value="DU">University of Delhi (DU)</Option>
               <Option value="JNU">Jawaharlal Nehru University (JNU)</Option>
-              <Option value="JNU">Rashtrasant Tukdoji Maharaj University (RTMNU)</Option>
+              <Option value="JNU">
+                Rashtrasant Tukdoji Maharaj University (RTMNU)
+              </Option>
               <Option value="XYZ">XYZ University</Option>
             </Select>
           </Form.Item>
@@ -418,12 +422,15 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
               htmlType="submit"
               style={{
                 backgroundColor: "#553CDF",
-                border:"none",
+                border: "none",
               }}
             >
               {initialValues ? "Update Resource" : "Add Resource"}
             </Button>
-            <Button onClick={onClose} style={{borderColor:"#553CDF", color:"#553CDF"}}>
+            <Button
+              onClick={onClose}
+              style={{ borderColor: "#553CDF", color: "#553CDF" }}
+            >
               Cancel
             </Button>
           </Form.Item>

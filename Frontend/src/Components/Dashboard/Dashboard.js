@@ -33,7 +33,7 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/v1/resource/resources",
+        "https://engineer-study-hub.vercel.app/api/v1/resource/resources"
       );
       console.log(response.data);
       setSubmittedData(response.data); // Update the state with the fetched data
@@ -77,12 +77,12 @@ const Dashboard = () => {
       if (isEdit) {
         // Update the existing resource using axios.put
         const updatedResource = await axios.put(
-          `http://localhost:5000/api/v1/resource/${submittedData[editIndex]._id}`,
-          newSubmission,
+          `https://engineer-study-hub.vercel.app/api/v1/resource/${submittedData[editIndex]._id}`,
+          newSubmission
         );
         // Update the state with the updated resource
         const updatedData = submittedData.map((item, index) =>
-          index === editIndex ? updatedResource.data : item,
+          index === editIndex ? updatedResource.data : item
         );
         setSubmittedData(updatedData);
         setIsEdit(false);
@@ -90,8 +90,8 @@ const Dashboard = () => {
       } else {
         // Add new resource using axios.post
         const addedResource = await axios.post(
-          "http://localhost:5000/api/v1/resource",
-          newSubmission,
+          "https://engineer-study-hub.vercel.app/api/v1/resource",
+          newSubmission
         );
         // Add the new resource to the state
         setSubmittedData((prevData) => [...prevData, addedResource.data]);
@@ -108,7 +108,7 @@ const Dashboard = () => {
   const viewPdf = (file) => {
     console.log(file, "file");
 
-    const fileURL = `http://localhost:5000/${file}`;
+    const fileURL = `https://engineer-study-hub.vercel.app/${file}`;
     // const fileURL = `http://localhost:5000/uploads/pdfs/${file}`;
     window.open(fileURL, "_blank");
   };
@@ -124,7 +124,9 @@ const Dashboard = () => {
 
   const handleDelete = async (id, index) => {
     try {
-      await axios.delete(`http://localhost:5000/api/v1/resource/${id}`);
+      await axios.delete(
+        `https://engineer-study-hub.vercel.app/api/v1/resource/${id}`
+      );
       setSubmittedData((prevData) => prevData.filter((_, i) => i !== index));
       message.success("Successfully deleted the resource!");
     } catch (error) {
@@ -445,4 +447,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
