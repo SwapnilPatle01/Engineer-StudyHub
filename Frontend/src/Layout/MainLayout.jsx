@@ -178,7 +178,7 @@ const MainLayout = () => {
             alignItems: "center",
             maxWidth: "1400px",
             margin: "0 auto",
-            padding: "0 20px",
+            padding: "0 0px",
             fontSize: "12px",
             color: "#fff",
             height: "100%",
