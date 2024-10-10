@@ -10,7 +10,6 @@ import LearningMaterial from "./Components/Learning Material/LearningMaterial";
 import RegisterPage from "./pages/RegistrationPage";
 import JobDetails from "./Components/JobPortal/JobDetails";
 import Dashboardpage from "./pages/Dashboardpage";
-import AboutUsComponent from "./Components/AboutUs/AboutUsComponent";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import KnowMorePage from "./Components/JobPortal/KnowMore";
 import CompanyDashboardPage from "./pages/CompanyDashboardPage";
@@ -36,14 +35,13 @@ function App() {
             <Route path="DevelopersHub" element={<DeveloperPage />} />
             <Route path="job/:id" element={<JobDetails />} />
             <Route path="/know-more/:jobId" element={<KnowMorePage />} />
-            <Route path="AboutUs" element={<AboutUsComponent />} />
             <Route path="ContactUs" element={<ContactUs />} />
             <Route path="engineerLib" element={<LearningMaterial />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="*" element={<JobPortalPage />} />
 
             {/* Nested Routes for CompanyDashboard */}
-            <Route path="/company-dashboard" element={<CompanyDashboardPage/>}>
+            <Route path="/company-dashboard" element={<CompanyDashboardPage />}>
               <Route path="company-profile" element={<CompanyProfile />} />
               <Route path="create-job-post" element={<CreateJobPost />} />
               <Route path="create-event" element={<CreateEvent />} />
