@@ -7,3 +7,9 @@
 .ant-menu-item-selected a {
   color: #6441a3 !important;
 }
+
+@media (max-width: 400px) {
+  .highlights {
+    flex-direction: column;
+  }
+}

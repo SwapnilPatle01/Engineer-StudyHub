@@ -341,3 +341,41 @@
     background: linear-gradient(#553cdf, #50e3c2); /* Blue to Green Gradient */
   }
 }
+
+@media (max-width: 400px) {
+  .highlights {
+    flex-direction: column;
+  }
+  .slide-content{
+    flex-direction: column;
+  }
+  .slide-container{
+    flex-direction: column;
+  }
+  .right-section{
+    display: none ;
+  }
+  .left-main{
+    max-width: 100%;
+    flex: none;
+    padding: 0;
+  }.features-section{
+    padding: 60px 20px;
+  }.buttons{
+    display: flex;
+  }.faq-section{
+    padding: 50px 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .left-section{
+    max-width: 100%;
+    flex: 0 0 50%;
+    padding: 0;
+  }
+
+  .right-section{
+    display: none ;
+  }
+}

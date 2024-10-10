@@ -149,10 +149,10 @@ const MainLayout = () => {
   const profileMenu = (
     <Menu>
       <Menu.Item key="profile" onClick={() => navigate("/profile")}>
-        <UserOutlined /> Profile
+        <UserOutlined style={{marginRight:"5px"}}/> Profile
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
-        <LogoutOutlined /> Logive me profile componngout
+        <LogoutOutlined style={{marginRight:"5px"}}/> Logout
       </Menu.Item>
     </Menu>
   );
@@ -258,8 +258,8 @@ const MainLayout = () => {
             >
             <Avatar
                    size={45}
-                 icon={<UserOutlined style={{ color: "white" }} />}  
-                  style={{ backgroundColor: 'blue' }}  
+                 icon={ <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=3" />}  
+                  style={{ backgroundColor: '#eee' }}  
                  />
                  <span style={{ marginLeft: "8px", fontSize: "16px" }}></span>
             </div>
