@@ -46,8 +46,8 @@
     margin-left: 0;
     margin-top: 10px;
   } 
-   */
-  /* Modal Styling */
+
+
    .ant-modal {
     top: 20px;
   } 
@@ -239,6 +239,4 @@ button:hover {
   border-color: #1890ff; /* Change the border color on hover */
 }
 
-
-/* // layout checkboxx css  */
 
