@@ -5,16 +5,17 @@ import Highlight from "./Highlight";
 import HeroSlider from "./HeroSlider";
 import FAQ from "./FAQ";
 import HeroSection from "./HeroSection";
-
+import UniversityLogoScroller from "./UniversityLogoScroller";
 
 const Home = () => {
   return (
     <div>
-      <HeroSlider/>
-      <Highlight/>
-      <HeroSection/>
-      <Features/>
-      <FAQ/>
+      <HeroSlider />
+      <UniversityLogoScroller />
+      <Highlight />
+      <HeroSection />
+      <Features />
+      <FAQ />
     </div>
   );
 };
