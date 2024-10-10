@@ -24,10 +24,11 @@ const HeroSection = () => {
           {/* Main Content */}
           <Col
             span={20}
+            className="hero-main-content"
             md={12}
             style={{ width: "100%", height: "auto", margin: "auto" }}
           >
-            <h1 className="hero-title">
+            <h1 className="hero-title" style={{marginTop:"50px"}}>
               Quality Notes from the University Toppers
             </h1>
             <Text className="hero-subtitle">
