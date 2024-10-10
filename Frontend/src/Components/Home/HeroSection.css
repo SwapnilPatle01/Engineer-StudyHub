@@ -1,13 +1,13 @@
 .hero-section {
   position: relative;
-  height: 100vh;
+  height: auto;
   background: url("../../assets/images/UniversityStudents.jpg") no-repeat center
     center/cover;
 }
 
 .hero-background {
   background: rgba(0, 0, 0, 0.1); /* Overlay */
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,6 +15,7 @@
 
 .hero-content {
   width: 100%;
+  height: auto;
   text-align: left;
   color: #fff;
 }
@@ -37,6 +38,8 @@
   justify-content: center;
   gap: 1rem;
   margin-top: 20px;
+  margin-bottom: 100px;
+
 }
 
 .cta-button {

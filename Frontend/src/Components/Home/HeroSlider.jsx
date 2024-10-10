@@ -23,7 +23,7 @@ const HeroSlider = () => {
             margin: 0,
           }}
         >
-          <Col span={12}>
+          <Col span={12} className="left-main">
             <div className="left-section">
               <div className="pre-title-container">
                 <img
