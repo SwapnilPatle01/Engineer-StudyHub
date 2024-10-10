@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Menu, Button, Dropdown, Avatar } from "antd";
+import { Layout, Menu, Button, Dropdown, Avatar, Drawer } from "antd";
 import {
   DownOutlined,
   HomeOutlined,
   MailOutlined,
   PhoneOutlined,
   LogoutOutlined,
+  MenuOutlined,
   UserOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
 import { jwtDecode } from "jwt-decode"; // Correct import
-
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
 import FooterComponent from "../Components/Footer/FooterComponent";
@@ -37,23 +38,24 @@ const MainLayout = () => {
   const activeKey = pathKeyMap[location.pathname] || "1"; // Default to "1"
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [role, setRole] = useState(""); 
+  const [role, setRole] = useState("");
+  const [drawerVisible, setDrawerVisible] = useState(false); // Drawer state for mobile menu
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
-      const decodedToken = jwtDecode(token); 
-      setRole(decodedToken.role); 
+      const decodedToken = jwtDecode(token);
+      setRole(decodedToken.role);
     } else {
-      setRole(""); 
+      setRole("");
     }
   }, [location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    setRole(""); 
+    setRole("");
     navigate("/login");
   };
 
@@ -109,7 +111,6 @@ const MainLayout = () => {
       },
     ];
 
-    // Add extra items based on the role
     if (role === "admin") {
       return [
         ...baseItems,
@@ -143,19 +144,27 @@ const MainLayout = () => {
         },
       ];
     }
-    return baseItems; // For student or not logged in
+    return baseItems;
   };
 
   const profileMenu = (
     <Menu>
       <Menu.Item key="profile" onClick={() => navigate("/profile")}>
-        <UserOutlined style={{marginRight:"5px"}}/> Profile
+        <UserOutlined style={{ marginRight: "5px" }} /> Profile
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
-        <LogoutOutlined style={{marginRight:"5px"}}/> Logout
+        <LogoutOutlined style={{ marginRight: "5px" }} /> Logout
       </Menu.Item>
     </Menu>
   );
+
+  const showDrawer = () => {
+    setDrawerVisible(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
 
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
@@ -235,17 +244,41 @@ const MainLayout = () => {
         <Menu
           theme="light"
           mode="horizontal"
-          selectedKeys={[activeKey]} // Set active key dynamically
-          className="Menu-links"
+          selectedKeys={[activeKey]}
+          className="Menu-links desktop-menu"
           items={getMenuItems()}
           style={{
             flex: 1,
             minWidth: 0,
             backgroundColor: "transparent",
-            color: "#fff",
+            color: "#6441A3",
             border: "none",
           }}
         />
+
+        <MenuOutlined
+          className="mobile-menu-icon"
+          onClick={showDrawer}
+          style={{
+            fontSize: "24px",
+            cursor: "pointer",
+          }}
+        />
+
+        <Drawer
+          title="Menu"
+          placement="right"
+          onClose={closeDrawer}
+          visible={drawerVisible}
+          className="mobile-drawer"
+        >
+          <Menu
+            mode="vertical"
+            selectedKeys={[activeKey]}
+            items={getMenuItems()}
+            style={{ backgroundColor: "transparent" }}
+          />
+        </Drawer>
 
         {isLoggedIn ? (
           <Dropdown overlay={profileMenu} trigger={["click"]}>
@@ -256,23 +289,26 @@ const MainLayout = () => {
                 cursor: "pointer",
               }}
             >
-            <Avatar
-                   size={45}
-                 icon={ <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=3" />}  
-                  style={{ backgroundColor: '#eee' }}  
-                 />
-                 <span style={{ marginLeft: "8px", fontSize: "16px" }}></span>
+              <Avatar
+                className="avatar"
+                size={45}
+                icon={
+                  <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=3" />
+                }
+                style={{ backgroundColor: "#eee" }}
+              />
+              <span style={{ marginLeft: "8px", fontSize: "16px" }}></span>
             </div>
           </Dropdown>
         ) : (
           <>
             <Button
+              className="authbtn"
               onClick={() => navigate("/login")}
               style={{
-                padding: "18px 30px",
+                padding: "18px 25px",
                 borderRadius: "6px",
                 color: "#6441A3",
-                fontWeight: "bold",
                 marginRight: "10px",
                 border: "1px solid #6441A3",
                 background: "transparent",
@@ -281,6 +317,7 @@ const MainLayout = () => {
               Login
             </Button>
             <Button
+              className="authbtn"
               onClick={() => navigate("/register")}
               style={{
                 backgroundColor: "#553CDF",
@@ -289,20 +326,15 @@ const MainLayout = () => {
                 color: "#fff",
                 border: "none",
               }}
-              type="primary"
             >
-              Sign Up
+              Register
             </Button>
           </>
         )}
       </Header>
-      <Layout style={{ margin: 0, padding: "0px" }}>
-        <Layout style={{ padding: "0" }}>
-          <Content style={{ margin: 0, minHeight: "100vh", borderRadius: 0 }}>
-            <Outlet />
-          </Content>
-        </Layout>
-      </Layout>
+      <Content style={{ padding: "20px" }}>
+        <Outlet />
+      </Content>
       <FooterComponent />
     </Layout>
   );
