@@ -80,7 +80,7 @@ const RegisterPage = () => {
     try {
       dispatch(setLoading(true)); // Show loader
       const res = await axios.post(
-        "https://engineer-study-hub.vercel.app/api/v1/user/register",
+        "http://localhost:5000/api/v1/user/register",
         formData,
         {
           headers: { "Content-Type": "application/json" },

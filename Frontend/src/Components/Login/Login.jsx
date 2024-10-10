@@ -24,7 +24,7 @@ const LoginPage = () => {
     try {
       // Make the POST request to the backend
       const response = await axios.post(
-        "https://engineer-study-hub.vercel.app/api/v1/user/login",
+        "http://localhost:5000/api/v1/user/login",
         {
           email: values.email,
           password: values.password,
