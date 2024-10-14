@@ -47,7 +47,8 @@ function CompanyDashboard() {
           </div>
 
           <Menu.SubMenu key="company" icon={<UserOutlined />} title="Company">
-            <Menu.Item key="company-profile">Company Profile</Menu.Item>
+            {/* <Menu.Item key="company-profile">Company Profile</Menu.Item> */}
+            <Menu.Item key="create-company">Company Profile</Menu.Item>
           </Menu.SubMenu>
 
           {/* Create Menu */}

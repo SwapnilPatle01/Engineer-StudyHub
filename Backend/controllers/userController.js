@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config({});
 
 export const registerUser = async (req, res) => {
-  const { firstName, lastName, email, password, role, companyDetails } =
+  const { firstName, lastName, email, password, role } =
     req.body;
 
   try {
@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
       role,
       // companyDetails,
-      ...(role === "company" && { companyDetails }),
+      // ...(role === "company" && { companyDetails }),
     });
 
     await newUser.save();
