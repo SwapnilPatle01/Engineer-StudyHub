@@ -18,6 +18,7 @@ import CreateJobPost from "./Components/CompanyDashboard/CompanyDashbordComponen
 import CreateEvent from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import Notifications from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import ProfilePage from "./pages/Profile";
+import CompanyDetail from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyDetail";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             {/* Nested Routes for CompanyDashboard */}
             <Route path="/company-dashboard" element={<CompanyDashboardPage />}>
               <Route path="company-profile" element={<CompanyProfile />} />
+              <Route path="create-company" element={<CompanyDetail />} />
               <Route path="create-job-post" element={<CreateJobPost />} />
               <Route path="create-event" element={<CreateEvent />} />
               <Route path="view-notifications" element={<Notifications />} />

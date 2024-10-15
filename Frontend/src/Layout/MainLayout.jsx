@@ -263,7 +263,21 @@ const MainLayout = () => {
             fontSize: "24px",
             cursor: "pointer",
           }}
-        />
+        />   <Button
+        onClick={() => navigate("/register")}
+        style={{
+          padding: "18px 30px",
+          borderRadius: "6px",
+          color: "#6441A3",
+          fontWeight: "bold",
+          marginRight: "10px",
+          border: "1px solid #6441A3",
+          background: "transparent",
+        }}
+        // type="primary"
+      >
+        Sign Up
+      </Button>
 
         <Drawer
           title="Menu"
@@ -317,17 +331,19 @@ const MainLayout = () => {
               Login
             </Button>
             <Button
-              className="authbtn"
               onClick={() => navigate("/register")}
               style={{
-                backgroundColor: "#553CDF",
-                padding: "18px 25px",
+                padding: "18px 30px",
                 borderRadius: "6px",
-                color: "#fff",
-                border: "none",
+                color: "#6441A3",
+                fontWeight: "bold",
+                marginRight: "10px",
+                border: "1px solid #6441A3",
+                background: "transparent",
               }}
+              // type="primary"
             >
-              Register
+              Sign Up
             </Button>
           </>
         )}
