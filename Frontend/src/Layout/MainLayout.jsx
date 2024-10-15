@@ -240,7 +240,6 @@ const MainLayout = () => {
         <div className="logo-container" style={{ height: "100%", margin: 0 }}>
           <img src={logo} alt="logo" style={{ width: "220px" }} />
         </div>
-
         <Menu
           theme="light"
           mode="horizontal"
@@ -255,7 +254,6 @@ const MainLayout = () => {
             border: "none",
           }}
         />
-
         <MenuOutlined
           className="mobile-menu-icon"
           onClick={showDrawer}
@@ -263,22 +261,7 @@ const MainLayout = () => {
             fontSize: "24px",
             cursor: "pointer",
           }}
-        />   <Button
-        onClick={() => navigate("/register")}
-        style={{
-          padding: "18px 30px",
-          borderRadius: "6px",
-          color: "#6441A3",
-          fontWeight: "bold",
-          marginRight: "10px",
-          border: "1px solid #6441A3",
-          background: "transparent",
-        }}
-        // type="primary"
-      >
-        Sign Up
-      </Button>
-
+        />{" "}
         <Drawer
           title="Menu"
           placement="right"
@@ -293,7 +276,6 @@ const MainLayout = () => {
             style={{ backgroundColor: "transparent" }}
           />
         </Drawer>
-
         {isLoggedIn ? (
           <Dropdown overlay={profileMenu} trigger={["click"]}>
             <div
