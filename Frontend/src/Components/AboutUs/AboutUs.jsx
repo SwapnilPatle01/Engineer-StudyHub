@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Empty, Typography } from "antd";
 
-function ContactUs() {
+function AboutUs() {
   return (
     <div>
       <Empty
@@ -21,4 +21,4 @@ function ContactUs() {
   );
 }
 
-export default ContactUs;
+export default AboutUs;

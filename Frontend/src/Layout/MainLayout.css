@@ -1,4 +1,4 @@
-/* Drawer and Menu Animations */
+Drawer and Menu Animations
 .ant-drawer {
   transition: transform 0.5s ease-in-out; /* For smooth sliding */
 }

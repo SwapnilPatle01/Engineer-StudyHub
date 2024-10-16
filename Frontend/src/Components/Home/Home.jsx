@@ -9,7 +9,7 @@ import UniversityLogoScroller from "./UniversityLogoScroller";
 
 const Home = () => {
   return (
-    <div>
+    <div style={{ backgroundColor: "#F9F8FF" }}>
       <HeroSlider />
       <UniversityLogoScroller />
       <Highlight />

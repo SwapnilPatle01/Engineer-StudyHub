@@ -18,6 +18,7 @@ import CreateJobPost from "./Components/CompanyDashboard/CompanyDashbordComponen
 import CreateEvent from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import Notifications from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import ProfilePage from "./pages/Profile";
+import AboutUs from "./Components/AboutUs/AboutUs";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="job/:id" element={<JobDetails />} />
             <Route path="/know-more/:jobId" element={<KnowMorePage />} />
             <Route path="ContactUs" element={<ContactUs />} />
+            <Route path="AboutUs" element={<AboutUs />} />
             <Route path="engineerLib" element={<LearningMaterial />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="*" element={<JobPortalPage />} />

@@ -178,7 +178,7 @@ const MainLayout = () => {
             alignItems: "center",
             maxWidth: "1400px",
             margin: "0 auto",
-            padding: "0 0px",
+            padding: "0px",
             fontSize: "12px",
             color: "#fff",
             height: "100%",
@@ -332,7 +332,7 @@ const MainLayout = () => {
           </>
         )}
       </Header>
-      <Content style={{ padding: "20px" }}>
+      <Content>
         <Outlet />
       </Content>
       <FooterComponent />
