@@ -15,7 +15,7 @@ export const postJob = async (req, res) => {
         const job = await Job.create({
             title,
             description,
-            requirements: requirements.split(","),
+            requirements: requirements,  
             salary: Number(salary),
             location,
             jobType,

@@ -26,10 +26,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     enum: ['user', 'company'], // Adjust based on your requirements
   },
-  companyDetails: {
-    type: String,
-    default: null, // If applicable
-  },
+  // companyDetails: {
+  //   type: String,
+  //   default: null, // If applicable
+  // },
 });
 
 // Hash password before saving
