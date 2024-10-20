@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Typography, Button } from "antd";
-import "./HeroSection.css"; // custom styling for the hero section
+import "./HeroSection.css";
 import { Link } from "react-router-dom";
 
 const { Text } = Typography;
@@ -28,13 +28,13 @@ const HeroSection = () => {
             md={12}
             style={{ width: "100%", height: "auto", margin: "auto" }}
           >
-            <h1 className="hero-title" style={{marginTop:"50px"}}>
-              Quality Notes from the University Toppers
+            <h1 className="hero-title" style={{ marginTop: "50px" }}>
+              Premium Notes, PYQs, and Videos from Academic High Achievers
             </h1>
             <Text className="hero-subtitle">
-              Get access to high-quality study materials and notes directly from
-              toppers of prestigious universities like
-              <strong> RTMNU, Raisoni, KDK, Palloti</strong> and more!
+              Unlock high-quality study materials and notes crafted by top
+              achievers from renowned universities such as
+              <strong> RTMNU, MIT-WPU, COEP, VJTI Mumbai</strong> and more!
             </Text>
             <div className="hero-buttons">
               <Link to="/engineerLib">
@@ -45,7 +45,7 @@ const HeroSection = () => {
                     width: "auto",
                   }}
                 >
-                  Find your notes
+                  Find Your Resources
                 </Button>
               </Link>
             </div>

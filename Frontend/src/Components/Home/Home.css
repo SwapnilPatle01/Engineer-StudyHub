@@ -236,63 +236,6 @@
   color: #fff;
 }
 
-/* Features.css */
-.features-section {
-  padding: 60px 100px;
-  background-color: #f0f2f5;
-  text-align: center;
-}
-
-.features-heading {
-  font-size: 36px;
-  color: #001529;
-  margin-bottom: 20px;
-}
-
-.features-subtitle {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 40px;
-}
-
-.features-cards .ant-card {
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.feature-card p {
-  font-size: 16px;
-  color: #333;
-}
-
-.feature-icon {
-  font-size: 48px;
-  color: #553cdf;
-  margin: 20px 0;
-}
-
-/* Home.css */
-
-/* Centering the content inside the slide */
-.slide-container {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.slide-content {
-  padding: 50px;
-}
-
-.left-section {
-  padding: 20px;
-}
-
-.right-section .student-image {
-  width: 100%;
-  max-width: 400px;
-}
-
 /* FAQ Component css */
 .faq-section {
   background-color: #f7f9fc;
@@ -346,36 +289,39 @@
   .highlights {
     flex-direction: column;
   }
-  .slide-content{
+  .slide-content {
     flex-direction: column;
   }
-  .slide-container{
+  .slide-container {
     flex-direction: column;
   }
-  .right-section{
-    display: none ;
+  .right-section {
+    display: none;
   }
-  .left-main{
+  .left-main {
     max-width: 100%;
     flex: none;
     padding: 0;
-  }.features-section{
+  }
+  .features-section {
     padding: 60px 20px;
-  }.buttons{
+  }
+  .buttons {
     display: flex;
-  }.faq-section{
+  }
+  .faq-section {
     padding: 50px 20px;
   }
 }
 
 @media (max-width: 800px) {
-  .left-section{
+  .left-section {
     max-width: 100%;
     flex: 0 0 50%;
     padding: 0;
   }
 
-  .right-section{
-    display: none ;
+  .right-section {
+    display: none;
   }
 }
