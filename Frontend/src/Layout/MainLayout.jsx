@@ -330,7 +330,7 @@ const MainLayout = () => {
           </>
         )}
       </Header>
-      <Content style={{ padding: "20px" }}>
+      <Content style={{ padding: "0px" }}>
         <Outlet />
       </Content>
       <FooterComponent />
