@@ -21,7 +21,7 @@
 }
 
 .hero-title {
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   color: #fff;
   margin-bottom: 1rem;
   font-weight: 700;
@@ -39,7 +39,6 @@
   gap: 1rem;
   margin-top: 20px;
   margin-bottom: 100px;
-
 }
 
 .cta-button {
