@@ -61,33 +61,57 @@
   opacity: 0.5;
 }
 
-@media screen and (max-width: 768px) {
-  .desktop-menu {
-    display: none;
-  }
-  .authbtn {
-    display: none;
-  }
+/* Add Media Queries for Responsive */
+@media (max-width: 768px) {
+  .desktop-menu,
+  .authbtn,
+  .authbtn2,
   .avatar {
     display: none;
   }
   .mobile-menu-icon {
-    display: inline-block; /* Show hamburger icon */
+    display: inline-block;
     color: #6441a3;
+  }
+  .logo-container {
+    padding-right: 80px;
   }
 }
-@media screen and (max-width: 1200px) {
-  .desktop-menu {
+
+/* Small devices (max-width: 600px) */
+@media (max-width: 600px) {
+  .logo-container {
+    padding-right: 130px;
+  }
+}
+
+/* Large devices (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .authbtn2 {
     display: none;
   }
-  .authbtn {
-    display: none;
+  .layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 12px;
+    color: #fff;
+    height: 100%;
   }
-  .avatar {
-    display: none;
-  }
+}
+
+/* Medium devices (601px - 768px) */
+@media (min-width: 500px) and (max-width: 600px) {
   .mobile-menu-icon {
-    display: inline-block; /* Show hamburger icon */
-    color: #6441a3;
+    padding-left: 150px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+  .logo-container {
+    padding-right: 380px;
   }
 }

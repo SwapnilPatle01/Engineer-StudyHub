@@ -275,6 +275,50 @@ const MainLayout = () => {
             items={getMenuItems()}
             style={{ backgroundColor: "transparent" }}
           />
+          {!isLoggedIn && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "10px",
+                marginTop: "4px",
+              }}
+            >
+              <Button
+                onClick={() => {
+                  navigate("/login");
+                  closeDrawer();
+                }}
+                style={{
+                  padding: "18px 25px",
+                  borderRadius: "6px",
+                  color: "#6441A3",
+                  marginRight: "10px",
+                  border: "1px solid #6441A3",
+                  background: "transparent",
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate("/register");
+                  closeDrawer();
+                }}
+                style={{
+                  padding: "18px 30px",
+                  borderRadius: "6px",
+                  color: "#6441A3",
+                  fontWeight: "bold",
+                  border: "1px solid #6441A3",
+                  background: "transparent",
+                  marginRight: "25px",
+                }}
+              >
+                Sign Up
+              </Button>
+            </div>
+          )}
         </Drawer>
         {isLoggedIn ? (
           <Dropdown overlay={profileMenu} trigger={["click"]}>
@@ -313,6 +357,7 @@ const MainLayout = () => {
               Login
             </Button>
             <Button
+              className="authbtn2"
               onClick={() => navigate("/register")}
               style={{
                 padding: "18px 30px",

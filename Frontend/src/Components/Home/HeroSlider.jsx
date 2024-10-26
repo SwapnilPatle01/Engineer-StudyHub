@@ -17,16 +17,19 @@ const HeroSlider = () => {
           align="middle"
           style={{
             backgroundColor: "#F9F8FF",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
             margin: 0,
+            width: "100%",
           }}
         >
-          <Col span={12} className="left-main">
+          {/* Left Section - Appears first on all screen sizes */}
+          <Col
+            span={12}
+            xs={{ span: 24, order: 1 }} // Full width on mobile and appears first
+            sm={{ span: 24, order: 1 }} // Full width and appears first on small screens
+            md={{ span: 12, order: 1 }} // Normal order on medium+ screens
+            className="left-main"
+          >
             <div className="left-section">
-              {/* Gateway to Lifelong Learning Section */}
               <div
                 style={{
                   textAlign: "left",
@@ -40,7 +43,10 @@ const HeroSlider = () => {
                   alt="Gateway to Lifelong Learning"
                   style={{ width: "40px", height: "40px", marginRight: "10px" }}
                 />
-                <span style={{ fontSize: "20px", color: "#723bdb" }}>
+                <span
+                  className="responsive-text"
+                  style={{ fontSize: "20px", color: "#723bdb" }}
+                >
                   Your Gateway to Engineering Success
                 </span>
               </div>
@@ -70,7 +76,6 @@ const HeroSlider = () => {
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     color: "transparent",
-                    // textShadow: "2px 2px 8px rgba(0, 0, 0, 0.2)",
                     letterSpacing: "1px",
                     fontFamily: "Arial, sans-serif",
                   }}
@@ -123,16 +128,17 @@ const HeroSlider = () => {
                   Explore More
                 </Button>
               </div>
-
-              {/* Animated Icons */}
-              {/* <div className="animated-icons">
-                <BulbOutlined className="icon animated-icon bounce" />
-                <BookOutlined className="icon animated-icon bounce" />
-                <LaptopOutlined className="icon animated-icon bounce" />
-              </div> */}
             </div>
           </Col>
-          <Col span={12}>
+
+          {/* Right Section - Appears second on all screen sizes */}
+          <Col
+            span={12}
+            xs={{ span: 24, order: 2 }} // Full width on mobile and appears second
+            sm={{ span: 24, order: 2 }} // Full width and appears second on small screens
+            md={{ span: 12, order: 2 }} // Normal order on medium+ screens
+            className="right-section"
+          >
             <div className="right-section">
               <img
                 src={Girl}
