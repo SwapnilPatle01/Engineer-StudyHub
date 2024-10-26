@@ -25,6 +25,7 @@
 
 .video-container {
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   text-align: left;
   padding: 20px;
@@ -158,4 +159,32 @@
 .feature-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Queries for responsive  */
+@media (min-width: 768px) {
+  .video-container {
+    flex-direction: row; /* Side by side layout on larger screens */
+  }
+
+  .video-left {
+    margin-right: 20px;
+  }
+
+  .video-right {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .video-right h2 {
+    font-size: 24px;
+  }
+  .video-right p,
+  .video-right ul {
+    font-size: 14px;
+  }
+  .video-right li {
+    font-size: 14px;
+  }
 }

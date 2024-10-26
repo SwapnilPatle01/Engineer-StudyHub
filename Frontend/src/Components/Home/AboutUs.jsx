@@ -5,6 +5,7 @@ import {
   UserOutlined,
   StarOutlined,
 } from "@ant-design/icons";
+import "./AboutUs.css";
 
 const { Title, Text } = Typography;
 
@@ -24,9 +25,9 @@ const AboutUs = () => {
       <Row gutter={[2, 2]} align="middle">
         {/* Left Column - 50% width */}
         <Col xs={24} sm={24} md={12} lg={12}>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div className="review-video-wrapper">
             {/* Left Part: Review Box and Image Below */}
-            <div style={{ width: "30%" }}>
+            <div className="revieww-container">
               {/* Review Box */}
               <Card
                 style={{
@@ -58,14 +59,7 @@ const AboutUs = () => {
             </div>
 
             {/* Right Part: Video/Image with Play Button */}
-            <div
-              style={{
-                marginLeft: "20px",
-                position: "relative",
-                width: "62%",
-                textAlign: "center",
-              }}
-            >
+            <div className="videoo-container">
               <img
                 src="https://html.themewant.com/studyhub/assets/images/about/01.jpg"
                 alt="Video"
@@ -132,8 +126,19 @@ const AboutUs = () => {
           </div>
 
           {/* Expert and Instructors Section */}
-          <Row gutter={16} style={{ marginTop: "10px" }}>
-            <Col span={12}>
+          <Row
+            gutter={16}
+            style={{
+              marginTop: "10px",
+            }}
+          >
+            <Col
+              xs={24}
+              sm={24}
+              md={12}
+              lg={12}
+              style={{ paddingBottom: "20px" }} // Padding between cards
+            >
               <Card
                 bodyStyle={{ padding: "10px", textAlign: "center" }}
                 bordered={false}
@@ -150,7 +155,13 @@ const AboutUs = () => {
                 </Text>
               </Card>
             </Col>
-            <Col span={12}>
+            <Col
+              xs={24}
+              sm={24}
+              md={12}
+              lg={12}
+              style={{ paddingBottom: "20px" }} // Padding between cards
+            >
               <Card
                 bodyStyle={{ padding: "10px", textAlign: "center" }}
                 bordered={false}
@@ -168,57 +179,69 @@ const AboutUs = () => {
               </Card>
             </Col>
           </Row>
-
           {/* CEO Section */}
-          <div style={{ marginTop: "30px" }}>
+          <div style={{ marginTop: "30px", padding: "20px" }}>
             <Row gutter={16} align="middle">
-              <Col>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROrNO-3i-suP7E4U1ujqk67dgi4mkiqiMQBQ&s"
-                  alt="CEO & Founder"
-                  style={{
-                    borderRadius: "50%",
-                    width: "50px",
-                    height: "50px",
-                    objectFit: "cover",
-                  }}
-                />
+              <Col
+                xs={{ span: 24 }}
+                sm={{ span: 12 }}
+                md={{ span: 12 }}
+                style={{ marginBottom: "25px" }}
+              >
+                <Row align="middle">
+                  <Col>
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROrNO-3i-suP7E4U1ujqk67dgi4mkiqiMQBQ&s"
+                      alt="CEO & Founder"
+                      style={{
+                        borderRadius: "50%",
+                        width: "50px",
+                        height: "50px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Col>
+                  <Col style={{ marginLeft: "10px" }}>
+                    <Text strong style={{ fontSize: "16px", color: "#333" }}>
+                      Swapnil Patle
+                    </Text>
+                    <br />
+                    <Text style={{ fontSize: "14px", color: "#888" }}>
+                      Founder, Engineer StudyHub
+                    </Text>
+                  </Col>
+                </Row>
               </Col>
-              <Col>
-                <Text strong style={{ fontSize: "16px", color: "#333" }}>
-                  Swapnil Patle
-                </Text>
-                <br />
-                <Text
-                  style={{
-                    fontSize: "14px",
-                    color: "#888",
-                    paddingRight: "50px",
-                  }}
-                >
-                  Founder, Engineer StudyHub
-                </Text>
-              </Col>
-              <Col>
-                <img
-                  src="https://media.licdn.com/dms/image/v2/D5603AQEBmg-wc9nIAQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1679968900193?e=1734566400&v=beta&t=MN5EozGGIpoVFd6oCsK2gFe0DuTtIzBSi6tvUGg-RvA"
-                  alt="CTO & Co-Founder"
-                  style={{
-                    borderRadius: "50%",
-                    width: "50px",
-                    height: "50px",
-                    objectFit: "cover",
-                  }}
-                />
-              </Col>
-              <Col>
-                <Text strong style={{ fontSize: "16px", color: "#333" }}>
-                  Ghamesh Rahangdale
-                </Text>
-                <br />
-                <Text style={{ fontSize: "14px", color: "#888" }}>
-                  Co-Founder, Engineer StudyHub
-                </Text>
+
+              <Col
+                xs={{ span: 24 }}
+                sm={{ span: 12 }}
+                md={{ span: 12 }}
+                style={{ marginBottom: "25px" }}
+              >
+                <Row align="middle">
+                  <Col>
+                    <img
+                      src="https://media.licdn.com/dms/image/v2/D5603AQEBmg-wc9nIAQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1679968900193?e=1734566400&v=beta&t=MN5EozGGIpoVFd6oCsK2gFe0DuTtIzBSi6tvUGg-RvA"
+                      alt="CTO & Co-Founder"
+                      style={{
+                        borderRadius: "50%",
+                        width: "50px",
+                        height: "50px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Col>
+                  <Col style={{ marginLeft: "10px" }}>
+                    <Text strong style={{ fontSize: "16px", color: "#333" }}>
+                      Ghamesh Rahangdale
+                    </Text>
+                    <br />
+                    <Text style={{ fontSize: "14px", color: "#888" }}>
+                      Co-Founder, Engineer StudyHub
+                    </Text>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </div>
