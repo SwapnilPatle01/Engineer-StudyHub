@@ -190,3 +190,33 @@ button {
 .register-image img {
   max-width: 100%;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .register-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .register-card {
+    flex-direction: column;
+    width: 100%;
+  }
+  .login-image {
+    height: 200px;
+  }
+  .register-form {
+    padding: 20px;
+  }
+  .logo-text {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-form {
+    padding: 15px;
+  }
+  .form-title {
+    font-size: 1.5rem;
+  }
+}
