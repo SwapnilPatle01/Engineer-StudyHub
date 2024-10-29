@@ -3,21 +3,17 @@ import { Button, Empty, Typography } from "antd";
 
 function AboutUs() {
   return (
-    <div>
-      <Empty
-        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-        imageStyle={{ height: 200, marginTop: 50 }}
-        description={
-          <Typography.Text>
-            Currently we are woring on it this component is under review 
-          </Typography.Text>
-        }
-      >
-        <Button type="primary" style={{ marginBottom: "50px" }}>
-          Know More
-        </Button>
-      </Empty>
-    </div>
+    <Empty
+      image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+      imageStyle={{ height: 60 }}
+      description={
+        <Typography.Text>
+          We are working on it <a href="#API">Waiting for API</a>
+        </Typography.Text>
+      }
+    >
+      <Button type="primary">Contribute</Button>
+    </Empty>
   );
 }
 

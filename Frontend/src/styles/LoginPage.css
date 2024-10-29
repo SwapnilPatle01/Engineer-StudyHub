@@ -159,3 +159,36 @@ body {
   text-align: center;
   margin-top: 20px;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .login-card {
+    flex-direction: column;
+    width: 100%;
+  }
+  .login-image {
+    height: 200px;
+  }
+  .login-form {
+    padding: 20px;
+  }
+  .login-button {
+    font-size: 14px;
+  }
+  .logo-container h2 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    padding: 15px;
+  }
+  .form-title {
+    font-size: 1.5rem;
+  }
+}

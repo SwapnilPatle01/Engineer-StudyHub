@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegistrationPage";
 import JobDetails from "./Components/JobPortal/JobDetails";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
+import AboutUs from "./Components/AboutUs/AboutUs";
 import KnowMorePage from "./Components/JobPortal/KnowMore";
 import CompanyDashboardPage from "./pages/CompanyDashboardPage";
 import CompanyProfile from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyProfile";
