@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegistrationPage";
 import JobDetails from "./Components/JobPortal/JobDetails";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
+import AboutUs from "./Components/AboutUs/AboutUs";
 import KnowMorePage from "./Components/JobPortal/KnowMore";
 import CompanyDashboardPage from "./pages/CompanyDashboardPage";
 import CompanyProfile from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyProfile";
@@ -37,6 +38,7 @@ function App() {
             <Route path="job/:id" element={<JobDetails />} />
             <Route path="/know-more/:jobId" element={<KnowMorePage />} />
             <Route path="ContactUs" element={<ContactUs />} />
+            <Route path="AboutUs" element={<AboutUs />} />
             <Route path="engineerLib" element={<LearningMaterial />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="*" element={<JobPortalPage />} />
