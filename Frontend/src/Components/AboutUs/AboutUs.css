@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.aboutus-card {
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.aboutus-card:hover {
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px;
+}
