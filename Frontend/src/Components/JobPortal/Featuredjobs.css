@@ -25,14 +25,14 @@
   gap: 20px;
   justify-content: center;
   margin-top: 30px;
-  padding: 0 50px;
+  /* padding: 0 50px; */
 }
 
 .job-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   width: 300px;
-  height: auto; 
+  height: auto;
   text-align: center;
   display: flex;
   flex-direction: column;
