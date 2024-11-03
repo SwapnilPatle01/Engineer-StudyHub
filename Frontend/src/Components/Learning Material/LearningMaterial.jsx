@@ -37,7 +37,7 @@ function LearningMaterial() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/resource/resources",
+          "http://localhost:5000/api/v1/resource/resources"
         );
         const learningData = response.data;
         setSubmittedLearning(learningData);
@@ -92,7 +92,7 @@ function LearningMaterial() {
   const handleUniversityChange = (value) => {
     setSelectedUniversity(value);
     const filteredBranches = submittedLearning.filter(
-      (item) => item.university === value,
+      (item) => item.university === value
     );
     const uniqueBranches = [
       ...new Set(filteredBranches.map((item) => item.branch)),
@@ -109,7 +109,7 @@ function LearningMaterial() {
   const handleBranchChange = (value) => {
     setSelectedBranch(value);
     const filteredSemesters = submittedLearning.filter(
-      (item) => item.university === selectedUniversity && item.branch === value,
+      (item) => item.university === selectedUniversity && item.branch === value
     );
     const uniqueSemesters = [
       ...new Set(filteredSemesters.map((item) => item.semester)),
@@ -128,7 +128,7 @@ function LearningMaterial() {
       (item) =>
         item.university === selectedUniversity &&
         item.branch === selectedBranch &&
-        item.semester === value,
+        item.semester === value
     );
     const uniqueSubjects = [
       ...new Set(filteredSubjects.map((item) => item.subject)),
@@ -150,22 +150,22 @@ function LearningMaterial() {
   const filteredNotes = notes.filter((note) =>
     submittedLearning.some(
       (item) =>
-        item.note?.title === note.title && item.subject === selectedSubject,
-    ),
+        item.note?.title === note.title && item.subject === selectedSubject
+    )
   );
 
   const filteredPyqs = pyqs.filter((pyq) =>
     submittedLearning.some(
       (item) =>
-        item.pyq?.title === pyq.title && item.subject === selectedSubject,
-    ),
+        item.pyq?.title === pyq.title && item.subject === selectedSubject
+    )
   );
 
   const filteredVideos = videoLectures.filter((video) =>
     submittedLearning.some(
       (item) =>
-        item.video?.title === video.title && item.subject === selectedSubject,
-    ),
+        item.video?.title === video.title && item.subject === selectedSubject
+    )
   );
 
   return (
@@ -295,7 +295,12 @@ function LearningMaterial() {
                         <div>
                           <Button
                             style={{ marginRight: "10px" }}
-                            onClick={() => window.open(note.pdf, "_blank")}
+                            onClick={() =>
+                              window.open(
+                                `http://localhost:5000/${note.pdf}`,
+                                "_blank"
+                              )
+                            }
                           >
                             View
                           </Button>
@@ -304,7 +309,7 @@ function LearningMaterial() {
                             style={{ border: "none" }}
                             onClick={() => {
                               const link = document.createElement("a");
-                              link.href = note.pdf;
+                              link.href = `http://localhost:5000/${note.pdf}`;
                               link.setAttribute("download", note.title);
                               document.body.appendChild(link);
                               link.click();
@@ -328,7 +333,12 @@ function LearningMaterial() {
                         <div>
                           <Button
                             style={{ marginRight: "10px" }}
-                            onClick={() => window.open(pyq.pdf, "_blank")}
+                            onClick={() =>
+                              window.open(
+                                `http://localhost:5000/${pyq.pdf}`,
+                                "_blank"
+                              )
+                            }
                           >
                             View
                           </Button>
@@ -337,7 +347,7 @@ function LearningMaterial() {
                             style={{ border: "none" }}
                             onClick={() => {
                               const link = document.createElement("a");
-                              link.href = pyq.pdf;
+                              link.href = `http://localhost:5000/${pyq.pdf}`;
                               link.setAttribute("download", pyq.title);
                               document.body.appendChild(link);
                               link.click();
