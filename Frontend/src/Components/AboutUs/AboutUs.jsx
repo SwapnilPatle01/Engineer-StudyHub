@@ -30,7 +30,16 @@ function AboutUs() {
         "Co-founder and React full stack developer of Engineer StudyHub, Ghamesh Rahangdale plays a pivotal role in the platform's development. His expertise in modern web technologies helps create a seamless learning experience, empowering engineering students with the tools they need for success in their academic and professional journeys.",
       image:
         "https://media.licdn.com/dms/image/v2/D5603AQEBmg-wc9nIAQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1679968900193?e=1734566400&v=beta&t=MN5EozGGIpoVFd6oCsK2gFe0DuTtIzBSi6tvUGg-RvA",
-      linkedin: "https://in.linkedin.com/in/ghamesh-rahangdale-233753221",
+      linkedin: "https://www.linkedin.com/in/ghamesh-rahangdale-233753221/",
+    },
+    {
+      name: "Hari Yengantiwar",
+      title: "Co-Founder | Resource Management Specialist",
+      description:
+        "Co-founder and web developer of Engineer StudyHub, Hari Yengantiwar excels in resource management, ensuring efficient delivery of high-quality educational materials. His web development skills enhance the platform’s functionality, creating a seamless user experience for engineering students.",
+      image:
+        "https://media.licdn.com/dms/image/v2/D5635AQHymr7VyxLdtg/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1721381594722?e=1731218400&v=beta&t=8R-EeNSkRG2y0fosXkzCchCeE46Ta-uXM_KDGfQ1FCs",
+      linkedin: "https://www.linkedin.com/in/hari-yengantiwar-09592a257/",
     },
     {
       name: "Prof. Rahul Bhandekar",
@@ -45,7 +54,7 @@ function AboutUs() {
       name: "Rupendra Girare",
       title: "Startup Entrepreneur | Mentor",
       description:
-        "Rupendra Girare is an innovative startup entrepreneur with a passion for cryptocurrency and digital content creation. As a YouTuber, he shares insights and knowledge on emerging technologies and entrepreneurial strategies, inspiring aspiring business leaders. His mentorship plays a vital role in guiding students and entrepreneurs alike, fostering a spirit of creativity and collaboration within the community.",
+        "Rupendra Girare is a startup entrepreneur and YouTuber passionate about cryptocurrency and digital content creation. His insights on emerging technologies and entrepreneurial strategies inspire aspiring business leaders, while his mentorship fosters creativity and collaboration within the community.",
       image:
         "https://media.licdn.com/dms/image/v2/D5603AQE1PRl7imis4w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726749964356?e=1736380800&v=beta&t=-k6-y_QQ6fC7eESx_j8EtWH-OZw58ZjYLIIt1qndOww",
       linkedin: "https://www.linkedin.com/in/rupendragirare/",
