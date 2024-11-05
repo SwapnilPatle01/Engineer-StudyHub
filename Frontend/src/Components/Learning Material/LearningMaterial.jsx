@@ -12,6 +12,7 @@ import {
   Typography,
 } from "antd";
 import axios from "axios";
+import "./LearningMaterial.css";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
@@ -170,7 +171,7 @@ function LearningMaterial() {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider width={285} backgroundColor="#553CDF">
+      <Sider width={285} backgroundColor="#553CDF" className="responsive-sider">
         <Menu
           mode="inline"
           defaultSelectedKeys={["1"]}
@@ -290,7 +291,7 @@ function LearningMaterial() {
               <TabPane tab="Notes" key="1">
                 <Row gutter={[16, 16]}>
                   {filteredNotes.map((note, index) => (
-                    <Col span={24} key={index}>
+                    <Col span={24} sm={12} md={8} lg={6} key={index}>
                       <Card title={note.title} bordered={false}>
                         <div>
                           <Button
@@ -328,7 +329,7 @@ function LearningMaterial() {
               <TabPane tab="Previous Year Questions" key="2">
                 <Row gutter={[16, 16]}>
                   {filteredPyqs.map((pyq, index) => (
-                    <Col span={24} key={index}>
+                    <Col span={24} sm={12} md={8} lg={6} key={index}>
                       <Card title={pyq.title} bordered={false}>
                         <div>
                           <Button
@@ -401,7 +402,7 @@ function LearningMaterial() {
               <TabPane tab="Video Lectures" key="3">
                 <Row gutter={[16, 16]}>
                   {filteredVideos.map((video, index) => (
-                    <Col span={24} key={index}>
+                    <Col span={24} sm={12} md={8} lg={6} key={index}>
                       <Card title={video.title} bordered={false}>
                         <div>
                           <Button
@@ -416,6 +417,11 @@ function LearningMaterial() {
                 </Row>
               </TabPane>
             </Tabs>
+            {filteredNotes.length === 0 &&
+              filteredPyqs.length === 0 &&
+              filteredVideos.length === 0 && (
+                <Empty description="No materials found" />
+              )}
           </Content>
         ) : (
           <Content style={{ padding: "24px", textAlign: "center" }}>
