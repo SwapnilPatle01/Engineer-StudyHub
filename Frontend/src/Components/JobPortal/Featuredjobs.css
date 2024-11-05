@@ -32,7 +32,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   width: 300px;
-  height: auto; 
+  height: auto;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -115,4 +115,71 @@
   right: 15px;
   font-size: 0.8em;
   color: gray;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .header {
+    font-size: 1.6rem;
+  }
+
+  .job-card {
+    padding: 15px;
+  }
+
+  .job-title {
+    font-size: 1.3rem;
+  }
+
+  .tags .tag {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+  }
+
+  .company-logo {
+    width: 35px;
+    height: 35px;
+  }
+
+  .view-btn {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .job-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    font-size: 1.4rem;
+  }
+
+  .job-info .package,
+  .job-info .location {
+    font-size: 0.9rem;
+  }
+
+  .job-title {
+    font-size: 1.2rem;
+  }
+
+  .tags .tag {
+    font-size: 0.8rem;
+  }
+
+  .company-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .view-btn {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+
+  .views {
+    font-size: 0.85rem;
+  }
 }
