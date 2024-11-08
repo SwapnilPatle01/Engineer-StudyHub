@@ -55,11 +55,11 @@ const HeroSlider = () => {
                 level={1}
                 className="slide-heading"
                 style={{
-                  fontSize: "50px",
+                  fontSize: "45px",
                   color: "#221859",
                   fontWeight: "600",
                   lineHeight: "66px",
-                  marginTop: "10px",
+                  marginTop: "5px",
                   position: "relative",
                   fontFamily: "Hind",
                 }}
@@ -69,7 +69,7 @@ const HeroSlider = () => {
                 with{" "}
                 <span
                   style={{
-                    fontSize: "56px",
+                    fontSize: "40px",
                     fontWeight: "bold",
                     lineHeight: "66px",
                     background: "linear-gradient(45deg, #5B2F91, #3F7DAA)",

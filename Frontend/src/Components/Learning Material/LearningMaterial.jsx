@@ -296,7 +296,12 @@ function LearningMaterial() {
                         <div>
                           <Button
                             style={{ marginRight: "10px" }}
-                            onClick={() => window.open(note.pdf, "_blank")}
+                            onClick={() =>
+                              window.open(
+                                `http://localhost:5000/${note.pdf}`,
+                                "_blank"
+                              )
+                            }
                           >
                             View
                           </Button>
@@ -305,7 +310,7 @@ function LearningMaterial() {
                             style={{ border: "none" }}
                             onClick={() => {
                               const link = document.createElement("a");
-                              link.href = note.pdf;
+                              link.href = `http://localhost:5000/${note.pdf}`;
                               link.setAttribute("download", note.title);
                               document.body.appendChild(link);
                               link.click();
@@ -329,7 +334,12 @@ function LearningMaterial() {
                         <div>
                           <Button
                             style={{ marginRight: "10px" }}
-                            onClick={() => window.open(pyq.pdf, "_blank")}
+                            onClick={() =>
+                              window.open(
+                                `http://localhost:5000/${pyq.pdf}`,
+                                "_blank"
+                              )
+                            }
                           >
                             View
                           </Button>
@@ -338,7 +348,7 @@ function LearningMaterial() {
                             style={{ border: "none" }}
                             onClick={() => {
                               const link = document.createElement("a");
-                              link.href = pyq.pdf;
+                              link.href = `http://localhost:5000/${pyq.pdf}`;
                               link.setAttribute("download", pyq.title);
                               document.body.appendChild(link);
                               link.click();
