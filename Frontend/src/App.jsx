@@ -33,7 +33,7 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="learning-material" element={<LearningMaterial />} />
-            <Route path="JobPortal" element={<JobPortalPage />} />
+            <Route path="JobDetails" element={<JobPortalPage />} />
             <Route path="DevelopersHub" element={<DeveloperPage />} />
             <Route path="job/:id" element={<JobDetails />} />
             <Route path="/know-more/:jobId" element={<KnowMorePage />} />
