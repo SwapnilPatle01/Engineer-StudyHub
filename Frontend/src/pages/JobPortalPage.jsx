@@ -1,5 +1,5 @@
 import React from "react";
-import JobPortal from "../Components/JobPortal/JobPortal";
+import JobPortal from "../Components/JobPortal/JobDetails";
 
 function JobPortalPage() {
   return (
