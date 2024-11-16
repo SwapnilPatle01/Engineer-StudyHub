@@ -8,10 +8,12 @@ import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import addResourceRoute from "./routes/resource.routes.js";
 import userRoute from "./routes/userRoutes.js";
+import path, { resolve } from "path";
 
 dotenv.config();
 
 const app = express(); // Initialize express application
+const _dirname = path.resolve();
 
 // CORS configuration
 const corsOptions = {
@@ -34,6 +36,11 @@ app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 app.use("/api/v1/resource", addResourceRoute);
+
+app.use(express.static(path.join(_dirname, "/Frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(_dirname, "Frontend", "build", "index.html"));
+});
 
 // Health check route
 app.get("/health", (req, res) => {
@@ -62,11 +69,11 @@ app.get("/", (req, res) => {
 // Start the server
 const server = app.listen(PORT, async () => {
   try {
-    await connectDB(); // Connect to the database
+    await connectDB();
     console.log(`Server running at http://localhost:${PORT}`);
   } catch (error) {
     console.error("Database connection failed:", error);
-    process.exit(1); // Exit the process if the connection fails
+    process.exit(1);
   }
 });
 
