@@ -286,12 +286,12 @@ function LearningMaterial() {
 
       <Layout style={{ background: "#f0f0f0" }}>
         {showContent ? (
-          <Content style={{ padding: "24px" }}>
+          <Content style={{ padding: "24px", width: "100%" }}>
             <Tabs defaultActiveKey="1">
               <TabPane tab="Notes" key="1">
                 <Row gutter={[16, 16]}>
                   {filteredNotes.map((note, index) => (
-                    <Col span={24} sm={12} md={8} lg={6} key={index}>
+                    <Col span={24} sm={12} md={8} lg={23} key={index}>
                       <Card title={note.title} bordered={false}>
                         <div>
                           <Button
@@ -329,7 +329,7 @@ function LearningMaterial() {
               <TabPane tab="Previous Year Questions" key="2">
                 <Row gutter={[16, 16]}>
                   {filteredPyqs.map((pyq, index) => (
-                    <Col span={24} sm={12} md={8} lg={6} key={index}>
+                    <Col span={24} sm={12} md={8} lg={23} key={index}>
                       <Card title={pyq.title} bordered={false}>
                         <div>
                           <Button
@@ -402,10 +402,22 @@ function LearningMaterial() {
               <TabPane tab="Video Lectures" key="3">
                 <Row gutter={[16, 16]}>
                   {filteredVideos.map((video, index) => (
-                    <Col span={24} sm={12} md={8} lg={6} key={index}>
+                    <Col span={24} sm={12} md={8} lg={23} key={index}>
                       <Card title={video.title} bordered={false}>
                         <div>
+                          <div>
+                            <img
+                              style={{
+                                width: "250px",
+                                marginBottom: "20px",
+                              }}
+                              src="https://i.ytimg.com/vi/I7RWAQgMRVI/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBPnfC0gGKXWqKMuH9-orfmCbLaMA"
+                              alt="img"
+                            />
+                          </div>
                           <Button
+                            type="primary"
+                            style={{ width: "120px" }}
                             onClick={() => window.open(video.link, "_blank")}
                           >
                             Watch Video
