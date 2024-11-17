@@ -132,7 +132,7 @@
 /* Box Positioning */
 .top-box {
   top: 10%;
-  left: 0;
+  left: 500px;
   animation: floating-box-top 6s ease-in-out infinite;
 }
 
@@ -150,8 +150,8 @@
 }
 
 .lower-left-box {
-  left: -100px;
-  bottom: 5%;
+  left: 180px;
+  bottom: 10%;
   animation: floating-box-lower-left 6s ease-in-out infinite;
 }
 
@@ -286,6 +286,7 @@
 }
 
 /* Add Media Queries for Responsive */
+
 @media (max-width: 768px) {
   .slide-content {
     flex-direction: column-reverse;
@@ -339,12 +340,17 @@
   }
   .bottom-box {
     margin-right: 40px;
+    width: 150px;
   }
   .left-box {
-    display: none;
+    display: block;
+    margin-left: 80px;
+    width: 150px;
   }
   .lower-left-box {
-    margin-left: 100px;
+    bottom: 6%;
+    margin-left: -20px;
+    width: 150px;
   }
 }
 /* Media query for screens between 768px and 1024px */

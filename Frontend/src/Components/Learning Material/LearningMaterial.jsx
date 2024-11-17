@@ -12,6 +12,7 @@ import {
   Typography,
 } from "antd";
 import axios from "axios";
+import "./LearningMaterial.css";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
@@ -37,7 +38,7 @@ function LearningMaterial() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/resource/resources",
+          "http://localhost:5000/api/v1/resource/resources"
         );
         const learningData = response.data;
         setSubmittedLearning(learningData);
@@ -92,7 +93,7 @@ function LearningMaterial() {
   const handleUniversityChange = (value) => {
     setSelectedUniversity(value);
     const filteredBranches = submittedLearning.filter(
-      (item) => item.university === value,
+      (item) => item.university === value
     );
     const uniqueBranches = [
       ...new Set(filteredBranches.map((item) => item.branch)),
@@ -109,7 +110,7 @@ function LearningMaterial() {
   const handleBranchChange = (value) => {
     setSelectedBranch(value);
     const filteredSemesters = submittedLearning.filter(
-      (item) => item.university === selectedUniversity && item.branch === value,
+      (item) => item.university === selectedUniversity && item.branch === value
     );
     const uniqueSemesters = [
       ...new Set(filteredSemesters.map((item) => item.semester)),
@@ -128,7 +129,7 @@ function LearningMaterial() {
       (item) =>
         item.university === selectedUniversity &&
         item.branch === selectedBranch &&
-        item.semester === value,
+        item.semester === value
     );
     const uniqueSubjects = [
       ...new Set(filteredSubjects.map((item) => item.subject)),
@@ -150,27 +151,27 @@ function LearningMaterial() {
   const filteredNotes = notes.filter((note) =>
     submittedLearning.some(
       (item) =>
-        item.note?.title === note.title && item.subject === selectedSubject,
-    ),
+        item.note?.title === note.title && item.subject === selectedSubject
+    )
   );
 
   const filteredPyqs = pyqs.filter((pyq) =>
     submittedLearning.some(
       (item) =>
-        item.pyq?.title === pyq.title && item.subject === selectedSubject,
-    ),
+        item.pyq?.title === pyq.title && item.subject === selectedSubject
+    )
   );
 
   const filteredVideos = videoLectures.filter((video) =>
     submittedLearning.some(
       (item) =>
-        item.video?.title === video.title && item.subject === selectedSubject,
-    ),
+        item.video?.title === video.title && item.subject === selectedSubject
+    )
   );
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider width={285} backgroundColor="#553CDF">
+      <Sider width={285} backgroundColor="#553CDF" className="responsive-sider">
         <Menu
           mode="inline"
           defaultSelectedKeys={["1"]}
@@ -285,17 +286,22 @@ function LearningMaterial() {
 
       <Layout style={{ background: "#f0f0f0" }}>
         {showContent ? (
-          <Content style={{ padding: "24px" }}>
+          <Content style={{ padding: "24px", width: "100%" }}>
             <Tabs defaultActiveKey="1">
               <TabPane tab="Notes" key="1">
                 <Row gutter={[16, 16]}>
                   {filteredNotes.map((note, index) => (
-                    <Col span={24} key={index}>
+                    <Col span={24} sm={12} md={8} lg={23} key={index}>
                       <Card title={note.title} bordered={false}>
                         <div>
                           <Button
                             style={{ marginRight: "10px" }}
-                            onClick={() => window.open(note.pdf, "_blank")}
+                            onClick={() =>
+                              window.open(
+                                `http://localhost:5000/${note.pdf}`,
+                                "_blank"
+                              )
+                            }
                           >
                             View
                           </Button>
@@ -304,7 +310,7 @@ function LearningMaterial() {
                             style={{ border: "none" }}
                             onClick={() => {
                               const link = document.createElement("a");
-                              link.href = note.pdf;
+                              link.href = `http://localhost:5000/${note.pdf}`;
                               link.setAttribute("download", note.title);
                               document.body.appendChild(link);
                               link.click();
@@ -323,12 +329,17 @@ function LearningMaterial() {
               <TabPane tab="Previous Year Questions" key="2">
                 <Row gutter={[16, 16]}>
                   {filteredPyqs.map((pyq, index) => (
-                    <Col span={24} key={index}>
+                    <Col span={24} sm={12} md={8} lg={23} key={index}>
                       <Card title={pyq.title} bordered={false}>
                         <div>
                           <Button
                             style={{ marginRight: "10px" }}
-                            onClick={() => window.open(pyq.pdf, "_blank")}
+                            onClick={() =>
+                              window.open(
+                                `http://localhost:5000/${pyq.pdf}`,
+                                "_blank"
+                              )
+                            }
                           >
                             View
                           </Button>
@@ -337,7 +348,7 @@ function LearningMaterial() {
                             style={{ border: "none" }}
                             onClick={() => {
                               const link = document.createElement("a");
-                              link.href = pyq.pdf;
+                              link.href = `http://localhost:5000/${pyq.pdf}`;
                               link.setAttribute("download", pyq.title);
                               document.body.appendChild(link);
                               link.click();
@@ -391,10 +402,22 @@ function LearningMaterial() {
               <TabPane tab="Video Lectures" key="3">
                 <Row gutter={[16, 16]}>
                   {filteredVideos.map((video, index) => (
-                    <Col span={24} key={index}>
+                    <Col span={24} sm={12} md={8} lg={23} key={index}>
                       <Card title={video.title} bordered={false}>
                         <div>
+                          <div>
+                            <img
+                              style={{
+                                width: "250px",
+                                marginBottom: "20px",
+                              }}
+                              src="https://i.ytimg.com/vi/I7RWAQgMRVI/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBPnfC0gGKXWqKMuH9-orfmCbLaMA"
+                              alt="img"
+                            />
+                          </div>
                           <Button
+                            type="primary"
+                            style={{ width: "120px" }}
                             onClick={() => window.open(video.link, "_blank")}
                           >
                             Watch Video
@@ -406,6 +429,11 @@ function LearningMaterial() {
                 </Row>
               </TabPane>
             </Tabs>
+            {filteredNotes.length === 0 &&
+              filteredPyqs.length === 0 &&
+              filteredVideos.length === 0 && (
+                <Empty description="No materials found" />
+              )}
           </Content>
         ) : (
           <Content style={{ padding: "24px", textAlign: "center" }}>

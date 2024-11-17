@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Carousel, Typography, Row, Col } from "antd";
 
 import "./Home.css";
-import Girl from "../../assets/images/01.webp";
+// import Girl from "../../assets/images/01.webp";
 
 const { Title, Paragraph } = Typography;
 
@@ -55,11 +55,11 @@ const HeroSlider = () => {
                 level={1}
                 className="slide-heading"
                 style={{
-                  fontSize: "50px",
+                  fontSize: "45px",
                   color: "#221859",
                   fontWeight: "600",
                   lineHeight: "66px",
-                  marginTop: "10px",
+                  marginTop: "5px",
                   position: "relative",
                   fontFamily: "Hind",
                 }}
@@ -69,7 +69,7 @@ const HeroSlider = () => {
                 with{" "}
                 <span
                   style={{
-                    fontSize: "56px",
+                    fontSize: "40px",
                     fontWeight: "bold",
                     lineHeight: "66px",
                     background: "linear-gradient(45deg, #5B2F91, #3F7DAA)",
@@ -141,16 +141,16 @@ const HeroSlider = () => {
           >
             <div className="right-section">
               <img
-                src={Girl}
+                src="https://studyhub.org.uk/wp-content/uploads/2023/10/Image-18-1-1007x1024.png"
                 alt="Student"
                 className="student-image"
                 style={{ height: "100%", maxWidth: 600 }}
               />
               {/* Review Boxes */}
-              <div className="review-box top-box">
+              {/* <div className="review-box top-box">
                 <span className="review-count">100+</span>
                 <p>Online Courses</p>
-              </div>
+              </div> */}
               <div className="review-box bottom-box">
                 <span className="review-count">4.6K+</span>
                 <p>Best study notes & materials</p>

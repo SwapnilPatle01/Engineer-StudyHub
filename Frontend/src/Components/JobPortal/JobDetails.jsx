@@ -33,6 +33,7 @@ const JobDetails = () => {
       buttonColor: "#87CEEB",
       startDate: "2024-01-01",
       experience: "0-1 years",
+      formUrl: "https://groww.in/",
     },
     {
       id: 2,
@@ -44,6 +45,7 @@ const JobDetails = () => {
       views: 2092,
       logo: require("../../assets/images/anthology.png"),
       buttonColor: "#87CEEB",
+      formUrl: "https://www.anthology.com/en-in/our-offices",
     },
     {
       id: 3,
@@ -301,9 +303,12 @@ const JobDetails = () => {
     },
   ];
 
-  const job = FeaturedJobCards.find((job) => job.id === parseInt(id));
+  const [activeItem, setActiveItem] = useState(""); // Track active sidebar item
 
-  if (!job) return <div>Job not found</div>;
+  const handleItemClick = (type) => {
+    setActiveItem(type); // Update active item
+    setSelectedJobType(type); // Set job type based on item
+  };
 
   const handleApplyNow = (formUrl) => {
     window.open(formUrl, "_blank");
@@ -323,7 +328,7 @@ const JobDetails = () => {
         }}
       >
         <div className="icon-container">
-          <div className="icon-item" style={{marginTop:"20px"}}>
+          <div className="icon-item" style={{ marginTop: "20px" }}>
             <span
               style={{ fontSize: "20px", color: "#553cdf", fontWeight: "700" }}
             >
@@ -396,7 +401,7 @@ const JobDetails = () => {
       </Sider>
 
       <Layout>
-        <Content style={{ padding: "20px" }}>
+        <Content style={{ padding: "35px" }}>
           {selectedJobType === "freshers" && (
             <div>
               <h2>Freshers Jobs</h2>
@@ -408,7 +413,7 @@ const JobDetails = () => {
                     hoverable
                     style={{
                       width: "350px",
-                      height: "350px",
+                      height: "340px",
                       borderRadius: "12px",
                       border: "1px solid #f0f0f0",
                       boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
