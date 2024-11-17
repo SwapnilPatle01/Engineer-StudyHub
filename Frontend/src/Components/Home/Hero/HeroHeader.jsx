@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, Carousel, Typography, Row, Col } from "antd";
+import { Button, Carousel, Typography, Row, Col, Input } from "antd";
 
-import "./Home.css";
+import "../Home.css";
 // import Girl from "../../assets/images/01.webp";
 
 const { Title, Paragraph } = Typography;
@@ -9,7 +9,6 @@ const { Title, Paragraph } = Typography;
 const HeroSlider = () => {
   return (
     <Carousel autoplay>
-      {/* Slide 1 */}
       <div className="slide-container">
         <Row
           className="slide-content"
@@ -30,58 +29,42 @@ const HeroSlider = () => {
             className="left-main"
           >
             <div className="left-section">
+              {/* Search Bar */}
               <div
+                className="search-bar"
                 style={{
-                  textAlign: "left",
+                  marginTop: "20px",
                   marginBottom: "20px",
-                  display: "flex",
-                  alignItems: "center",
+                  display: "block",
                 }}
               >
-                <img
-                  src="https://html.themewant.com/studyhub/assets/images/banner/bulb.png"
-                  alt="Gateway to Lifelong Learning"
-                  style={{ width: "40px", height: "40px", marginRight: "10px" }}
+                <Input.Search
+                  placeholder="Search PYQs, Notes, Syllabus..."
+                  enterButton="Explore"
+                  size="large"
+                  style={{
+                    maxWidth: "50%",
+                    borderRadius: "0px",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                    border:"none"
+                  }}
+                  onSearch={(value) => console.log(`Search for: ${value}`)}
                 />
-                <span
-                  className="responsive-text"
-                  style={{ fontSize: "20px", color: "#723bdb" }}
-                >
-                  Your Gateway to Engineering Success
-                </span>
               </div>
-
               <Title
                 level={1}
                 className="slide-heading"
                 style={{
                   fontSize: "45px",
-                  color: "#221859",
-                  fontWeight: "600",
-                  lineHeight: "66px",
+                  color: "#ff914d",
+                  fontWeight: "400",
+                  lineHeight: "50px",
                   marginTop: "5px",
                   position: "relative",
-                  fontFamily: "Hind",
+                  fontFamily: "Cherry Bomb One",
                 }}
               >
-                Unlock Your Potential
-                <br />
-                with{" "}
-                <span
-                  style={{
-                    fontSize: "40px",
-                    fontWeight: "bold",
-                    lineHeight: "66px",
-                    background: "linear-gradient(45deg, #5B2F91, #3F7DAA)",
-                    backgroundClip: "text",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    letterSpacing: "1px",
-                    fontFamily: "Arial, sans-serif",
-                  }}
-                >
-                  Online Learning Materials
-                </span>
+                Your Ultimate Destination for Engineering Success!
               </Title>
               <Paragraph
                 className="slide-title"
@@ -92,27 +75,30 @@ const HeroSlider = () => {
                   marginTop: "-19px",
                 }}
               >
-                Engineer Study Hub provides essential resources like subject
-                notes, past year question papers, and video lectures to help you
-                excel in your studies. Unlock your potential and pave your way
-                to academic and professional success with us!
+                Access essential resources like subject notes, PYQs, and video
+                lectures. Engineer Study Hub empowers you to excel in academics
+                and beyond. Unlock your potential and build a path to success
+                today!
               </Paragraph>
+
+              {/* Buttons */}
               <div className="buttons">
                 <Button
                   type="primary"
                   size="large"
                   style={{
-                    backgroundColor: "#553CDF",
+                    backgroundColor: "#ff914d",
                     color: "#fff",
                     marginRight: "10px",
                     padding: "14px 34px",
                     borderRadius: "4px",
                     transition: "0.3s",
                     fontWeight: "500",
-                    width: "150px",
+                    width: "auto",
+                    border: "none",
                   }}
                 >
-                  Get Started
+                  Explore Learning Materials
                 </Button>
                 <Button
                   size="large"
@@ -122,12 +108,25 @@ const HeroSlider = () => {
                     borderRadius: "4px",
                     transition: "0.3s",
                     fontWeight: "500",
-                    width: "150px",
+                    width: "auto",
+                    backgroundColor: "#553CDF",
+                    color: "#fff",
                   }}
                 >
-                  Explore More
+                  Get Started with Free Resources
                 </Button>
               </div>
+
+              {/* Highlights Section */}
+              <div
+                className="highlights"
+                style={{ marginTop: "20px", backgroundColor: "white" }}
+              ></div>
+
+              <Paragraph style={{ textAlign: "left", marginTop: "10px" }}>
+                Stay ahead in your academics and career. Learn. Practice.
+                Achieve.
+              </Paragraph>
             </div>
           </Col>
 

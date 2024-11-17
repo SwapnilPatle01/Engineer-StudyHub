@@ -348,10 +348,10 @@ const MainLayout = () => {
               style={{
                 padding: "18px 25px",
                 borderRadius: "6px",
-                color: "#6441A3",
+                color: "#fff",
                 marginRight: "10px",
-                border: "1px solid #6441A3",
-                background: "transparent",
+                border: "1px solid #553CDF",
+                background: "#553CDF",
               }}
             >
               Login
@@ -362,11 +362,11 @@ const MainLayout = () => {
               style={{
                 padding: "18px 30px",
                 borderRadius: "6px",
-                color: "#6441A3",
+                color: "#553CDF",
                 fontWeight: "bold",
                 marginRight: "10px",
-                border: "1px solid #6441A3",
-                background: "transparent",
+                border: "1px solid #553CDF",
+                background: "transparentx",
               }}
               // type="primary"
             >

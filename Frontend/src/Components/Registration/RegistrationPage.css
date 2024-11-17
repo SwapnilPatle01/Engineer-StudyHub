@@ -7,6 +7,7 @@ body {
 }
 
 .register-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,12 +16,14 @@ body {
 }
 
 .register-card {
+  width: 100%;
   background-color: #fff;
   /* padding: 40px; */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.5s ease;
 }
+
 
 @keyframes fadeIn {
   from {

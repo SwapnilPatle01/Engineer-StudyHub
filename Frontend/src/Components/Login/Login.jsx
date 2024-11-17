@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { Link } from "react-router-dom"; // Updated import
 import "../../styles/LoginPage.css";
+import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png"
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -53,17 +54,15 @@ const LoginPage = () => {
       <div className="login-card">
         <div className="login-image">
           <img
-            src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?uid=R115740517&ga=GA1.1.202867201.1719126649&semt=ais_hybrid"
+            src="https://img.freepik.com/free-vector/phishing-account-concept_23-2148533311.jpg?t=st=1731874847~exp=1731878447~hmac=08de8092a21af23e3fcc414464375b661f9887e92b20da8002c1f007b35204df&w=740"
             alt="login"
             className="rounded-image"
           />
         </div>
-        <div className="login-form">
-          <div className="logo-container">
-            <Title level={2} className="logo-text interactive-text">
-              Engineer StudyHub
-            </Title>
-          </div>
+        <div className="login-form" style={{backgroundColor:"#fff"}}>
+        <div className="logo-container" style={{display:"flex", justifyContent:"center"}}>
+          <img src={logo} alt="logo" style={{ width: "220px" }} />
+        </div>
           <Title level={5} className="form-title">
             Sign into your account
           </Title>
