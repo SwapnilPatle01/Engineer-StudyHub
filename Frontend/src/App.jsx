@@ -20,7 +20,7 @@ import CreateEvent from "./Components/CompanyDashboard/CompanyDashbordComponents
 import Notifications from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import ProfilePage from "./pages/Profile";
 import CompanyDetail from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyDetail";
-import AboutUs from "./Components/AboutUs/AboutUs"
+
 
 function App() {
   return (
