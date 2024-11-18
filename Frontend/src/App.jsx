@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
-import LearningMaterial from "./Components/Learning Material/LearningMaterial";
+import LearningMaterial from "./Components/EngineersLibrary/EngineersLibrary";
 import RegisterPage from "./pages/RegistrationPage";
 import JobDetails from "./Components/JobPortal/JobDetails";
 import Dashboardpage from "./pages/Dashboardpage";
@@ -20,6 +20,7 @@ import CreateEvent from "./Components/CompanyDashboard/CompanyDashbordComponents
 import Notifications from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import ProfilePage from "./pages/Profile";
 import CompanyDetail from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyDetail";
+
 
 function App() {
   return (

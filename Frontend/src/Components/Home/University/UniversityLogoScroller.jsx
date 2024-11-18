@@ -1,5 +1,5 @@
 import React from "react";
-import "./UniversityLogoScroller.css"; 
+import "./UniversityLogoScroller.css";
 
 const UniversityLogoScroller = () => {
   const universityLogos = [
@@ -31,7 +31,9 @@ const UniversityLogoScroller = () => {
 
   return (
     <div className="scroller-container">
-      <span className="scroller-title">Trusted by Leading Universities:</span>
+      <span className="scroller-title">
+        Associate with Universities accross
+      </span>
       <div className="logo-grid">
         {universityLogos.map((uni) => (
           <img

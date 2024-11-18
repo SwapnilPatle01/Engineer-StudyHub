@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Typography, Button } from "antd";
-import "./HeroSection.css";
+import "./LandingForNotes.css";
 import { Link } from "react-router-dom";
 
 const { Text } = Typography;
