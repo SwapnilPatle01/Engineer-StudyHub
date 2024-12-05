@@ -20,7 +20,7 @@ import CreateEvent from "./Components/CompanyDashboard/CompanyDashbordComponents
 import Notifications from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import ProfilePage from "./pages/Profile";
 import CompanyDetail from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyDetail";
-
+import DeveloperDetailPage from "./Components/DevelopersHub/DeveloperResources/DeveloperDetailPage";
 
 function App() {
   return (
@@ -36,6 +36,7 @@ function App() {
             <Route path="learning-material" element={<LearningMaterial />} />
             <Route path="JobDetails" element={<JobPortalPage />} />
             <Route path="DevelopersHub" element={<DeveloperPage />} />
+            <Route path="/resources/:key" element={<DeveloperDetailPage />} />
             <Route path="job/:id" element={<JobDetails />} />
             <Route path="/know-more/:jobId" element={<KnowMorePage />} />
             <Route path="ContactUs" element={<ContactUs />} />
