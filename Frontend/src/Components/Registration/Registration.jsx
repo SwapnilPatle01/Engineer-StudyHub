@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../redux/authSlice"; // Assuming you have an authSlice for handling loading state
 // import "./RegistrationPage.css";
-import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png"
+import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -135,8 +135,11 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-container" style={{width:"100%"}}>
-      <div className="register-card" style={{backgroundColor:"#fff", maxWidth:"80%"}}>
+    <div className="register-container" style={{ width: "100%", height:"auto", margin:"50px 0px" }}>
+      <div
+        className="register-card"
+        style={{ backgroundColor: "#fff", maxWidth: "80%" }}
+      >
         <div className="login-image">
           <img
             src="https://img.freepik.com/free-vector/cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection_1150-37328.jpg?semt=ais_hybrid"
@@ -145,12 +148,27 @@ const RegisterPage = () => {
           />
         </div>
         <div className="register-form">
-        <div className="logo-container" style={{display:"flex", justifyContent:"center"}}>
-          <img src={logo} alt="logo" style={{ width: "220px" }} />
-        </div>
-          <Title level={5} className="form-title">
-            Welcome to Engineer StudyHub! Please Signup to continue 
-          </Title>
+          <div
+            className="logo-container"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <img
+              src={logo}
+              alt="logo"
+              style={{ width: "220px", padding: "0px", margin: "0px" }}
+            />
+            <Title level={4} className="form-title" style={{ margin: "0px" }}>
+            Join Engineer Study Hub!
+            </Title>
+            <Title level={5} className="form-title" style={{ margin: "0px" }}>
+            Create an account to explore study materials, video lectures, and more.
+            </Title>
+          </div>
 
           <Progress percent={currentStep === 1 ? 50 : 100} />
 
@@ -269,10 +287,11 @@ const RegisterPage = () => {
               </div>
             )}
 
-            <div className="login-redirect">
+            <div className="login-redirect" style={{textAlign:"center"}}>
+              <Title level={5}>By signing up, you agree to our Terms of Service and Privacy Policy.</Title>
               Already have an account?{" "}
               <Link to="/login" className="register-link">
-                Sign In
+                Log In here
               </Link>
             </div>
           </Form>

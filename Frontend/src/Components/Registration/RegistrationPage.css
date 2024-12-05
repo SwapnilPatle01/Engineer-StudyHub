@@ -11,7 +11,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  width: 100%;
+  height: auto;
+  margin: 50px 0px;
   background-color: #f0f2f5;
 }
 
@@ -19,11 +21,12 @@ body {
   width: 100%;
   background-color: #fff;
   /* padding: 40px; */
+  height: auto;
+  margin: "50px 0px";
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.5s ease;
 }
-
 
 @keyframes fadeIn {
   from {

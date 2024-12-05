@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 import { Link } from "react-router-dom"; // Updated import
 import "../../styles/LoginPage.css";
-import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png"
+import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -58,14 +58,23 @@ const LoginPage = () => {
             alt="login"
             className="rounded-image"
           />
+          
         </div>
-        <div className="login-form" style={{backgroundColor:"#fff"}}>
-        <div className="logo-container" style={{display:"flex", justifyContent:"center"}}>
-          <img src={logo} alt="logo" style={{ width: "220px" }} />
-        </div>
-          <Title level={5} className="form-title">
-            Sign into your account
+        <div className="login-form" style={{ backgroundColor: "#fff" }}>
+          <div
+            className="logo-container"
+            style={{ display: "flex", justifyContent: "center", alignItems:"center", flexDirection:"column" }}
+          >
+            <img src={logo} alt="logo" style={{ width: "220px", padding:"0px", margin:"0px"}} />
+            <Title level={4} className="form-title" style={{margin:"0px"}}>
+            Welcome Back to Engineer Study Hub!
           </Title>
+          <Title level={5} className="form-title"style={{margin:"0px"}}>
+            Log in to access your personalized resources and continue your
+            journey to success.
+          </Title>
+          </div>
+          
           <Form
             name="login"
             layout="vertical"
@@ -128,9 +137,9 @@ const LoginPage = () => {
                 Forgot password?
               </Link>
               <p className="signup-text">
-                Don't have an account?{" "}
+              New to Engineer Study Hub?{" "}
                 <Link to="/register" className="link">
-                  Register here
+                Sign up now and unlock a world of learning!?
                 </Link>
               </p>
             </Space>
