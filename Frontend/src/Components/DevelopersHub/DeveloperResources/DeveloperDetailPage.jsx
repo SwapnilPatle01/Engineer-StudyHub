@@ -23,18 +23,15 @@ const DeveloperDetailPage = () => {
     );
   }
 
-  //handle copy button action
   const handleCopy = (subtopic) => {
     navigator.clipboard.writeText(subtopic);
     message.success("Copied successfully");
   };
 
-  //handle link button action
   const handleView = (link) => {
     window.open(link, "_blank");
   };
 
-  // Pagination logic
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedSubtopics = topic.subtopics.slice(startIndex, endIndex);
