@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout, Row, Col, Typography, Space } from "antd";
 import {
-  FacebookOutlined,
   TwitterOutlined,
   LinkedinOutlined,
   InstagramOutlined,
@@ -100,7 +99,7 @@ const FooterComponent = () => {
           <Text style={{ color: "#fff" }}>Phone: +91 8275877976</Text>
           <br />
           <Text style={{ color: "#fff" }}>
-            Chatrapati square, Nagpur, Besa, Nagpur, Maharashtra, India
+            Chatrapati Square, Nagpur, Maharashtra, India
           </Text>
           <br />
           <Text style={{ color: "#fff" }}>
@@ -114,19 +113,25 @@ const FooterComponent = () => {
             Follow Us
           </Title>
           <Space size="large">
-            <Link href="https://facebook.com" target="_blank">
-              <FacebookOutlined style={{ fontSize: "24px", color: "#fff" }} />
-            </Link>
-            <Link href="https://twitter.com" target="_blank">
-              <TwitterOutlined style={{ fontSize: "24px", color: "#fff" }} />
-            </Link>
-            <Link href="https://linkedin.com" target="_blank">
+            <Link
+              href="https://www.linkedin.com/company/engineer-studyhub/?viewAsMember=true"
+              target="_blank"
+            >
               <LinkedinOutlined style={{ fontSize: "24px", color: "#fff" }} />
             </Link>
-            <Link href="https://instagram.com" target="_blank">
+            <Link
+              href="https://www.instagram.com/engineerstudyhub/profilecard/?igsh=MWFrY3A3Y3RncnYz"
+              target="_blank"
+            >
               <InstagramOutlined style={{ fontSize: "24px", color: "#fff" }} />
             </Link>
-            <Link href="https://youtube.com" target="_blank">
+            <Link href="https://x.com/EngStudyHub_X" target="_blank">
+              <TwitterOutlined style={{ fontSize: "24px", color: "#fff" }} />
+            </Link>
+            <Link
+              href="https://www.youtube.com/@EngineerStudyHub"
+              target="_blank"
+            >
               <YoutubeOutlined style={{ fontSize: "24px", color: "#fff" }} />
             </Link>
           </Space>
@@ -144,7 +149,7 @@ const FooterComponent = () => {
       >
         <Col xs={24} sm={12}>
           <Text style={{ color: "#fff" }}>
-            © 2024 Engineers StudyHub. All rights reserved.
+            ©2024 Engineers StudyHub. All rights reserved.
           </Text>
         </Col>
         <Col xs={24} sm={12} style={{ textAlign: "right" }}>
