@@ -402,6 +402,7 @@ const JobDetails = () => {
 
       <Layout>
         <Content style={{ padding: "35px" }}>
+          
           {selectedJobType === "freshers" && (
             <div>
               <h2>Freshers Jobs</h2>

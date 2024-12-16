@@ -184,6 +184,7 @@ const Dashboard = () => {
               <Option value="Computer Networks">Computer Networks</Option>
               <Option value="Software Engineering">Software Engineering</Option>
               <Option value="Machine Learning">Machine Learning</Option>
+              <Option value="natural-language-processing">NLP(Natural Language Processing)</Option>
               <Option value="Artificial Intelligence">
                 Artificial Intelligence
               </Option>

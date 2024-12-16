@@ -52,29 +52,31 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <div className="login-card">
-        <div className="login-image">
-          <img
-            src="https://img.freepik.com/free-vector/phishing-account-concept_23-2148533311.jpg?t=st=1731874847~exp=1731878447~hmac=08de8092a21af23e3fcc414464375b661f9887e92b20da8002c1f007b35204df&w=740"
-            alt="login"
-            className="rounded-image"
-          />
-          
-        </div>
+        
         <div className="login-form" style={{ backgroundColor: "#fff" }}>
           <div
             className="logo-container"
-            style={{ display: "flex", justifyContent: "center", alignItems:"center", flexDirection:"column" }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
           >
-            <img src={logo} alt="logo" style={{ width: "220px", padding:"0px", margin:"0px"}} />
-            <Title level={4} className="form-title" style={{margin:"0px"}}>
-            Welcome Back to Engineer Study Hub!
-          </Title>
-          <Title level={5} className="form-title"style={{margin:"0px"}}>
-            Log in to access your personalized resources and continue your
-            journey to success.
-          </Title>
+            <img
+              src={logo}
+              alt="logo"
+              style={{ width: "220px", padding: "0px", margin: "0px" }}
+            />
+            <Title level={4} className="form-title" style={{ margin: "0px" }}>
+              Welcome Back to Engineer Study Hub!
+            </Title>
+            <Title level={5} className="form-title" style={{ margin: "0px" }}>
+              Log in to access your personalized resources and continue your
+              journey to success.
+            </Title>
           </div>
-          
+
           <Form
             name="login"
             layout="vertical"
@@ -137,13 +139,20 @@ const LoginPage = () => {
                 Forgot password?
               </Link>
               <p className="signup-text">
-              New to Engineer Study Hub?{" "}
+                New to Engineer Study Hub?{" "}
                 <Link to="/register" className="link">
-                Sign up now and unlock a world of learning!?
+                  Sign up now and unlock a world of learning!?
                 </Link>
               </p>
             </Space>
           </Form>
+        </div>
+        <div className="login-image">
+          <img
+            src="https://img.freepik.com/free-vector/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection_1150-37373.jpg?t=st=1733744529~exp=1733748129~hmac=cb13357cc6771278c307e96d0fd941af1017db43aac8df2d3d75b4a7b2c938a9&w=900"
+            alt="login"
+            className="rounded-image"
+          />
         </div>
       </div>
     </div>
