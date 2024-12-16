@@ -276,3 +276,22 @@ a .tag {
   background-color: #e6f7ff; /* Light blue background */
   border-left: 4px solid #1890ff; /* Blue border on the left */
 }
+
+
+/* Default style for larger screens */
+.sider {
+  width: 250px;
+  color: #000;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+  .sider {
+    width: 0;
+    padding: 0;
+    display: none; /* Optionally hide the sider */
+  }
+}
