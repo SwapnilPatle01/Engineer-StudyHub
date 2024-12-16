@@ -7,20 +7,23 @@ import {
   InstagramOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
-import "./Footer.css"; // You can style further in this file
+import "./Footer.css";
 import logo from "../../assets/images/logo.png";
 
 const { Footer } = Layout;
 const { Title, Text, Link } = Typography;
-
 
 const FooterComponent = () => {
   return (
     <Footer
       style={{ backgroundColor: "#000", color: "#fff", padding: "40px 50px" }}
     >
-      <div className="footer-logo flex" style={{width:"100%",}}>
-        <img src={logo} alt="logo" style={{ width: 350,paddingBottom:"35px", }} />
+      <div className="footer-logo flex" style={{ width: "100%" }}>
+        <img
+          src={logo}
+          alt="logo"
+          style={{ width: 350, paddingBottom: "35px" }}
+        />
       </div>
       <Row gutter={[32, 32]} justify="space-between">
         {/* About Us Section */}
@@ -92,14 +95,12 @@ const FooterComponent = () => {
           <Title level={4} style={{ color: "#fff" }}>
             Contact Us
           </Title>
-          <Text style={{ color: "#fff" }}>
-            Email: support@engineerstudyhub.in
-          </Text>
+          <Text style={{ color: "#fff" }}>Email: info@engineerstudyhub.in</Text>
           <br />
-          <Text style={{ color: "#fff" }}>Phone: +91 9876543210</Text>
+          <Text style={{ color: "#fff" }}>Phone: +91 8275877976</Text>
           <br />
           <Text style={{ color: "#fff" }}>
-            Address: XYZ Tower, Tech Park, City
+            Chatrapati square, Nagpur, Besa, Nagpur, Maharashtra, India
           </Text>
           <br />
           <Text style={{ color: "#fff" }}>

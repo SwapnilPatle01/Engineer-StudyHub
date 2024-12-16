@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Card, Layout } from "antd";
+import { Button, Card, Layout, Row, Col, Tag } from "antd";
+import moment from "moment";
 import {
   HomeOutlined,
   UsergroupAddOutlined,
@@ -13,6 +14,10 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./JobDetails.css";
+import ResumeSubmission from "./Request/ResumeSubmission";
+import Discussion from "./Community/Discussion";
+import Roadmap from "./Roadmap/Roadmap";
+import InterviewExperience from "./InterviewExperience/InterviewExperience";
 
 const { Sider, Content } = Layout;
 
@@ -303,6 +308,60 @@ const JobDetails = () => {
     },
   ];
 
+  //hackethon
+  const hackathons = [
+    {
+      name: "Hack the Future",
+      date: "2024-12-15",
+      time: "10:00 AM",
+      description:
+        "A hackathon to solve the future of AI and machine learning.",
+      registerLink: "#",
+      isPast: false,
+    },
+    {
+      name: "Code for Good",
+      date: "2024-11-30",
+      time: "9:00 AM",
+      description:
+        "Hack for social impact with innovative ideas and solutions.",
+      registerLink: "#",
+      isPast: true,
+    },
+    {
+      name: "Blockchain Innovators",
+      date: "2024-10-10",
+      time: "2:00 PM",
+      description: "Focus on creating blockchain-based solutions for finance.",
+      registerLink: "#",
+      isPast: true,
+    },
+    {
+      name: "AI Revolution",
+      date: "2025-01-20",
+      time: "11:00 AM",
+      description: "A hackathon focusing on artificial intelligence.",
+      registerLink: "#",
+      isPast: false,
+    },
+    {
+      name: "Tech for Good",
+      date: "2025-02-10",
+      time: "3:00 PM",
+      description: "Building technology to solve social problems.",
+      registerLink: "#",
+      isPast: false,
+    },
+    {
+      name: "Cybersecurity Challenge",
+      date: "2024-12-25",
+      time: "8:00 AM",
+      description: "Compete to create solutions for cyber threats.",
+      registerLink: "#",
+      isPast: false,
+    },
+  ];
+
   const [activeItem, setActiveItem] = useState(""); // Track active sidebar item
 
   const handleItemClick = (type) => {
@@ -371,29 +430,44 @@ const JobDetails = () => {
           <div className="icon-item">
             <span style={{ color: "#000" }}>Events</span>
           </div>
-          <div className="icon-item">
+          <div
+            className="icon-item"
+            onClick={() => setSelectedJobType("Hackethon")}
+          >
             <ProfileOutlined style={{ fontSize: "24px", color: "#ff5000" }} />
             <span style={{ color: "#000" }}>Hackethon</span>
           </div>
           <div className="icon-item">
             <span style={{ color: "#000" }}>Request</span>
           </div>
-          <div className="icon-item">
+          <div
+            className="icon-item"
+            onClick={() => setSelectedJobType("showResumeSubmission")}
+          >
             <ProfileOutlined style={{ fontSize: "24px", color: "#13c2c2" }} />
             <span style={{ color: "#000" }}>Resume Review</span>
           </div>
           <div className="icon-item">
             <span style={{ color: "#000" }}>Community</span>
           </div>
-          <div className="icon-item">
+          <div
+            className="icon-item"
+            onClick={() => setSelectedJobType("discussion")}
+          >
             <MessageOutlined style={{ fontSize: "24px", color: "#722ed1" }} />
             <span style={{ color: "#000" }}>Discussions</span>
           </div>
-          <div className="icon-item">
+          <div
+            className="icon-item"
+            onClick={() => setSelectedJobType("roadmap")}
+          >
             <ReadOutlined style={{ fontSize: "24px", color: "#722ed1" }} />
             <span style={{ color: "#000" }}>Roadmaps</span>
           </div>
-          <div className="icon-item">
+          <div
+            className="icon-item"
+            onClick={() => setSelectedJobType("interviewexperience")}
+          >
             <SolutionOutlined style={{ fontSize: "24px", color: "#722ed1" }} />
             <span style={{ color: "#000" }}>Interview Experience</span>
           </div>
@@ -808,6 +882,152 @@ const JobDetails = () => {
                   </Card>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Hackethon section */}
+          {selectedJobType === "Hackethon" && (
+            <Content>
+              <h2 style={{ fontSize: "24px", marginBottom: "16px" }}>
+                Upcoming and Past Hackathons
+              </h2>
+              <Row gutter={[16, 16]}>
+                {hackathons.map((hackathon, index) => (
+                  <Col xs={24} sm={12} md={8} lg={8} key={index}>
+                    <Card
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "12px",
+                        border: "1px solid #f0f0f0",
+                        boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                      }}
+                      hoverable
+                      cover={
+                        <img
+                          alt="hackathon"
+                          src="https://via.placeholder.com/150"
+                          style={{
+                            width: "100%",
+                            height: "160px",
+                            objectFit: "cover",
+                            borderTopLeftRadius: "12px",
+                            borderTopRightRadius: "12px",
+                          }}
+                        />
+                      }
+                    >
+                      <Card.Meta
+                        title={
+                          <h3
+                            style={{
+                              fontSize: "18px",
+                              color: "#333",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            {hackathon.name}
+                          </h3>
+                        }
+                        description={
+                          <>
+                            <p
+                              style={{
+                                marginBottom: "8px",
+                                fontSize: "14px",
+                                color: "#666",
+                              }}
+                            >
+                              <strong>Date:</strong>{" "}
+                              {moment(hackathon.date).format("MMM Do YYYY")}
+                            </p>
+                            <p
+                              style={{
+                                marginBottom: "8px",
+                                fontSize: "14px",
+                                color: "#666",
+                              }}
+                            >
+                              <strong>Time:</strong> {hackathon.time}
+                            </p>
+                            <p
+                              style={{
+                                marginBottom: "12px",
+                                fontSize: "14px",
+                                color: "#666",
+                              }}
+                            >
+                              <strong>Description:</strong>{" "}
+                              {hackathon.description}
+                            </p>
+                            <Row justify="space-between" align="middle">
+                              <Col>
+                                <Tag
+                                  color={hackathon.isPast ? "red" : "green"}
+                                  style={{
+                                    fontSize: "14px",
+                                    padding: "4px 12px",
+                                    borderRadius: "16px",
+                                    fontWeight: "bold",
+                                    textTransform: "uppercase",
+                                  }}
+                                >
+                                  {hackathon.isPast ? "Past Event" : "Upcoming"}
+                                </Tag>
+                              </Col>
+                              <Col>
+                                <Button
+                                  type="primary"
+                                  style={{
+                                    fontSize: "14px",
+                                    padding: "6px 12px",
+                                  }}
+                                  href={hackathon.registerLink}
+                                  target="_blank"
+                                  disabled={hackathon.isPast}
+                                >
+                                  {hackathon.isPast
+                                    ? "Event Passed"
+                                    : "Register Now"}
+                                </Button>
+                              </Col>
+                            </Row>
+                          </>
+                        }
+                      />
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </Content>
+          )}
+
+          {/* Request resume */}
+          {selectedJobType === "showResumeSubmission" && (
+            <div className="resume-submission-modal">
+              <ResumeSubmission />
+            </div>
+          )}
+
+          {/* discussion */}
+          {selectedJobType === "discussion" && (
+            <div className="resume-submission-modal">
+              <Discussion />
+            </div>
+          )}
+
+          {/* roadmap */}
+          {selectedJobType === "roadmap" && (
+            <div>
+              <Roadmap />
+            </div>
+          )}
+
+          {/* interview experience */}
+          {selectedJobType === "interviewexperience" && (
+            <div>
+              <InterviewExperience />
             </div>
           )}
         </Content>
