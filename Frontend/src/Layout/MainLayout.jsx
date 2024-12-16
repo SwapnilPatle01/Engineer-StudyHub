@@ -169,7 +169,7 @@ const MainLayout = () => {
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
       <div
-        style={{ backgroundColor: "#553CDF", width: "100%", height: "45px" }}
+        style={{ background:"linear-gradient(90deg, #553CDF, #1a2980)", width: "100%", height: "45px" }}
       >
         <div
           style={{
@@ -339,7 +339,7 @@ const MainLayout = () => {
               />
               <span style={{ marginLeft: "8px", fontSize: "16px" }}></span>
             </div>
-          </Dropdown>
+          </Dropdown> 
         ) : (
           <>
             <Button
@@ -351,7 +351,7 @@ const MainLayout = () => {
                 color: "#fff",
                 marginRight: "10px",
                 border: "1px solid #553CDF",
-                background: "#553CDF",
+                background:"linear-gradient( #553CDF, #1a2980)",
               }}
             >
               Login
@@ -360,12 +360,12 @@ const MainLayout = () => {
               className="authbtn2"
               onClick={() => navigate("/register")}
               style={{
-                padding: "18px 30px",
+                padding: "18px 25px",
                 borderRadius: "6px",
                 color: "#553CDF",
                 fontWeight: "bold",
                 marginRight: "10px",
-                border: "1px solid #553CDF",
+                border: "2px solid #553CDF",
                 background: "transparentx",
               }}
               // type="primary"
