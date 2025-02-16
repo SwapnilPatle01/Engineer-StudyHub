@@ -191,7 +191,7 @@ const AboutUs = () => {
                 <Row align="middle">
                   <Col>
                     <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROrNO-3i-suP7E4U1ujqk67dgi4mkiqiMQBQ&s"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROrNO-3i-suP7E4U1ujsqk67dgi4mkiqiMQBQ&s"
                       alt="CEO & Founder"
                       style={{
                         borderRadius: "50%",
@@ -203,7 +203,7 @@ const AboutUs = () => {
                   </Col>
                   <Col style={{ marginLeft: "10px" }}>
                     <Text strong style={{ fontSize: "16px", color: "#333" }}>
-                      Swapnil Patle
+                      Ethan Caldwell
                     </Text>
                     <br />
                     <Text style={{ fontSize: "14px", color: "#888" }}>
@@ -234,7 +234,7 @@ const AboutUs = () => {
                   </Col>
                   <Col style={{ marginLeft: "10px" }}>
                     <Text strong style={{ fontSize: "16px", color: "#333" }}>
-                      Ghamesh Rahangdale
+                      GRyan Fischer
                     </Text>
                     <br />
                     <Text style={{ fontSize: "14px", color: "#888" }}>

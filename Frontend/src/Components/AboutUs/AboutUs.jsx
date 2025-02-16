@@ -15,28 +15,28 @@ function AboutUs() {
 
   const teamMembers = [
     {
-      name: "Swapnil Patle",
+      name: "Ethan Caldwell",
       title: "Founder",
       description:
-        "As the full stack developer and founder of Engineer StudyHub, Swapnil Patle is committed to providing future engineers with accessible, high-quality educational resources. With a robust engineering background, he drives the platform's mission to integrate academic knowledge with practical industry skills, ensuring students are well-prepared for their careers.",
+        "As the full stack developer and founder of Engineer StudyHub, Ethan Caldwell is committed to providing future engineers with accessible, high-quality educational resources. With a robust engineering background, he drives the platform's mission to integrate academic knowledge with practical industry skills, ensuring students are well-prepared for their careers.",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROrNO-3i-suP7E4U1ujqk67dgi4mkiqiMQBQ&s",
-      linkedin: "https://in.linkedin.com/in/swapnil-patle-821534223",
+        "https://eencrypted-tbn0.gstateic.com/images?q=tbn:ANd9GcROrNO-3i-suP7E4U1ujqk67dgi4mkiqiMQBQ&s",
+      linkedin: "https://in.linkedin.com/in-821534223",
     },
     {
-      name: "Ghamesh Rahangdale",
+      name: "Ryan Fischer",
       title: "Co-Founder",
       description:
-        "Co-founder and React full stack developer of Engineer StudyHub, Ghamesh Rahangdale plays a pivotal role in the platform's development. His expertise in modern web technologies helps create a seamless learning experience, empowering engineering students with the tools they need for success in their academic and professional journeys.",
+        "Co-founder and React full stack developer of Engineer StudyHub, Ryan Fischer plays a pivotal role in the platform's development. His expertise in modern web technologies helps create a seamless learning experience, empowering engineering students with the tools they need for success in their academic and professional journeys.",
       image:
-        "https://media.licdn.com/dms/image/v2/D5603AQEBmg-wc9nIAQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1679968900193?e=1734566400&v=beta&t=MN5EozGGIpoVFd6oCsK2gFe0DuTtIzBSi6tvUGg-RvA",
-      linkedin: "https://www.linkedin.com/in/ghamesh-rahangdale-233753221/",
+        "https://media.licdn.com/dms/imagse/v2/D5603AQEBmg-wc9nIAQ/profile-displayphoto-sshrink_400_400/profile-displayphoto-shrink_400_400/0/1679968900193?e=1734566400&v=beta&td=MN5EozGGIpoVFd6oCsK2gFe0DuTtIzBSi6tvUGg-RvA",
+      linkedin: "https://www.linkedin.com/in/-233753221/",
     },
     {
-      name: "Hari Yengantiwar",
+      name: "Dakota Bennett",
       title: "Co-Founder | Resource Management Specialist",
       description:
-        "Co-founder and web developer of Engineer StudyHub, Hari Yengantiwar excels in resource management, ensuring efficient delivery of high-quality educational materials. His web development skills enhance the platform’s functionality, creating a seamless user experience for engineering students.",
+        "Co-founder and web developer of Engineer StudyHub, Dakota Bennett excels in resource management, ensuring efficient delivery of high-quality educational materials. His web development skills enhance the platform’s functionality, creating a seamless user experience for engineering students.",
       image:
         "https://media.licdn.com/dms/image/v2/D5635AQHymr7VyxLdtg/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1721381594722?e=1731218400&v=beta&t=8R-EeNSkRG2y0fosXkzCchCeE46Ta-uXM_KDGfQ1FCs",
       linkedin: "https://www.linkedin.com/in/hari-yengantiwar-09592a257/",
@@ -45,7 +45,7 @@ function AboutUs() {
       name: "Prof. Rahul Bhandekar",
       title: "Guide and Mentor",
       description:
-        "Prof. Rahul Bhandarakar serves as a mentor for Engineer StudyHub and is the Head of the Computer Science Department at WCEM Nagpur. His guidance ensures that the platform's resources align with academic standards, supporting students in developing the critical skills necessary for their careers.",
+        "Prof. Rahul Bhandarakar serves as a mentor for Engineer StudyHub. His guidance ensures that the platform's resources align with academic standards, supporting students in developing the critical skills necessary for their careers.",
       image:
         "https://static.wixstatic.com/media/d890ed_8b0ed38afff841dc99be56fb67a7511a~mv2.png/v1/crop/x_0,y_2,w_285,h_251/fill/w_233,h_205,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/image014.png",
       linkedin: "https://in.linkedin.com",
