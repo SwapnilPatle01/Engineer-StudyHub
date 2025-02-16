@@ -46,59 +46,65 @@ Follow these steps to get the project running locally:
 1. **Fork** the repository to your GitHub account:
    ```bash
    git clone https://github.com/your-username/Engineer-StudyHub.git
-
+   ```
 2. Navigate into the project directory:
-     ```bash
+   ```bash
    cd Engineer-StudyHub
+   ```
+3. Navigate into the frontend directory and install dependencies:
+   ```bash
+   cd frontend && npm install
+   ```
+4. Navigate into the backend directory and install dependencies:
+   ```bash
+   cd ../backend && npm install
+   ```
+5. Add a `.env` file in the main project directory (not inside frontend or backend) with the following content:
+   ```
+   MONGO_URI=mongodb://localhost:27017/Engineer-StudyHub
+   PORT=5000
+   JWT_SECRET= your_secret_key
+   ```
 
-3. Navigate into the project directory:
-     ```bash
-   npm install
+### Running the Project
 
-  Running Locally
-  After completing the setup, run the following command to start the development server:
+1. **Build the frontend**:
+   ```bash
+   cd frontend && npm run build
+   ```
+2. **Start the entire project** from the main directory:
+   ```bash
+   cd ..
+   npm start
+   ```
 
-        npm start
+The project will be live on http://localhost:3000, and the backend will be running on the specified port (default: 5000).
 
-The project will be live on http://localhost:3000.
-
-**Contributing**
+## Contributing
 
 We welcome contributions to Engineer StudyHub! Whether you’re helping to fix bugs, adding new features, or improving documentation, your contributions are valuable.
 
-**How to Contribute**
+### How to Contribute
 
-Fork the repository: Go to the project’s GitHub page and click the "Fork" button at the top-right corner.
-
-## How to Contribute
-
-1. **Clone your fork**:
+1. **Fork the repository**: Go to the project’s GitHub page and click the "Fork" button at the top-right corner.
+2. **Clone your fork**:
     ```bash
     git clone https://github.com/your-username/Engineer-StudyHub.git
     ```
-
-2. **Create a branch for your changes**:
+3. **Create a branch for your changes**:
     ```bash
     git checkout -b feature-name
     ```
-
-3. **Make your changes**:  
-   Implement your new feature or bug fix in the codebase.
-
-4. **Commit your changes**:  
-   Use a clear and concise commit message:
+4. **Make your changes**: Implement your new feature or bug fix in the codebase.
+5. **Commit your changes**: Use a clear and concise commit message:
     ```bash
     git commit -m "Add feature-name"
     ```
-
-5. **Push to GitHub**:  
-   Push your changes to your fork:
+6. **Push to GitHub**:
     ```bash
     git push origin feature-name
     ```
-
-6. **Open a Pull Request**:  
-   Go to the original repository and open a new Pull Request describing your changes.
+7. **Open a Pull Request**: Go to the original repository and open a new Pull Request describing your changes.
 
 Please refer to our [CONTRIBUTING.md](./CONTRIBUTING.md) file for detailed guidelines on contributing, coding style, and more.
 
@@ -117,9 +123,10 @@ Engineer StudyHub adheres to a strong code of conduct to foster an inclusive, we
 
 This project is licensed under the MIT License. You can freely use, modify, and distribute the software. See the [LICENSE](./LICENSE) file for details.
 
-Contact
+## Contact
+
 If you have any questions or feedback, feel free to reach out:
 
-Project Maintainers: Swapnil Patle & Ghamesh Rahangdale
-Email: swapnilpatle01@gmail.com & ghameshrahangdale83@gmail.com
-GitHub Issues: Submit an issue
+**Project Maintainers:** Swapnil Patle & Ghamesh Rahangdale  
+**Email:** swapnilpatle01@gmail.com & ghameshrahangdale83@gmail.com  
+**GitHub Issues:** Submit an issue
