@@ -8,11 +8,10 @@ import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
 import LearningMaterial from "./Components/EngineersLibrary/EngineersLibrary";
 import RegisterPage from "./pages/RegistrationPage";
-import JobDetails from "./Components/JobPortal/JobDetails";
+import CareerDashboard from "./Components/JobPortal/CareerDashboard";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import AboutUs from "./Components/AboutUs/AboutUs";
-import KnowMorePage from "./Components/JobPortal/KnowMore";
 import CompanyDashboardPage from "./pages/CompanyDashboardPage";
 import CompanyProfile from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyProfile";
 import CreateJobPost from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateJobPost";
@@ -34,11 +33,8 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="learning-material" element={<LearningMaterial />} />
-            <Route path="JobDetails" element={<JobPortalPage />} />
             <Route path="DevelopersHub" element={<DeveloperPage />} />
             <Route path="/resources/:key" element={<DeveloperDetailPage />} />
-            <Route path="job/:id" element={<JobDetails />} />
-            <Route path="/know-more/:jobId" element={<KnowMorePage />} />
             <Route path="ContactUs" element={<ContactUs />} />
             <Route path="AboutUs" element={<AboutUs />} />
             <Route path="engineerLib" element={<LearningMaterial />} />
@@ -48,7 +44,7 @@ function App() {
             {/* Nested Routes for CompanyDashboard */}
             <Route path="/company-dashboard" element={<CompanyDashboardPage />}>
               <Route path="company-profile" element={<CompanyProfile />} />
-              <Route path="create-company" element={<CompanyDetail />} />
+              <Route path="create-company" element={<CareerDashboard />} />
               <Route path="create-job-post" element={<CreateJobPost />} />
               <Route path="create-event" element={<CreateEvent />} />
               <Route path="view-notifications" element={<Notifications />} />

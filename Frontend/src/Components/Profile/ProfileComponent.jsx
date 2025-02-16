@@ -1,95 +1,87 @@
 import React from "react";
-import { Avatar, Card, Typography, Button, Row, Col, Divider } from "antd";
-import { EditOutlined, UserOutlined, MailOutlined, PhoneOutlined, IdcardOutlined } from "@ant-design/icons";
+import { Layout, Menu, Avatar, Typography, Card, Progress } from "antd";
+import {
+  DashboardOutlined,
+  BookOutlined,
+  FileTextOutlined,
+  VideoCameraOutlined,
+  UserOutlined,
+  BellOutlined,
+  SettingOutlined,
+  LogoutOutlined,
+  SolutionOutlined,
+  TrophyOutlined,
+} from "@ant-design/icons";
 
+const { Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
-export default function ProfileComponent() {
+const ProfileComponent = () => {
   return (
-    <div style={{ margin: '50px 100px', backgroundColor: '#f0f2f5', borderRadius: '8px', padding: '20px' }}> 
-      <Row justify="center" style={{ margin: '30px 0', width: "100%" }}>
-        <Col xs={24} sm={24} md={24} lg={24}>
-          <Card
-            style={{ padding: '20px 30px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
-          >
-            <Row justify="space-between" align="middle">
-              {/* Left side - Profile Info */}
-              <Col>
-                <Row align="middle">
-                  <Avatar
-                    size={200}
-                    icon={<UserOutlined />}
-                    style={{ marginRight: '30px', backgroundColor: '#87d068' }} // Avatar background color
-                  />
-                  <div>
-                    <Title level={3} style={{ margin: 0, color: '#4a4a4a' }}>John Doe</Title>
-                    <Text type="secondary">
-                      
-                      johndoe@example.com
-                    </Text>
-                    <br />
-                    <Text type="secondary">
-                      <IdcardOutlined style={{ marginRight: '8px' }} />
-                      Role: Company / Admin / User
-                    </Text>
-                  </div>
-                </Row>
-              </Col>
+    <Layout style={{ minHeight: "100vh" }}>
+      {/* Sidebar */}
+      <Sider theme="light" width={250}>
+        <div style={{ padding: "16px", textAlign: "center" }}>
+          <Avatar size={80} icon={<UserOutlined />} />
+          <Title level={5} style={{ marginTop: "10px" }}>
+            John Doe
+          </Title>
+          <Text type="secondary">Computer Science and Engineering</Text>
+        </div>
+        <Menu mode="inline" defaultSelectedKeys={["dashboard"]}>
+          <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
+            Dashboard
+          </Menu.Item>
+          <Menu.SubMenu key="learningHub" icon={<BookOutlined />} title="Learning Hub">
+            <Menu.Item key="myCourses">My Courses</Menu.Item>
+            <Menu.Item key="materials">Materials</Menu.Item>
+            <Menu.Item key="favorites">Favorites</Menu.Item>
+          </Menu.SubMenu>
+          <Menu.SubMenu key="careerHub" icon={<SolutionOutlined />} title="Career Hub">
+            <Menu.Item key="jobListings">Job Listings</Menu.Item>
+            <Menu.Item key="myApplications">My Applications</Menu.Item>
+          </Menu.SubMenu>
+          <Menu.Item key="achievements" icon={<TrophyOutlined />}>
+            Achievements & Progress
+          </Menu.Item>
+          <Menu.Item key="notifications" icon={<BellOutlined />}>
+            Notifications
+          </Menu.Item>
+          <Menu.SubMenu key="settings" icon={<SettingOutlined />} title="Profile Settings">
+            <Menu.Item key="editProfile">Edit Profile</Menu.Item>
+            <Menu.Item key="privacySettings">Privacy Settings</Menu.Item>
+          </Menu.SubMenu>
+          <Menu.Item key="logout" icon={<LogoutOutlined />}>
+            Logout
+          </Menu.Item>
+        </Menu>
+      </Sider>
 
-              {/* Right side - Edit Button */}
-              <Col>
-                <Button
-                  type="primary"
-                  icon={<EditOutlined />}
-                  size="large"
-                  onClick={() => alert("Edit Profile Clicked")}
-                  style={{ marginLeft: '20px' }} 
-                />
-              </Col>
-            </Row>
-            <Divider style={{ margin: '20px 0', backgroundColor: '#d9d9d9' }} />
-
-            {/* Personal Details */}
-            <Card style={{ borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-              <Title level={5} style={{ marginTop: '20px', marginBottom: "40px", color: '#4a4a4a' }}>Personal Details</Title>
-              <Row gutter={16} style={{ marginTop: '10px' }}>
-                <Col span={12}>
-                  <div style={{ marginTop: '20px', marginBottom: "40px", marginLeft: "40px" ,fontSize: '16px' }}>
-                    <label>
-                      First Name 
-                    </label><br />
-                    <Text style={{ fontWeight: 'bold' }}>John</Text>
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ marginTop: '20px', marginBottom: "40px", marginLeft: "20px" ,fontSize: '16px' }}>
-                    <label>
-                       Last Name
-                    </label><br />
-                    <Text style={{ fontWeight: 'bold' }}>Doe</Text>
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ marginTop: '20px', marginBottom: "40px", marginLeft: "40px"  ,fontSize: '16px' }}>
-                    <label>
-                      <MailOutlined style={{ marginRight: '8px' }} /> Email ID
-                    </label><br />
-                    <Text style={{ fontWeight: 'bold' }}>johndoe@example.com</Text>
-                  </div>
-                </Col>
-                <Col span={12}>
-                  <div style={{ marginTop: '20px', marginBottom: "40px", marginLeft: "20px"  ,fontSize: '16px'}}>
-                    <label >
-                      <PhoneOutlined style={{ marginRight: '8px' }} /> Phone No
-                    </label><br />
-                    <Text style={{ fontWeight: 'bold' }}>000-000-0000</Text>
-                  </div>
-                </Col>
-              </Row>
+      {/* Content Area */}
+      <Layout>
+        <Content style={{ margin: "20px", padding: "20px", background: "#fff" }}>
+          <Title level={4}>Dashboard</Title>
+          <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+            <Card title="My Courses" bordered style={{ width: 300 }}>
+              <p>3 Courses Enrolled</p>
+              <Progress percent={70} size="small" status="active" />
+              <Text>Completed: 70%</Text>
             </Card>
-          </Card>
-        </Col>
-      </Row>
-    </div>
+
+            <Card title="My Applications" bordered style={{ width: 300 }}>
+              <p>2 Applications Pending</p>
+              <Text>Status: Follow-up Required</Text>
+            </Card>
+
+            <Card title="Achievements" bordered style={{ width: 300 }}>
+              <p>2 Certificates Earned</p>
+              <p>1 Badge Unlocked</p>
+            </Card>
+          </div>
+        </Content>
+      </Layout>
+    </Layout>
   );
-}
+};
+
+export default ProfileComponent;
