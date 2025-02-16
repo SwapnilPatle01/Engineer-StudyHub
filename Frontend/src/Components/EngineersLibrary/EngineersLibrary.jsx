@@ -13,7 +13,7 @@ import {
 } from "antd";
 import axios from "axios";
 import "./EngineersLibrary.css";
-import LandingForNotes from "./../Home/Hero/LandingForNotes"
+import LandingForNotes from "./../Home/Hero/LandingForNotes";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;
@@ -176,7 +176,7 @@ function LearningMaterial() {
         <div
           className="material-search-area"
           style={{
-            background:"linear-gradient(90deg, #553CDF, #1a2980)",
+            background: "linear-gradient(90deg, #553CDF, #1a2980)",
             width: "100%",
             height: "auto",
             color: "#fff",
@@ -467,7 +467,9 @@ function LearningMaterial() {
                     image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
                     imageStyle={{ height: 150, marginTop: "20px" }}
                     description={
-                      <Typography.Text style={{ fontSize: "15px", marginBottom:"30px" }}>
+                      <Typography.Text
+                        style={{ fontSize: "15px", marginBottom: "30px" }}
+                      >
                         There is nothing to show! Just head towards the
                         selectors given above to search for Notes, PYQs,
                         Syllabus, Video Lecture
@@ -483,7 +485,6 @@ function LearningMaterial() {
           </Content>
         )}
       </Layout>
-      <LandingForNotes/>
     </Layout>
   );
 }
