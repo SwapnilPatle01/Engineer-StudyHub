@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Typography, Button, Modal } from "antd";
 import {
   PlayCircleOutlined,
@@ -11,6 +11,21 @@ const { Title, Text } = Typography;
 
 const AboutUs = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+   const [isMobile, setIsMobile] = useState(false);
+    
+    //To trigger CSS whenever screen size changes
+    useEffect(() => {
+        const updateSize = () => {
+          setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
+        };
+          // Initial check
+          updateSize();
+          // Add resize event listener
+          window.addEventListener("resize", updateSize);
+          // Cleanup event listener on component unmount
+          return () => window.removeEventListener("resize", updateSize);
+        }, []);
+  
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -81,8 +96,8 @@ const AboutUs = () => {
                 size="large"
                 style={{
                   position: "absolute",
-                  top: window.innerWidth<= 760? "50%" : "45%",
-                  left: window.innerWidth<= 760? "50%" :"65%",
+                  top: isMobile? "50%" : "45%",
+                  left: isMobile? "50%" :"65%",
                   transform: "translate(-50%, -50%)",
                   fontSize: "36px",
                   opacity: 0.8,

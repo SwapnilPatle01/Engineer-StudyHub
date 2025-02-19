@@ -40,6 +40,20 @@ const MainLayout = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState("");
   const [drawerVisible, setDrawerVisible] = useState(false); // Drawer state for mobile menu
+  const [isMobile, setIsMobile] = useState(false);
+
+//To trigger CSS whenever screen size changes
+  useEffect(() => {
+    const updateSize = () => {
+      setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
+    };
+      // Initial check
+      updateSize();
+      // Add resize event listener
+      window.addEventListener("resize", updateSize);
+      // Cleanup event listener on component unmount
+      return () => window.removeEventListener("resize", updateSize);
+    }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -172,14 +186,15 @@ const MainLayout = () => {
         style={{ background: "linear-gradient(90deg, #553CDF, #1a2980)", height: "45px", overflow: "hidden" }}
       >
         <div
+        className="top-nav"
           style={{
             display: "flex",
-            justifyContent: window.innerWidth <= 768 ? "space-evenly" : "space-between",
+            justifyContent: isMobile? "space-evenly" :"space-between",
             alignItems: "center",
             maxWidth: "1400px",
             margin: "0 auto",
-            padding: "0px",
-            fontSize: "12px",
+            padding: isMobile? "4px":"0px",
+            fontSize: isMobile? "11px":"12px",
             color: "#fff",
             height: "100%",
           }}

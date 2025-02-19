@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
 import { Button, Carousel, Typography, Row, Col, Input } from "antd";
 
 import "../Home.css";
@@ -7,6 +7,21 @@ import "../Home.css";
 const { Title, Paragraph } = Typography;
 
 const HeroSlider = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  //To trigger CSS whenever screen size changes
+  useEffect(() => {
+      const updateSize = () => {
+        setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
+      };
+        // Initial check
+        updateSize();
+        // Add resize event listener
+        window.addEventListener("resize", updateSize);
+        // Cleanup event listener on component unmount
+        return () => window.removeEventListener("resize", updateSize);
+      }, []);
+
   return (
     <Carousel autoplay style={{
         width: "100%",
@@ -51,7 +66,7 @@ const HeroSlider = () => {
                   enterButton="Explore"
                   size="large"
                   style={{
-                    maxWidth: window.innerWidth<=760? "100%" : "50%",
+                    maxWidth: isMobile? "100%" : "55%",
                     borderRadius: "0px",
                     boxShadow: "0 2px 4px rgba(0, 0, 0, 0)",
                     border:"none",
