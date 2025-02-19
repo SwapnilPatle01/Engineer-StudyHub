@@ -74,12 +74,15 @@ const AboutUs = () => {
               <Button
                 type="primary"
                 shape="circle"
-                icon={<PlayCircleOutlined />}
+                icon={<PlayCircleOutlined style={{
+                  display:"flex",
+                  alignItems: "center"   //positioning icon in the center of the Button Background
+                }}/>}
                 size="large"
                 style={{
                   position: "absolute",
-                  top: "50%",
-                  left: "50%",
+                  top: window.innerWidth<= 760? "50%" : "45%",
+                  left: window.innerWidth<= 760? "50%" :"65%",
                   transform: "translate(-50%, -50%)",
                   fontSize: "36px",
                   opacity: 0.8,
@@ -191,7 +194,7 @@ const AboutUs = () => {
                 <Row align="middle">
                   <Col>
                     <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROrNO-3i-suP7E4U1ujsqk67dgi4mkiqiMQBQ&s"
+                      src="https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png"
                       alt="CEO & Founder"
                       style={{
                         borderRadius: "50%",
@@ -222,7 +225,7 @@ const AboutUs = () => {
                 <Row align="middle">
                   <Col>
                     <img
-                      src="https://media.licdn.com/dms/image/v2/D5603AQEBmg-wc9nIAQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1679968900193?e=1734566400&v=beta&t=MN5EozGGIpoVFd6oCsK2gFe0DuTtIzBSi6tvUGg-RvA"
+                       src="https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png"
                       alt="CTO & Co-Founder"
                       style={{
                         borderRadius: "50%",

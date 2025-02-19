@@ -43,7 +43,6 @@
   height: 100%;
   display: flex;
   align-items: center;
-  overflow: hidden;
 }
 
 .slide-content {
@@ -239,7 +238,7 @@
 /* FAQ Component css */
 .faq-section {
   background-color: #f7f9fc;
-  padding: 50px;
+  padding: 30px;
   text-align: left;
 }
 
@@ -288,10 +287,22 @@
 /* Add Media Queries for Responsive */
 
 @media (max-width: 768px) {
+  .slide-container{
+    padding: 0;
+  }
+  .left-main{ 
+    overflow-x: hidden;
+   }
+
   .slide-content {
     flex-direction: column-reverse;
     padding: 15px;
   }
+  .left-main .buttons button {
+    min-width: 100%;          /* Ensuring buttons take full width vertically */
+    margin-bottom: 10px; /* increased spacing between buttons */
+  }
+
 
   /* Smaller heading font and adjusted line height */
   .slide-heading h1 {
@@ -327,6 +338,9 @@
   .left-main,
   .right-section {
     width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    overflow: hidden;
   }
   /* Smaller font in review boxes for mobile */
   .review-box {
@@ -353,6 +367,7 @@
     width: 150px;
   }
 }
+
 /* Media query for screens between 768px and 1024px */
 @media (min-width: 760px) and (max-width: 1024px) {
   .slide-content {
@@ -390,9 +405,9 @@
     margin-top: 20px;
   }
 
-  .left-main,
-  .right-section {
+  .left-main{
     width: 100%;
+    overflow: hidden;
   }
 
   /* Adjust font size in review boxes for tablets */
