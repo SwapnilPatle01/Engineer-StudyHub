@@ -40,6 +40,20 @@ const MainLayout = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState("");
   const [drawerVisible, setDrawerVisible] = useState(false); // Drawer state for mobile menu
+  const [isMobile, setIsMobile] = useState(false);
+
+//To trigger CSS whenever screen size changes
+  useEffect(() => {
+    const updateSize = () => {
+      setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
+    };
+      // Initial check
+      updateSize();
+      // Add resize event listener
+      window.addEventListener("resize", updateSize);
+      // Cleanup event listener on component unmount
+      return () => window.removeEventListener("resize", updateSize);
+    }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -64,7 +78,7 @@ const MainLayout = () => {
       {
         key: "1",
         label: (
-          <Link to="/homePage" className="menu-link">
+          <Link to="/homePage" className="menu-link " onClick={()=>setDrawerVisible(false)}>
             <HomeOutlined style={{ fontSize: "22px", marginTop: "10px" }} />
           </Link>
         ),
@@ -72,7 +86,7 @@ const MainLayout = () => {
       {
         key: "2",
         label: (
-          <Link to="/learning-material" className="menu-link">
+          <Link to="/learning-material" className="menu-link" onClick={()=>setDrawerVisible(false)}>
             Engineer’s Library
           </Link>
         ),
@@ -80,7 +94,7 @@ const MainLayout = () => {
       {
         key: "3",
         label: (
-          <Link to="/JobPortal" className="menu-link">
+          <Link to="/JobPortal" className="menu-link" onClick={()=>setDrawerVisible(false)}>
             Engineer's CareerHub
           </Link>
         ),
@@ -88,7 +102,7 @@ const MainLayout = () => {
       {
         key: "5",
         label: (
-          <Link to="/DevelopersHub" className="menu-link">
+          <Link to="/DevelopersHub" className="menu-link" onClick={()=>setDrawerVisible(false)}>
             Development Hub
           </Link>
         ),
@@ -96,7 +110,7 @@ const MainLayout = () => {
       {
         key: "7",
         label: (
-          <Link to="/AboutUs" className="menu-link">
+          <Link to="/AboutUs" className="menu-link" onClick={()=>setDrawerVisible(false)}>
             About Us
           </Link>
         ),
@@ -104,7 +118,7 @@ const MainLayout = () => {
       {
         key: "8",
         label: (
-          <Link to="/ContactUs" className="menu-link">
+          <Link to="/ContactUs" className="menu-link" onClick={()=>setDrawerVisible(false)}>
             Contact Us
           </Link>
         ),
@@ -117,7 +131,7 @@ const MainLayout = () => {
         {
           key: "4",
           label: (
-            <Link to="/company-dashboard" className="menu-link">
+            <Link to="/company-dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
               Company Dashboard
             </Link>
           ),
@@ -125,7 +139,7 @@ const MainLayout = () => {
         {
           key: "6",
           label: (
-            <Link to="/Dashboard" className="menu-link">
+            <Link to="/Dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
               Admin Dashboard
             </Link>
           ),
@@ -137,7 +151,7 @@ const MainLayout = () => {
         {
           key: "4",
           label: (
-            <Link to="/company-dashboard" className="menu-link">
+            <Link to="/company-dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
               Company Dashboard
             </Link>
           ),
@@ -169,17 +183,18 @@ const MainLayout = () => {
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
       <div
-        style={{ background:"linear-gradient(90deg, #553CDF, #1a2980)", width: "100%", height: "45px" }}
+        style={{ background: "linear-gradient(90deg, #553CDF, #1a2980)", height: "45px", overflow: "hidden" }}
       >
         <div
+        className="top-nav"
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: isMobile? "space-evenly" :"space-between",
             alignItems: "center",
             maxWidth: "1400px",
             margin: "0 auto",
-            padding: "0px",
-            fontSize: "12px",
+            padding: isMobile? "4px":"0px",
+            fontSize: isMobile? "11px":"12px",
             color: "#fff",
             height: "100%",
           }}
@@ -237,7 +252,7 @@ const MainLayout = () => {
           zIndex: 1000,
         }}
       >
-        <div className="logo-container" style={{ height: "100%", margin: 0 }}>
+        <div className="logo-container" style={{ height: "100%", margin: 0,}}>
           <img src={logo} alt="logo" style={{ width: "220px" }} />
         </div>
         <Menu
@@ -253,7 +268,7 @@ const MainLayout = () => {
             color: "#6441A3",
             border: "none",
           }}
-        />
+        /> 
         <MenuOutlined
           className="mobile-menu-icon"
           onClick={showDrawer}
@@ -339,7 +354,7 @@ const MainLayout = () => {
               />
               <span style={{ marginLeft: "8px", fontSize: "16px" }}></span>
             </div>
-          </Dropdown> 
+          </Dropdown>
         ) : (
           <>
             <Button
@@ -351,7 +366,7 @@ const MainLayout = () => {
                 color: "#fff",
                 marginRight: "10px",
                 border: "1px solid #553CDF",
-                background:"linear-gradient( #553CDF, #1a2980)",
+                background: "linear-gradient( #553CDF, #1a2980)",
               }}
             >
               Login
@@ -368,14 +383,14 @@ const MainLayout = () => {
                 border: "2px solid #553CDF",
                 background: "transparentx",
               }}
-              // type="primary"
+            // type="primary"
             >
               Sign Up
             </Button>
           </>
         )}
       </Header>
-      <Content style={{ padding: "0px" }}>
+      <Content style={{ padding: "0px", }}>
         <Outlet />
       </Content>
       <FooterComponent />

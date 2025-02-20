@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
 import { Button, Carousel, Typography, Row, Col, Input } from "antd";
 
 import "../Home.css";
@@ -7,8 +7,28 @@ import "../Home.css";
 const { Title, Paragraph } = Typography;
 
 const HeroSlider = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  //To trigger CSS whenever screen size changes
+  useEffect(() => {
+      const updateSize = () => {
+        setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
+      };
+        // Initial check
+        updateSize();
+        // Add resize event listener
+        window.addEventListener("resize", updateSize);
+        // Cleanup event listener on component unmount
+        return () => window.removeEventListener("resize", updateSize);
+      }, []);
+
   return (
-    <Carousel autoplay>
+    <Carousel autoplay style={{
+        width: "100%",
+        overflowX: "hidden",
+        boxSizing: "border-box",
+      
+    }}>
       <div className="slide-container">
         <Row
           className="slide-content"
@@ -18,6 +38,8 @@ const HeroSlider = () => {
             backgroundColor: "#F9F8FF",
             margin: 0,
             width: "100%",
+          
+            
           }}
         >
           {/* Left Section - Appears first on all screen sizes */}
@@ -36,6 +58,7 @@ const HeroSlider = () => {
                   marginTop: "20px",
                   marginBottom: "20px",
                   display: "block",
+                  backgroundColor: "transparent",
                 }}
               >
                 <Input.Search
@@ -43,10 +66,10 @@ const HeroSlider = () => {
                   enterButton="Explore"
                   size="large"
                   style={{
-                    maxWidth: "50%",
+                    maxWidth: isMobile? "100%" : "55%",
                     borderRadius: "0px",
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-                    border:"none"
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0)",
+                    border:"none",
                   }}
                   onSearch={(value) => console.log(`Search for: ${value}`)}
                 />
@@ -55,7 +78,7 @@ const HeroSlider = () => {
                 level={1}
                 className="slide-heading"
                 style={{
-                  fontSize: "45px",
+                  fontSize:window.innerWidth <=768? "38px":"45px",
                   color: "#ff914d",
                   fontWeight: "400",
                   lineHeight: "50px",

@@ -31,7 +31,7 @@ const VideoPlayer = () => {
         <Button
           type="primary"
           shape="circle"
-          icon={<PlayCircleOutlined />}
+          icon={<PlayCircleOutlined/>}
           size="large"
           onClick={showModal}
           className="zoom-play-button"
@@ -106,7 +106,7 @@ const VideoPlayer = () => {
         footer={null}
         onCancel={handleCancel}
         width={800}
-        style={{ top: "50%", transform: "translateY(-50%)" }}
+        style={{ top: "50%", transform: "translateY(-50%)" , transition: "all 0.3s ease-in-out",}}
         bodyStyle={{ padding: 0 }}
       >
         <div
