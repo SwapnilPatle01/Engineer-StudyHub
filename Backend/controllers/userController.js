@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import User from "../models/register.js";
 import jwt from 'jsonwebtoken'
 import dotenv from "dotenv";
+import { Company } from "../models/company.model.js";
 dotenv.config({});
 
 export const registerUser = async (req, res) => {
@@ -42,18 +43,21 @@ export const registerUser = async (req, res) => {
 // Login API
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-
     // Compare the password with the stored hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    let userCompanies;  //If a user is company owner he should get his company details
+    if(user.role === 'company'){
+      userCompanies = await Company.find({userId: user._id})
     }
 
     // Generate a JWT token (optional, based on your requirements)
@@ -73,7 +77,7 @@ export const loginUser = async (req, res) => {
         lastName: user.lastName,
         email: user.email,
         role: user.role,
-        companyDetails: user.companyDetails,
+        companyDetails: user.role === 'company'?  userCompanies : undefined,
       },
     });
   } catch (error) {
@@ -88,7 +92,7 @@ export const updateUserProfile = async (req, res) => {
 
   try {
     // Find the user by the ID stored in the token (req.user)
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -125,13 +129,12 @@ export const updateUserProfile = async (req, res) => {
 export const deleteUserProfile = async (req, res) => {
   try {
     // Find the user by the ID stored in the token (req.user)
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     await user.deleteOne(); // Delete the user
-
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.error(error);

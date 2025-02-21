@@ -3,11 +3,13 @@ import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 import jwt from 'jsonwebtoken';
 import { json } from "express";
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const registerCompany = async (req, res) => {
     try {
-        const token=req?.headers?.token;
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const token=req.headers["authorization"]; 
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId=decoded?.userId;
         const logo = req.file ? req.file.path : null
         if (!req?.body?.name) {
@@ -82,7 +84,7 @@ export const getCompanyById = async (req, res) => {
 }
 export const updateCompany = async (req, res) => {
     try {
-        const { name, description, website, location } = result;
+        const { name, description, website, location,logo } = req.body;
         // const file = req.file;
         // idhar cloudinary ayega
         // const fileUri = getDataUri(file);
@@ -110,8 +112,7 @@ export const updateCompany = async (req, res) => {
 }
 export const deleteCompany = async (req, res) => {
     try {
-        const companyId = req.params.id;
-        
+        const companyId = req.body.id;
         // Find the company by ID and delete it
         const company = await Company.findByIdAndDelete(companyId);
 
@@ -121,7 +122,6 @@ export const deleteCompany = async (req, res) => {
                 success: false
             });
         }
-
         return res.status(200).json({
             message: "Company deleted successfully.",
             success: true

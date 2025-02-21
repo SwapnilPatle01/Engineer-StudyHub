@@ -11,8 +11,7 @@ router.route("/register").post(isAuthenticated, uploadFilesImages.single('logo')
 router.route("/get").get(isAuthenticated,getCompany);
 router.route("/get/:id").get(isAuthenticated,getCompanyById);
 router.route("/update/:id").put(isAuthenticated,uploadFilesImages.single('logo'), updateCompany);
-
-router.delete('/company/:id', deleteCompany);
+router.delete('/delete',isAuthenticated,deleteCompany);
 
 export default router;
 
