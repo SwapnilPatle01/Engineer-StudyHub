@@ -31,7 +31,7 @@ export const postJob = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-    }
+    }  
 }
 // student k liye
 export const getAllJobs = async (req, res) => {
