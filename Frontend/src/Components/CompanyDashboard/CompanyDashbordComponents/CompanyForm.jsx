@@ -23,8 +23,13 @@ const JobForm = ({ onSubmit }) => {
           },
         };
 
-        const response = await axios.get("http://localhost:5000/api/v1/company/get", config);
+        const response = await axios.get("http://localhost:5000/api/v1/company/get", {
+          headers: {
+            Authorization: localStorage.getItem("token")
+          }
+        });
         setCompanies(response.data.companies); // Assuming companies are returned in `response.data.companies`
+        console.log("response :", response)
         setLoading(false); // Stop loading
       } catch (error) {
         console.error("Error fetching companies:", error);
@@ -44,7 +49,7 @@ const JobForm = ({ onSubmit }) => {
       const config = {
         headers: {
           token: token,
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
           "Content-Type": "application/json",
         },
       };
