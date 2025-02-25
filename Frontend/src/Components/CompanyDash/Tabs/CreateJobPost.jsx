@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Typography, Modal, message } from "antd";
 import axios from "axios";
-import JobForm from "./CompanyForm";
+import JobForm from "./Job Post/CompanyForm";
 
 const { Title, Paragraph } = Typography;
 

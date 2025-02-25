@@ -1,5 +1,5 @@
 import React from 'react'
-import CompanyDashboard from '../Components/CompanyDashboard/CompanyDashboard'
+import CompanyDashboard from '../Components/CompanyDash/CompanyDashboard'
 
 function CompanyDashboardPage() {
   return (
