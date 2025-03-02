@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Menu, Button, Dropdown, Avatar, Drawer } from "antd";
-import {
-  DownOutlined,
-  HomeOutlined,
-  MailOutlined,
-  PhoneOutlined,
-  LogoutOutlined,
-  MenuOutlined,
-  UserOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
+import { LogoutOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { jwtDecode } from "jwt-decode"; // Correct import
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
@@ -41,18 +32,18 @@ const MainLayout = () => {
   const [drawerVisible, setDrawerVisible] = useState(false); // Drawer state for mobile menu
   const [isMobile, setIsMobile] = useState(false);
 
-//To trigger CSS whenever screen size changes
+  //To trigger CSS whenever screen size changes
   useEffect(() => {
     const updateSize = () => {
       setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
     };
-      // Initial check
-      updateSize();
-      // Add resize event listener
-      window.addEventListener("resize", updateSize);
-      // Cleanup event listener on component unmount
-      return () => window.removeEventListener("resize", updateSize);
-    }, []);
+    // Initial check
+    updateSize();
+    // Add resize event listener
+    window.addEventListener("resize", updateSize);
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -77,7 +68,11 @@ const MainLayout = () => {
       {
         key: "1",
         label: (
-          <Link to="/homePage" className="menu-link " onClick={()=>setDrawerVisible(false)}>
+          <Link
+            to="/homePage"
+            className="menu-link "
+            onClick={() => setDrawerVisible(false)}
+          >
             Home
           </Link>
         ),
@@ -85,15 +80,23 @@ const MainLayout = () => {
       {
         key: "2",
         label: (
-          <Link to="/learning-material" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-            Find Notes
+          <Link
+            to="/learning-material"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
+            Study Material
           </Link>
         ),
       },
       {
         key: "3",
         label: (
-          <Link to="/JobPortal" className="menu-link" onClick={()=>setDrawerVisible(false)}>
+          <Link
+            to="/JobPortal"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
             Find Job
           </Link>
         ),
@@ -101,7 +104,11 @@ const MainLayout = () => {
       {
         key: "5",
         label: (
-          <Link to="/DevelopersHub" className="menu-link" onClick={()=>setDrawerVisible(false)}>
+          <Link
+            to="/DevelopersHub"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
             Development
           </Link>
         ),
@@ -109,15 +116,23 @@ const MainLayout = () => {
       {
         key: "7",
         label: (
-          <Link to="/AboutUs" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-            About 
+          <Link
+            to="/AboutUs"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
+            About
           </Link>
         ),
       },
       {
         key: "8",
         label: (
-          <Link to="/ContactUs" className="menu-link" onClick={()=>setDrawerVisible(false)}>
+          <Link
+            to="/ContactUs"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
             Contact
           </Link>
         ),
@@ -127,18 +142,22 @@ const MainLayout = () => {
     if (role === "admin") {
       return [
         ...baseItems,
-        {
-          key: "4",
-          label: (
-            <Link to="/company-dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-              Company Dashboard
-            </Link>
-          ),
-        },
+        // {
+        //   key: "4",
+        //   label: (
+        //     <Link to="/company-dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
+        //       Company Dashboard
+        //     </Link>
+        //   ),
+        // },
         {
           key: "6",
           label: (
-            <Link to="/Dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
+            <Link
+              to="/Dashboard"
+              className="menu-link"
+              onClick={() => setDrawerVisible(false)}
+            >
               Admin Dashboard
             </Link>
           ),
@@ -150,7 +169,11 @@ const MainLayout = () => {
         {
           key: "4",
           label: (
-            <Link to="/company-dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
+            <Link
+              to="/company-dashboard"
+              className="menu-link"
+              onClick={() => setDrawerVisible(false)}
+            >
               Company Dashboard
             </Link>
           ),
@@ -181,63 +204,6 @@ const MainLayout = () => {
 
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
-      {/* <div
-        style={{ background: "linear-gradient(90deg, #553CDF, #1a2980)", height: "45px", overflow: "hidden" }}
-      >
-        <div
-        className="top-nav"
-          style={{
-            display: "flex",
-            justifyContent: isMobile? "space-evenly" :"space-between",
-            alignItems: "center",
-            maxWidth: "1400px",
-            margin: "0 auto",
-            padding: isMobile? "4px":"0px",
-            fontSize: isMobile? "11px":"12px",
-            color: "#fff",
-            height: "100%",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              gap: "15px",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
-              <MailOutlined
-                style={{
-                  paddingRight: "5px",
-                  fontSize: "18px",
-                  color: "#fff",
-                }}
-              />
-              info@engineerstudyhub.in
-            </p>
-            <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
-              <PhoneOutlined
-                style={{
-                  paddingRight: "5px",
-                  fontSize: "18px",
-                  color: "#fff",
-                }}
-              />
-              +91 9876543210
-            </p>
-          </div>
-
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
-              <DownOutlined style={{ paddingRight: "5px", fontSize: "14px" }} />
-              India
-            </p>
-          </div>
-        </div>
-      </div> */}
       <Header
         style={{
           display: "flex",
@@ -251,7 +217,7 @@ const MainLayout = () => {
           zIndex: 1000,
         }}
       >
-        <div className="logo-container" style={{ height: "100%", margin: 0,}}>
+        <div className="logo-container" style={{ height: "100%", margin: 0 }}>
           <img src={logo} alt="logo" style={{ width: "220px" }} />
         </div>
         <Menu
@@ -267,7 +233,7 @@ const MainLayout = () => {
             color: "#6441A3",
             border: "none",
           }}
-        /> 
+        />
         <MenuOutlined
           className="mobile-menu-icon"
           onClick={showDrawer}
@@ -382,17 +348,16 @@ const MainLayout = () => {
                 border: "2px solid #553CDF",
                 background: "transparentx",
               }}
-            // type="primary"
+              // type="primary"
             >
               Sign Up
             </Button>
           </>
         )}
       </Header>
-      <Content style={{ padding: "0px", }}>
+      <Content style={{ padding: "0px" }}>
         <Outlet />
       </Content>
-      
     </Layout>
   );
 };
