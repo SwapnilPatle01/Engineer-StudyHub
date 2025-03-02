@@ -25,11 +25,6 @@ const RegisterPage = () => {
     email: "",
     password: "",
     role: "",
-    companyName: "",
-    companyEmail: "",
-    linkedinProfile: "",
-    websiteUrl: "",
-    hiringType: "",
   });
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false); // Track if form is submitted
@@ -70,18 +65,18 @@ const RegisterPage = () => {
     // }
 
     // add this for store company data in database
-    if (input.role === "company") {
-      formData.append("companyDetails[companyName]", input.companyName);
-      formData.append("companyDetails[companyEmail]", input.companyEmail);
-      formData.append("companyDetails[linkedinProfile]", input.linkedinProfile);
-      formData.append("companyDetails[websiteUrl]", input.websiteUrl);
-      formData.append("companyDetails[hiringType]", input.hiringType);
-    }
+    // if (input.role === "company") {
+    //   formData.append("companyDetails[companyName]", input.companyName);
+    //   formData.append("companyDetails[companyEmail]", input.companyEmail);
+    //   formData.append("companyDetails[linkedinProfile]", input.linkedinProfile);
+    //   formData.append("companyDetails[websiteUrl]", input.websiteUrl);
+    //   formData.append("companyDetails[hiringType]", input.hiringType);
+    // }
 
     try {
       dispatch(setLoading(true)); // Show loader
       const res = await axios.post(
-        "http://localhost:5001/api/v1/user/register",
+        "http://localhost:5000/api/v1/user/register",
         formData,
         {
           headers: { "Content-Type": "application/json" },
