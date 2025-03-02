@@ -13,7 +13,6 @@ import {
 import { jwtDecode } from "jwt-decode"; // Correct import
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
-import FooterComponent from "../Components/Footer/FooterComponent";
 import logo from "../assets/images/Engineer_StudyHub_-removebg-preview.png";
 
 const { Header, Content } = Layout;
@@ -79,7 +78,7 @@ const MainLayout = () => {
         key: "1",
         label: (
           <Link to="/homePage" className="menu-link " onClick={()=>setDrawerVisible(false)}>
-            <HomeOutlined style={{ fontSize: "22px", marginTop: "10px" }} />
+            Home
           </Link>
         ),
       },
@@ -87,7 +86,7 @@ const MainLayout = () => {
         key: "2",
         label: (
           <Link to="/learning-material" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-            Engineer’s Library
+            Find Notes
           </Link>
         ),
       },
@@ -95,7 +94,7 @@ const MainLayout = () => {
         key: "3",
         label: (
           <Link to="/JobPortal" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-            Engineer's CareerHub
+            Find Job
           </Link>
         ),
       },
@@ -103,7 +102,7 @@ const MainLayout = () => {
         key: "5",
         label: (
           <Link to="/DevelopersHub" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-            Development Hub
+            Development
           </Link>
         ),
       },
@@ -111,7 +110,7 @@ const MainLayout = () => {
         key: "7",
         label: (
           <Link to="/AboutUs" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-            About Us
+            About 
           </Link>
         ),
       },
@@ -119,7 +118,7 @@ const MainLayout = () => {
         key: "8",
         label: (
           <Link to="/ContactUs" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-            Contact Us
+            Contact
           </Link>
         ),
       },
@@ -182,7 +181,7 @@ const MainLayout = () => {
 
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
-      <div
+      {/* <div
         style={{ background: "linear-gradient(90deg, #553CDF, #1a2980)", height: "45px", overflow: "hidden" }}
       >
         <div
@@ -238,7 +237,7 @@ const MainLayout = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
       <Header
         style={{
           display: "flex",
@@ -393,7 +392,7 @@ const MainLayout = () => {
       <Content style={{ padding: "0px", }}>
         <Outlet />
       </Content>
-      <FooterComponent />
+      
     </Layout>
   );
 };

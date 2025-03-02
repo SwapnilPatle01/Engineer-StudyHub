@@ -10,6 +10,7 @@ import VideoPlayer from "./VideoPlayer/VideoPlayer";
 // import ReviewBOx from "./ReviewBox";
 import AboutUs from "./HomeAbout/HomeAbout";
 import UniversityLogoScroller from "./University/UniversityLogoScroller";
+import FooterComponent from "../Footer/FooterComponent"
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
       <Features />
       <FAQ />
       {/* <ReviewBOx /> */}
+      <FooterComponent/>
     </div>
   );
 };
