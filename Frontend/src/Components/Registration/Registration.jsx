@@ -12,7 +12,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../redux/authSlice"; // Assuming you have an authSlice for handling loading state
-// import "./RegistrationPage.css";
 import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png";
 
 const { Title } = Typography;
@@ -130,7 +129,10 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-container" style={{ width: "100%", height:"auto", margin:"50px 0px" }}>
+    <div
+      className="register-container"
+      style={{ width: "100%", height: "auto", margin: "50px 0px" }}
+    >
       <div
         className="register-card"
         style={{ backgroundColor: "#fff", maxWidth: "80%" }}
@@ -158,10 +160,11 @@ const RegisterPage = () => {
               style={{ width: "220px", padding: "0px", margin: "0px" }}
             />
             <Title level={4} className="form-title" style={{ margin: "0px" }}>
-            Join Engineer Study Hub!
+              Join Engineer Study Hub!
             </Title>
             <Title level={5} className="form-title" style={{ margin: "0px" }}>
-            Create an account to explore study materials, video lectures, and more.
+              Create an account to explore study materials, video lectures, and
+              more.
             </Title>
           </div>
 
@@ -282,8 +285,11 @@ const RegisterPage = () => {
               </div>
             )}
 
-            <div className="login-redirect" style={{textAlign:"center"}}>
-              <Title level={5}>By signing up, you agree to our Terms of Service and Privacy Policy.</Title>
+            <div className="login-redirect" style={{ textAlign: "center" }}>
+              <Title level={5}>
+                By signing up, you agree to our Terms of Service and Privacy
+                Policy.
+              </Title>
               Already have an account?{" "}
               <Link to="/login" className="register-link">
                 Log In here
