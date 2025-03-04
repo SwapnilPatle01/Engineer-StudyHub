@@ -29,6 +29,27 @@ const fileFilter = (req, file, cb) => {
     return cb(new Error("Only PDF and image files are allowed"), false);
   }
 };
+// / File Filter to Allow Only Images (PNG, JPG, JPEG)
+const fileImageFilter = (req, file, cb) => {
+  const allowedTypes = /png|jpg|jpeg/;
+  const extName = allowedTypes.test(
+    path.extname(file.originalname).toLowerCase()
+  );
+  const mimeType = allowedTypes.test(file.mimetype);
+
+  if (extName && mimeType) {
+    cb(null, true); // Accept the file
+  } else {
+    cb(new Error("Only image files (PNG, JPG, JPEG) are allowed"), false); // Reject non-image files
+  }
+};
+
+
+// Exporting upload middleware
+export const uploadFilesImages = multer({
+  storage: storage,
+  fileImageFilter: fileImageFilter,
+});
 
 // Exporting upload middleware
 export const uploadFiles = multer({

@@ -1,17 +1,22 @@
 import { Company } from "../models/company.model.js";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
+import jwt from 'jsonwebtoken';
+import { json } from "express";
 
 export const registerCompany = async (req, res) => {
     try {
-        const { companyName } = req.body;
-        if (!companyName) {
+        const token=req?.headers?.token;
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const userId=decoded?.userId;
+        const logo = req.file ? req.file.path : null
+        if (!req?.body?.name) {
             return res.status(400).json({
                 message: "Company name is required.",
                 success: false
             });
         }
-        let company = await Company.findOne({ name: companyName });
+        let company = await Company.findOne({ name: req?.body?.name });
         if (company) {
             return res.status(400).json({
                 message: "You can't register same company.",
@@ -19,8 +24,12 @@ export const registerCompany = async (req, res) => {
             })
         };
         company = await Company.create({
-            name: companyName,
-            userId: req.id
+            name: req.body.name,
+            description: req.body.description,
+            website: req.body.website,
+            location:req.body.location,
+            logo: "hi",
+            userId: userId
         });
 
         return res.status(201).json({
@@ -35,12 +44,13 @@ export const registerCompany = async (req, res) => {
 export const getCompany = async (req, res) => {
     try {
         const userId = req.id; // logged in user id
-        const companies = await Company.find({ userId });
-        if (!companies) {
+        const companies = await Company.find({ userId }); 
+        
+        if (companies.length === 0) {
             return res.status(404).json({
                 message: "Companies not found.",
                 success: false
-            })
+            });
         }
         return res.status(200).json({
             companies,
@@ -48,8 +58,9 @@ export const getCompany = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
+        res.status(500).json({ message: "Server Error", success: false });
     }
-}
+}   
 // get company by id
 export const getCompanyById = async (req, res) => {
     try {
@@ -71,13 +82,12 @@ export const getCompanyById = async (req, res) => {
 }
 export const updateCompany = async (req, res) => {
     try {
-        const { name, description, website, location } = req.body;
- 
-        const file = req.file;
+        const { name, description, website, location } = result;
+        // const file = req.file;
         // idhar cloudinary ayega
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        const logo = cloudResponse.secure_url;
+        // const fileUri = getDataUri(file);
+        // const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        // const logo = cloudResponse.secure_url;
     
         const updateData = { name, description, website, location, logo };
 
@@ -98,3 +108,30 @@ export const updateCompany = async (req, res) => {
         console.log(error);
     }
 }
+export const deleteCompany = async (req, res) => {
+    try {
+        const companyId = req.params.id;
+        
+        // Find the company by ID and delete it
+        const company = await Company.findByIdAndDelete(companyId);
+
+        if (!company) {
+            return res.status(404).json({
+                message: "Company not found.",
+                success: false
+            });
+        }
+
+        return res.status(200).json({
+            message: "Company deleted successfully.",
+            success: true
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: "An error occurred while deleting the company.",
+            success: false
+        });
+    }
+};

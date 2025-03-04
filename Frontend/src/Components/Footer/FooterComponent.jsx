@@ -1,26 +1,28 @@
 import React from "react";
 import { Layout, Row, Col, Typography, Space } from "antd";
 import {
-  FacebookOutlined,
   TwitterOutlined,
   LinkedinOutlined,
   InstagramOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
-import "./Footer.css"; // You can style further in this file
+import "./Footer.css";
 import logo from "../../assets/images/logo.png";
 
 const { Footer } = Layout;
 const { Title, Text, Link } = Typography;
-
 
 const FooterComponent = () => {
   return (
     <Footer
       style={{ backgroundColor: "#000", color: "#fff", padding: "40px 50px" }}
     >
-      <div className="footer-logo flex" style={{width:"100%",}}>
-        <img src={logo} alt="logo" style={{ width: 350,paddingBottom:"35px", }} />
+      <div className="footer-logo flex" style={{ width: "100%" }}>
+        <img
+          src={logo}
+          alt="logo"
+          style={{ width: 350, paddingBottom: "35px" }}
+        />
       </div>
       <Row gutter={[32, 32]} justify="space-between">
         {/* About Us Section */}
@@ -92,14 +94,12 @@ const FooterComponent = () => {
           <Title level={4} style={{ color: "#fff" }}>
             Contact Us
           </Title>
-          <Text style={{ color: "#fff" }}>
-            Email: support@engineerstudyhub.in
-          </Text>
+          <Text style={{ color: "#fff" }}>Email: info@engineerstudyhub.in</Text>
           <br />
-          <Text style={{ color: "#fff" }}>Phone: +91 9876543210</Text>
+          <Text style={{ color: "#fff" }}>Phone: +91 8275877976</Text>
           <br />
           <Text style={{ color: "#fff" }}>
-            Address: XYZ Tower, Tech Park, City
+            Chatrapati Square, Nagpur, Maharashtra, India
           </Text>
           <br />
           <Text style={{ color: "#fff" }}>
@@ -113,19 +113,25 @@ const FooterComponent = () => {
             Follow Us
           </Title>
           <Space size="large">
-            <Link href="https://facebook.com" target="_blank">
-              <FacebookOutlined style={{ fontSize: "24px", color: "#fff" }} />
-            </Link>
-            <Link href="https://twitter.com" target="_blank">
-              <TwitterOutlined style={{ fontSize: "24px", color: "#fff" }} />
-            </Link>
-            <Link href="https://linkedin.com" target="_blank">
+            <Link
+              href="https://www.linkedin.com/company/engineer-studyhub/?viewAsMember=true"
+              target="_blank"
+            >
               <LinkedinOutlined style={{ fontSize: "24px", color: "#fff" }} />
             </Link>
-            <Link href="https://instagram.com" target="_blank">
+            <Link
+              href="https://www.instagram.com/engineerstudyhub/profilecard/?igsh=MWFrY3A3Y3RncnYz"
+              target="_blank"
+            >
               <InstagramOutlined style={{ fontSize: "24px", color: "#fff" }} />
             </Link>
-            <Link href="https://youtube.com" target="_blank">
+            <Link href="https://x.com/EngStudyHub_X" target="_blank">
+              <TwitterOutlined style={{ fontSize: "24px", color: "#fff" }} />
+            </Link>
+            <Link
+              href="https://www.youtube.com/@EngineerStudyHub"
+              target="_blank"
+            >
               <YoutubeOutlined style={{ fontSize: "24px", color: "#fff" }} />
             </Link>
           </Space>
@@ -143,7 +149,7 @@ const FooterComponent = () => {
       >
         <Col xs={24} sm={12}>
           <Text style={{ color: "#fff" }}>
-            © 2024 Engineers StudyHub. All rights reserved.
+            ©2024 Engineers StudyHub. All rights reserved.
           </Text>
         </Col>
         <Col xs={24} sm={12} style={{ textAlign: "right" }}>

@@ -1,0 +1,77 @@
+/* Add Media Queries for Responsive  */
+@media (max-width: 768px) {
+  .review-video-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-container,
+  .videoo-container {
+    width: 100%; /* Full width on mobile */
+    margin-left: 0; /* Remove left margin */
+    margin-bottom: 20px; /* Add spacing between containers */
+  }
+
+  .videoo-container {
+    position: relative;
+  }
+
+  .review-container img,
+  .videoo-container img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
+
+/* Side-by-side layout for screens between 769px and 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .review-video-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Add spacing between elements */
+  }
+
+  .review-container,
+  .videoo-container {
+    width: 90%; /* Adjusted widths */
+    margin-left: 15px;
+  }
+
+  .review-container .responsive-image {
+    max-height: 400px; /* For better visibility */
+  }
+
+  .videoo-container button {
+    align-items: center;
+  }
+
+  .review-container img,
+  .videoo-container img {
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
+
+/* layout for screens 769px and larger  */
+@media (min-width: 769px) {
+  .review-video-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .review-container {
+    width: 30%;
+  }
+
+  .videoo-container {
+    width: 62%;
+    margin-left: 20px;
+  }
+
+  .video-container button {
+    align-items: center;
+  }
+}

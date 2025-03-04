@@ -1,10 +1,10 @@
 import React from "react";
-import JobPortal from "../Components/JobPortal/JobPortal";
+import CareerDashboard from "../Components/JobPortal/CareerDashboard";
 
 function JobPortalPage() {
   return (
     <div>
-      <JobPortal />
+      <CareerDashboard />
     </div>
   );
 }

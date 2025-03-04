@@ -1,0 +1,29 @@
+@media (max-width: 500px) {
+  .responsive-sider {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+
+  .responsive-sider .ant-menu {
+    padding: 6px;
+  }
+
+  .responsive-sider h1 {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+
+  .responsive-sider h2 {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .responsive-sider .ant-select {
+    width: 100%;
+  }
+
+  .responsive-sider button {
+    padding: 10px 20px;
+  }
+}

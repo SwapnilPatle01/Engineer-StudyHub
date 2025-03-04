@@ -1,0 +1,127 @@
+.courses-section {
+  background-image: url("https://html.themewant.com/studyhub/assets/images/bg/bg-1.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.courses-header h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.courses-header p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Card Style Enhancements */
+.course-card {
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.course-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+/* Custom Pagination Dots */
+.dot-pagination {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.ant-pagination-item-active .dot-pagination {
+  background-color: #722ed1;
+}
+
+/* Arrows Styling */
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-arrow.left {
+  left: -25px;
+}
+
+.custom-arrow.right {
+  right: -25px;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dot-pagination {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.ant-pagination-item-active .dot-pagination {
+  background-color: #722ed1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .courses-section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .course-icon {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-icon {
+    font-size: 30px;
+  }
+
+  .courses-header h2 {
+    font-size: 24px;
+  }
+
+  .courses-header p {
+    font-size: 14px;
+  }
+
+  .custom-arrow.left {
+    left: -15px;
+  }
+
+  .custom-arrow.right {
+    right: -15px;
+  }
+}
