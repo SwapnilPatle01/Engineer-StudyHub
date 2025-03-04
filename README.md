@@ -63,6 +63,12 @@ Follow these steps to get the project running locally:
    ```
    MONGO_URI=mongodb://localhost:27017/Engineer-StudyHub
    PORT=5000
+   JWT_SECRET= asjfhladskjafkjlfffdshflkjdshfjkds
+   dotenv.config();
+
+   CLOUD_NAME = dc18nvrik
+   API_KEY = 494172899366566
+   API_SECRET = Kj4q8uuCiMi8sg0wS2VgOpSca6us
    ```
 
 ### Running the Project

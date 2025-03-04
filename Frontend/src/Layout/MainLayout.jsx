@@ -165,7 +165,8 @@ const MainLayout = () => {
   const closeDrawer = () => {
     setDrawerVisible(false);
   };
-
+  // Added this check for login/signup pages
+  const hideFooter = location.pathname === '/login' || location.pathname === '/register';
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
       <div
@@ -378,7 +379,7 @@ const MainLayout = () => {
       <Content style={{ padding: "0px" }}>
         <Outlet />
       </Content>
-      <FooterComponent />
+      {!hideFooter && <FooterComponent />}
     </Layout>
   );
 };
