@@ -16,7 +16,7 @@ const MainLayout = () => {
     "/homePage": "1",
     "/learning-material": "2",
     "/JobPortal": "3",
-    "/EngineersCarrerHub-DashBoard": "4",
+    "/Company/Dashbaord": "4",
     "/DevelopersHub": "5",
     "/Dashboard": "6",
     "/AboutUs": "7",
@@ -97,7 +97,7 @@ const MainLayout = () => {
             className="menu-link"
             onClick={() => setDrawerVisible(false)}
           >
-            Find Job
+            Find Jobs
           </Link>
         ),
       },
@@ -170,7 +170,7 @@ const MainLayout = () => {
           key: "4",
           label: (
             <Link
-              to="/company-dashboard"
+              to="Company/Dashboard"
               className="menu-link"
               onClick={() => setDrawerVisible(false)}
             >

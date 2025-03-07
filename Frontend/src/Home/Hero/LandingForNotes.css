@@ -1,7 +1,7 @@
 .hero-section {
   position: relative;
   height: auto;
-  background: url("../../../assets/images/UniversityStudents.jpg") no-repeat center
+  background: url("../../assets/images/UniversityStudents.jpg") no-repeat center
     center/cover;
 }
 

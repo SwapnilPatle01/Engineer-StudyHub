@@ -12,8 +12,7 @@ import {
   Typography,
 } from "antd";
 import axios from "axios";
-import "./EngineersLibrary.css";
-import LandingForNotes from "./../Home/Hero/LandingForNotes";
+import "./StudyMaterials.css";
 
 const { Sider, Content } = Layout;
 const { Option } = Select;

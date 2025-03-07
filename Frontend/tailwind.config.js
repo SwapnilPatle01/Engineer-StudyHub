@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}", // This ensures Tailwind scans all your components
   ],
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")]
+  plugins: [require("daisyui")], // Include DaisyUI
 }
+
 

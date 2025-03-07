@@ -6,13 +6,15 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
-import LearningMaterial from "./Components/EngineersLibrary/EngineersLibrary";
+import StudyMaterials from "./Components/StudyMaterials/StudyMaterials"
 import RegisterPage from "./pages/RegistrationPage";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ProfilePage from "./pages/Profile";
 import DeveloperDetailPage from "./Components/DevelopersHub/DeveloperResources/DeveloperDetailPage";
+
+import CompanyDashboard from "./Components/Clients/CompanyDashboard/CompanyDashboard";
 
 function App() {
   return (
@@ -26,13 +28,16 @@ function App() {
             <Route path="Dashboard" element={<Dashboardpage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
-            <Route path="learning-material" element={<LearningMaterial />} />
+            <Route path="learning-material" element={<StudyMaterials />} />
             <Route path="DevelopersHub" element={<DeveloperPage />} />
             <Route path="/resources/:key" element={<DeveloperDetailPage />} />
             <Route path="ContactUs" element={<ContactUs />} />
             <Route path="AboutUs" element={<AboutUs />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="JobPortal" element={<JobPortalPage />} />
+
+            {/* Company Dashboard Routes */}
+            <Route path="Company/Dashboard" element={<CompanyDashboard />} />
           </Route>
         </Routes>
       </Router>
