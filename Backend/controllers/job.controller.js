@@ -2,6 +2,7 @@ import { Job } from "../models/job.model.js";
 
 // admin post krega job
 export const postJob = async (req, res) => {
+    debugger;
     try {
         const { title, description, requirements, salary, location, jobType, experience, position, companyId } = req.body;
         const userId = req.id;
@@ -35,6 +36,7 @@ export const postJob = async (req, res) => {
 }
 // student k liye
 export const getAllJobs = async (req, res) => {
+    
     try {
         const keyword = req.query.keyword || "";
         const query = {

@@ -6,14 +6,16 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
-import StudyMaterials from "./Components/StudyMaterials/StudyMaterials"
+import StudyMaterials from "./Components/StudyMaterials/StudyMaterials";
 import RegisterPage from "./pages/RegistrationPage";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ProfilePage from "./pages/Profile";
+import DashboardHome from "./Components/Clients/Tabs/DashboardHome";
+import JobPost from "./Components/Clients/Tabs/JobPost";
+import Companies from "./Components/Clients/Tabs/Companies";
 import DeveloperDetailPage from "./Components/DevelopersHub/DeveloperResources/DeveloperDetailPage";
-
 import CompanyDashboard from "./Components/Clients/CompanyDashboard/CompanyDashboard";
 
 function App() {
@@ -36,8 +38,12 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
             <Route path="JobPortal" element={<JobPortalPage />} />
 
-            {/* Company Dashboard Routes */}
-            <Route path="Company/Dashboard" element={<CompanyDashboard />} />
+            <Route path="/" element={<CompanyDashboard />}>
+              {/* Nested Routes - These will be displayed inside <Outlet /> in CompanyDashboard */}
+              <Route path="Company/Dashboard/" element={<DashboardHome />} />
+              <Route path="job-post" element={<JobPost />} />
+              <Route path="companies" element={<Companies />}/>
+            </Route>
           </Route>
         </Routes>
       </Router>

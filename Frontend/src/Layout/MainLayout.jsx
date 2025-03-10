@@ -90,30 +90,6 @@ const MainLayout = () => {
         ),
       },
       {
-        key: "3",
-        label: (
-          <Link
-            to="/JobPortal"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Find Jobs
-          </Link>
-        ),
-      },
-      {
-        key: "5",
-        label: (
-          <Link
-            to="/DevelopersHub"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Development
-          </Link>
-        ),
-      },
-      {
         key: "7",
         label: (
           <Link
@@ -138,48 +114,64 @@ const MainLayout = () => {
         ),
       },
     ];
-
-    if (role === "admin") {
-      return [
-        ...baseItems,
-        // {
-        //   key: "4",
-        //   label: (
-        //     <Link to="/company-dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
-        //       Company Dashboard
-        //     </Link>
-        //   ),
-        // },
+  
+    if (role !== "company") {
+      baseItems.splice(2, 0,  // Insert these items after Study Material
         {
-          key: "6",
+          key: "3",
           label: (
             <Link
-              to="/Dashboard"
+              to="/JobPortal"
               className="menu-link"
               onClick={() => setDrawerVisible(false)}
             >
-              Admin Dashboard
+              Find Jobs
             </Link>
           ),
         },
-      ];
-    } else if (role === "company") {
-      return [
-        ...baseItems,
         {
-          key: "4",
+          key: "5",
           label: (
             <Link
-              to="Company/Dashboard"
+              to="/DevelopersHub"
               className="menu-link"
               onClick={() => setDrawerVisible(false)}
             >
-              Company Dashboard
+              Development
             </Link>
           ),
-        },
-      ];
+        }
+      );
     }
+  
+    if (role === "admin") {
+      baseItems.push({
+        key: "6",
+        label: (
+          <Link
+            to="/Dashboard"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
+            Admin Dashboard
+          </Link>
+        ),
+      });
+    } else if (role === "company") {
+      baseItems.push({
+        key: "4",
+        label: (
+          <Link
+            to="/Company/Dashboard"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
+            Company Dashboard
+          </Link>
+        ),
+      });
+    }
+  
     return baseItems;
   };
 

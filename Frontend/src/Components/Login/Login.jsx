@@ -99,7 +99,7 @@ const LoginPage = () => {
             >
               <Select size="large" placeholder="Select role">
                 <Option value="student">Student</Option>
-                <Option value="company">Company</Option>
+                <Option value="company">Recruiter</Option>
                 <Option value="admin">Admin</Option>
               </Select>
             </Form.Item>
