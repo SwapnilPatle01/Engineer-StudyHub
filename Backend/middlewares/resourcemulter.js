@@ -1,13 +1,30 @@
 import multer from "multer";
 import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
 
-// Storage Configuration
+// Get the directory name properly in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Ensure upload directories exist
+const pdfDir = path.join(__dirname, "../uploads/pdfs");
+const imageDir = path.join(__dirname, "../uploads/images");
+
+// Create directories if they don't exist
+if (!fs.existsSync(pdfDir)) {
+  fs.mkdirSync(pdfDir, { recursive: true });
+}
+if (!fs.existsSync(imageDir)) {
+  fs.mkdirSync(imageDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.fieldname === "pyqFile" || file.fieldname === "noteFile") {
-      cb(null, "uploads/pdfs"); // Specify the directory for PDF uploads
+      cb(null, pdfDir); // Use relative path for PDF uploads
     } else if (file.fieldname === "videoImage") {
-      cb(null, "uploads/images");
+      cb(null, imageDir); // Use relative path for image uploads
     }
   },
   filename: (req, file, cb) => {
@@ -15,7 +32,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// File filter to ensure only specific files are accepted
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /pdf|png|jpg|jpeg/;
   const extName = allowedTypes.test(

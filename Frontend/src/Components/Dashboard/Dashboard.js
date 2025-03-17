@@ -1,5 +1,5 @@
-import { Button, Modal, Input, Card, Image, Space, Popconfirm } from "antd";
-import { DeleteFilled, EditFilled } from "@ant-design/icons";
+import { Button, Modal, Input, Card, Image, Space, Popconfirm, Row, Col, Typography, Tag } from "antd";
+import { DeleteFilled, EditFilled, FileTextOutlined, VideoCameraOutlined, BookOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import AddResource from "./AddResource";
 import { Layout, Menu, Select } from "antd";
@@ -9,13 +9,14 @@ import axios from "axios";
 import { message } from "antd";
 
 const { Option } = Select;
-const { Sider } = Layout;
+const { Content } = Layout;
 const { Search } = Input;
+const { Title, Text } = Typography;
 
 const tabList = [
-  { key: "tab1", tab: "PYQ" },
-  { key: "tab2", tab: "Notes" },
-  { key: "tab3", tab: "Video" },
+  { key: "tab1", tab: <span><BookOutlined style={{ marginRight: "8px" }} />PYQ</span> },
+  { key: "tab2", tab: <span><FileTextOutlined style={{ marginRight: "8px" }} />Notes</span> },
+  { key: "tab3", tab: <span><VideoCameraOutlined style={{ marginRight: "8px" }} />Video</span> },
 ];
 
 const Dashboard = () => {
@@ -25,6 +26,10 @@ const Dashboard = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [initialValues, setInitialValues] = useState(null);
   const [activeTabKeys, setActiveTabKeys] = useState({});
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedSemester, setSelectedSemester] = useState(null);
+  const [selectedUniversity, setSelectedUniversity] = useState(null);
+  const [selectedBranch, setSelectedBranch] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -35,7 +40,7 @@ const Dashboard = () => {
       const response = await axios.get(
         "http://localhost:5000/api/v1/resource/resources",
       );
-      console.log(response.data);
+      console.log("API Response:", response.data);
       setSubmittedData(response.data); // Update the state with the fetched data
     } catch (error) {
       console.error("Error fetching resources:", error);
@@ -56,21 +61,6 @@ const Dashboard = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
-  // const handleNewSubmission = (newSubmission) => {
-  //   if (isEdit) {
-  //     const updatedData = submittedData.map((item, index) =>
-  //       index === editIndex ? newSubmission : item
-  //     );
-  //     setSubmittedData(updatedData);
-  //     setIsEdit(false);
-  //     setEditIndex(null);
-  //   } else {
-  //     setSubmittedData((prevData) => [...prevData, newSubmission]);
-  //   }
-  //   setIsModalVisible(false);
-  //   setInitialValues(null);
-  // };
 
   const handleNewSubmission = async (newSubmission) => {
     try {
@@ -107,20 +97,20 @@ const Dashboard = () => {
 
   const viewPdf = (file) => {
     console.log(file, "file");
-
-    const fileURL = `http://localhost:5000/${file}`;
-    // const fileURL = `http://localhost:5000/uploads/pdfs/${file}`;
+    
+    // Make sure the URL is properly formatted
+    let fileURL = file;
+    if (file && !file.startsWith('http')) {
+      fileURL = `http://localhost:5000${file.startsWith('/') ? '' : '/'}${file}`;
+    }
+    
+    console.log("Opening URL:", fileURL);
     window.open(fileURL, "_blank");
   };
 
   const openVideoLink = (url) => {
     window.open(url, "_blank");
   };
-
-  //  delete an submition
-  // const handleDelete = (index) => {
-  //   setSubmittedData((prevData) => prevData.filter((_, i) => i !== index));
-  // };
 
   const handleDelete = async (id, index) => {
     try {
@@ -133,7 +123,6 @@ const Dashboard = () => {
     }
   };
 
-  //update submition
   const handleUpdate = (index) => {
     console.log(submittedData[index], index);
     setInitialValues(submittedData[index]);
@@ -141,306 +130,387 @@ const Dashboard = () => {
     setIsEdit(true);
     setIsModalVisible(true);
   };
+
+  const handleApplyFilters = () => {
+    // Implement filter logic here
+    message.info("Filters applied!");
+  };
+
+  const filteredData = submittedData.filter(item => {
+    let match = true;
+    if (selectedSubject && item.subject !== selectedSubject) match = false;
+    if (selectedSemester && item.semester !== selectedSemester) match = false;
+    if (selectedUniversity && item.university !== selectedUniversity) match = false;
+    if (selectedBranch && item.branch !== selectedBranch) match = false;
+    return match;
+  });
+
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Sider width={285} backgroundColor="#553CDF">
-        <Menu
-          // theme="light "
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          style={{
-            height: "100%",
-            borderRight: 0,
-            backgroundColor: "#fff", // Light background
-            color: "#000", // Text color
-            padding: "16px", // Padding inside the menu
-            fontSize: "16px", // Font size
-            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <div
-            className="head-sty"
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            <h1 style={{ color: "#553CDF", fontWeight: "700" }}>
-              Admin Dashboard
-            </h1>
-            <h2
-              style={{
-                justifyContent: "left",
-                fontSize: "16px",
-                color: "#000",
-              }}
-            >
-              All Filter
-            </h2>
+    <Layout style={{ minHeight: "100vh", background: "#f5f7fa" }}>
+      <Content style={{ padding: "24px" }}>
+        <div className="dashboard-container">
+          <div className="dashboard-header" style={{ marginBottom: "24px" }}>
+            <Title level={2} style={{ color: "#553CDF", marginBottom: "24px" }}>Admin Dashboard</Title>
+            
+            {/* Search and Add Resource Row */}
+            <Row gutter={[16, 16]} align="middle" justify="space-between" style={{ marginBottom: "24px" }}>
+              <Col xs={24} md={12}>
+                <Search
+                  placeholder="Search Resources"
+                  allowClear
+                  size="large"
+                  style={{ width: "100%" }}
+                  onSearch={(value) => console.log(value)}
+                />
+              </Col>
+              <Col xs={24} md={12} style={{ textAlign: "right" }}>
+                <Button
+                  onClick={showModal}
+                  size="large"
+                  style={{
+                    backgroundColor: "#553CDF",
+                    borderRadius: "8px",
+                    color: "#fff",
+                    height: "48px",
+                    fontWeight: "600",
+                    boxShadow: "0 4px 12px rgba(85, 60, 223, 0.3)",
+                  }}
+                  icon={<FileTextOutlined />}
+                >
+                  Add Resource
+                </Button>
+              </Col>
+            </Row>
+            
+            {/* Filters Row */}
+            <Card style={{ marginBottom: "24px", borderRadius: "12px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)" }}>
+              <Row gutter={[16, 16]}>
+                <Col xs={24} sm={12} md={6}>
+                  <Select 
+                    placeholder="Select Subject" 
+                    style={{ width: "100%" }}
+                    size="large"
+                    value={selectedSubject}
+                    onChange={setSelectedSubject}
+                    allowClear
+                  >
+                    <Option value="Data Structures">Data Structures</Option>
+                    <Option value="Algorithms">Algorithms</Option>
+                    <Option value="Operating Systems">Operating Systems</Option>
+                    <Option value="Database Systems">Database Systems</Option>
+                    <Option value="Computer Networks">Computer Networks</Option>
+                    <Option value="Software Engineering">Software Engineering</Option>
+                    <Option value="Machine Learning">Machine Learning</Option>
+                    <Option value="natural-language-processing">NLP(Natural Language Processing)</Option>
+                    <Option value="Artificial Intelligence">Artificial Intelligence</Option>
+                  </Select>
+                </Col>
+                <Col xs={24} sm={12} md={6}>
+                  <Select 
+                    placeholder="Select Semester" 
+                    style={{ width: "100%" }}
+                    size="large"
+                    value={selectedSemester}
+                    onChange={setSelectedSemester}
+                    allowClear
+                  >
+                    <Option value="1st">1st Semester</Option>
+                    <Option value="2nd">2nd Semester</Option>
+                    <Option value="3rd">3rd Semester</Option>
+                    <Option value="4th">4th Semester</Option>
+                    <Option value="5th">5th Semester</Option>
+                    <Option value="6th">6th Semester</Option>
+                    <Option value="7th">7th Semester</Option>
+                    <Option value="8th">8th Semester</Option>
+                  </Select>
+                </Col>
+                <Col xs={24} sm={12} md={6}>
+                  <Select 
+                    placeholder="Select University" 
+                    style={{ width: "100%" }}
+                    size="large"
+                    value={selectedUniversity}
+                    onChange={setSelectedUniversity}
+                    allowClear
+                  >
+                    <Option value="RGPV">Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)</Option>
+                    <Option value="DAVV">Devi Ahilya Vishwavidyalaya (DAVV)</Option>
+                    <Option value="IITD">Indian Institute of Technology Delhi (IITD)</Option>
+                    <Option value="IITB">Indian Institute of Technology Bombay (IITB)</Option>
+                    <Option value="IIMB">Indian Institute of Management Bangalore (IIMB)</Option>
+                    <Option value="DU">University of Delhi (DU)</Option>
+                    <Option value="JNU">Jawaharlal Nehru University (JNU)</Option>
+                    <Option value="XYZ">XYZ University</Option>
+                  </Select>
+                </Col>
+                <Col xs={24} sm={12} md={6}>
+                  <Select 
+                    placeholder="Select Branch" 
+                    style={{ width: "100%" }}
+                    size="large"
+                    value={selectedBranch}
+                    onChange={setSelectedBranch}
+                    allowClear
+                  >
+                    <Option value="EC">Electronics and Communication</Option>
+                    <Option value="CS">Computer Science</Option>
+                    <Option value="ME">Mechanical Engineering</Option>
+                    <Option value="CE">Civil Engineering</Option>
+                    <Option value="IT">Information Technology</Option>
+                    <Option value="EE">Electrical Engineering</Option>
+                    <Option value="BT">Biotechnology</Option>
+                    <Option value="AE">Aerospace Engineering</Option>
+                  </Select>
+                </Col>
+              </Row>
+              <Row style={{ marginTop: "16px" }}>
+                <Col xs={24} style={{ textAlign: "right" }}>
+                  <Button 
+                    type="primary"
+                    onClick={handleApplyFilters}
+                    style={{
+                      backgroundColor: "#553CDF",
+                      borderRadius: "6px",
+                      fontWeight: "500",
+                    }}
+                    size="large"
+                  >
+                    Apply Filters
+                  </Button>
+                </Col>
+              </Row>
+            </Card>
           </div>
-          <div style={{ marginBottom: "30px", width: "250px" }}>
-            <Select placeholder="Select Subject" style={{ width: "100%" }}>
-              <Option value="Data Structures">Data Structures</Option>
-              <Option value="Algorithms">Algorithms</Option>
-              <Option value="Operating Systems">Operating Systems</Option>
-              <Option value="Database Systems">Database Systems</Option>
-              <Option value="Computer Networks">Computer Networks</Option>
-              <Option value="Software Engineering">Software Engineering</Option>
-              <Option value="Machine Learning">Machine Learning</Option>
-              <Option value="natural-language-processing">NLP(Natural Language Processing)</Option>
-              <Option value="Artificial Intelligence">
-                Artificial Intelligence
-              </Option>
-            </Select>
-          </div>
 
-          <div style={{ marginBottom: "30px", width: "250px" }}>
-            <Select placeholder="Select Semester" style={{ width: "100%" }}>
-              <Option value="1st">1st Semester</Option>
-              <Option value="2nd">2nd Semester</Option>
-              <Option value="3rd">3rd Semester</Option>
-              <Option value="4th">4th Semester</Option>
-              <Option value="5th">5th Semester</Option>
-              <Option value="6th">6th Semester</Option>
-              <Option value="7th">7th Semester</Option>
-              <Option value="8th">8th Semester</Option>
-            </Select>
-          </div>
+          <Modal open={isModalVisible} onCancel={handleCancel} footer={null} width={700}>
+            <AddResource
+              onClose={handleCancel}
+              onSubmit={handleNewSubmission}
+              initialValues={initialValues}
+            />
+          </Modal>
 
-          <div style={{ marginBottom: "30px", width: "250px" }}>
-            <Select placeholder="Select University" style={{ width: "100%" }}>
-              <Option value="RGPV">
-                Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)
-              </Option>
-              <Option value="DAVV">Devi Ahilya Vishwavidyalaya (DAVV)</Option>
-              <Option value="IITD">
-                Indian Institute of Technology Delhi (IITD)
-              </Option>
-              <Option value="IITB">
-                Indian Institute of Technology Bombay (IITB)
-              </Option>
-              <Option value="IIMB">
-                Indian Institute of Management Bangalore (IIMB)
-              </Option>
-              <Option value="DU">University of Delhi (DU)</Option>
-              <Option value="JNU">Jawaharlal Nehru University (JNU)</Option>
-              <Option value="XYZ">XYZ University</Option>
-            </Select>
-          </div>
-
-          <div style={{ marginBottom: "30px", width: "250px" }}>
-            <Select placeholder="Select Branch" style={{ width: "100%" }}>
-              <Option value="">Select a Branch</Option>
-              <Option value="EC">Electronics and Communication</Option>
-              <Option value="CS">Computer Science</Option>
-              <Option value="ME">Mechanical Engineering</Option>
-              <Option value="CE">Civil Engineering</Option>
-              <Option value="IT">Information Technology</Option>
-              <Option value="EE">Electrical Engineering</Option>
-              <Option value="BT">Biotechnology</Option>
-              <Option value="AE">Aerospace Engineering</Option>
-            </Select>
-          </div>
-
-          <div
-            style={{
-              width: "100px",
-              backgroundColor: "white",
-              color: "black",
-            }}
-          >
-            <Button
-              style={{
-                backgroundColor: "#553CDF",
-                color: "#fff",
-                padding: "10px 50px",
-              }}
-            >
-              Apply
-            </Button>
-          </div>
-        </Menu>
-      </Sider>
-
-      <Layout style={{ padding: "0 24px", background: "#f0f0f0" }}>
-        <div className="dash-container">
-          <div className="dash-content">
-            <div className="flex-container">
-              <Search
-                placeholder="Search Resources"
-                allowClear
-                size="medium"
-                style={{
-                  marginBottom: "0px",
-                }}
-                onSearch={(value) => console.log(value)}
-              />
-              <Button
-                onClick={showModal}
-                style={{
-                  backgroundColor: "#553CDF",
-                  borderRadius: "6px",
-                  color: "#fff",
-                  marginBottom: "0px",
-                  padding: "10px 50px",
-                }}
-              >
-                Add Resource
-              </Button>
-            </div>
-            <Modal open={isModalVisible} onCancel={handleCancel} footer={null}>
-              <AddResource
-                onClose={handleCancel}
-                onSubmit={handleNewSubmission}
-                initialValues={initialValues}
-              />
-            </Modal>
-
-            {/* Display Submitted Details */}
-
-            <div className="submitted-details" style={{ marginTop: "50px" }}>
-              <div
-                className="cards"
-                style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
-              >
-                {submittedData.length > 0 ? (
-                  submittedData.map((submission, index) => {
-                    const activeTabKey = activeTabKeys[index] || "tab1";
-
-                    return (
+          {/* Display Submitted Details */}
+          <div className="resources-grid">
+            <Row gutter={[24, 24]}>
+              {filteredData.length > 0 ? (
+                filteredData.map((submission, index) => {
+                  const activeTabKey = activeTabKeys[index] || "tab1";
+                  
+                  // Determine which content to show based on active tab
+                  const hasContent = 
+                    (activeTabKey === "tab1" && submission.pyq) ||
+                    (activeTabKey === "tab2" && submission.note) ||
+                    (activeTabKey === "tab3" && submission.video);
+                  
+                  return (
+                    <Col xs={24} sm={12} lg={8} key={index}>
                       <Card
-                        key={index}
+                        hoverable
+                        className="resource-card"
+                        style={{ 
+                          borderRadius: "12px", 
+                          overflow: "hidden",
+                          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+                          height: "100%",
+                          display: "flex",
+                          flexDirection: "column"
+                        }}
+                        headStyle={{ 
+                          borderBottom: "none", 
+                          padding: 0,
+                          margin: 0
+                        }}
+                        bodyStyle={{
+                          padding: 0,
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "column"
+                        }}
                         title={
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <div>
-                              <b>
-                                {submission.university} {submission.branch}{" "}
-                                {submission.semester}
-                              </b>
-                              {submission.subject && (
-                                <p>
-                                  <strong>Subject:</strong> {submission.subject}
-                                </p>
-                              )}
-                            </div>
-                            <div>
-                              <Space>
-                                <Popconfirm
-                                  title="Are you sure you want to delete?"
-                                  onConfirm={() =>
-                                    handleDelete(submission._id, index)
-                                  }
-                                >
+                          <div className="card-header" style={{ 
+                            background: "linear-gradient(135deg, #553CDF 0%, #6E56DB 100%)",
+                            padding: "16px",
+                            color: "white",
+                            borderTopLeftRadius: "12px",
+                            borderTopRightRadius: "12px"
+                          }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                              <div>
+                                <Text strong style={{ color: "white", fontSize: "16px" }}>
+                                  {submission.university} • {submission.branch}
+                                </Text>
+                                <div style={{ marginTop: "4px" }}>
+                                  <Tag color="blue">{submission.semester}</Tag>
+                                  {submission.subject && (
+                                    <Tag color="green">{submission.subject}</Tag>
+                                  )}
+                                </div>
+                              </div>
+                              <div>
+                                <Space>
+                                  <Popconfirm
+                                    title="Are you sure you want to delete?"
+                                    onConfirm={() => handleDelete(submission._id, index)}
+                                  >
+                                    <Button 
+                                      type="text" 
+                                      icon={<DeleteFilled style={{ color: "white" }} />} 
+                                      style={{ background: "rgba(255, 255, 255, 0.2)", marginRight: "8px" }}
+                                    />
+                                  </Popconfirm>
                                   <Button
-                                    style={{ marginRight: "10px" }}
-                                    icon={<DeleteFilled />}
+                                    type="text"
+                                    onClick={() => handleUpdate(index)}
+                                    icon={<EditFilled style={{ color: "white" }} />}
+                                    style={{ background: "rgba(255, 255, 255, 0.2)" }}
                                   />
-                                </Popconfirm>
-                              </Space>
-
-                              {/* <Button style={{ marginRight: "10px" }} 
-                              onClick={() => handleDelete(submission._id, index)} 
-                              icon={<DeleteFilled />} />
-                               */}
-
-                              <Button
-                                onClick={() => handleUpdate(index)}
-                                icon={<EditFilled />}
-                              />
+                                </Space>
+                              </div>
                             </div>
                           </div>
                         }
                         tabList={tabList}
                         activeTabKey={activeTabKey}
                         onTabChange={(key) => handleTabChange(index, key)}
+                        tabBarStyle={{ 
+                          padding: "0 16px", 
+                          marginBottom: 0,
+                          backgroundColor: "#f9f9f9",
+                          borderBottom: "1px solid #eee"
+                        }}
                       >
-                        {/* Render content based on active tab */}
-                        {activeTabKey === "tab1" && submission.pyq && (
-                          <>
-                            <p>
-                              <strong>Title Of PYQ:</strong>{" "}
-                              {submission.pyq.title}
-                            </p>
-                            <Button
-                              disabled={!submission.pyq.pdfUrl}
-                              type="primary"
-                              onClick={() => viewPdf(submission.pyq.pdfUrl)}
-                            >
-                              PYQ PDF
-                            </Button>
-                          </>
-                        )}
-
-                        {activeTabKey === "tab2" && submission.note && (
-                          <>
-                            <p>
-                              <strong>Title Of Notes:</strong>{" "}
-                              {submission.note.title}
-                            </p>
-                            <Button
-                              disabled={!submission.note.pdfUrl}
-                              type="primary"
-                              onClick={() => viewPdf(submission.note.pdfUrl)}
-                            >
-                              Notes PDF
-                            </Button>
-                          </>
-                        )}
-
-                        {activeTabKey === "tab3" && submission.video && (
-                          <div
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
-                            {submission.video.imageUrl && (
-                              <div style={{ marginRight: "20px" }}>
-                                <Image
-                                  width={80}
-                                  height={100}
-                                  src={submission.video.imageUrl}
-                                  alt="Video Thumbnail Preview"
-                                  style={{ objectFit: "cover" }}
-                                />
+                        <div style={{ padding: "16px", flex: 1, display: "flex", flexDirection: "column", justifyContent: hasContent ? "space-between" : "center" }}>
+                          {/* Render content based on active tab */}
+                          {activeTabKey === "tab1" && submission.pyq ? (
+                            <div className="tab-content" style={{ height: "100%" }}>
+                              <div style={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
+                                <BookOutlined style={{ fontSize: "24px", color: "#553CDF", marginRight: "12px" }} />
+                                <div>
+                                  <Text strong style={{ fontSize: "16px" }}>{submission.pyq.title}</Text>
+                                  <div><Text type="secondary">Previous Year Question Paper</Text></div>
+                                </div>
                               </div>
-                            )}
-                            <div>
-                              {submission.video.title && (
-                                <p>
-                                  <strong>Title Video:</strong>{" "}
-                                  {submission.video.title}
-                                </p>
-                              )}
-                              {submission.video.description && (
-                                <p>
-                                  <strong>Description:</strong>{" "}
-                                  {submission.video.description}
-                                </p>
-                              )}
+                              <Button
+                                disabled={!submission.pyq.pdfUrl}
+                                type="primary"
+                                onClick={() => viewPdf(submission.pyq.pdfUrl)}
+                                style={{ 
+                                  width: "100%", 
+                                  backgroundColor: "#553CDF",
+                                  borderRadius: "6px",
+                                  height: "40px",
+                                  marginTop: "auto"
+                                }}
+                              >
+                                View PYQ PDF
+                              </Button>
+                            </div>
+                          ) : activeTabKey === "tab2" && submission.note ? (
+                            <div className="tab-content" style={{ height: "100%" }}>
+                              <div style={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
+                                <FileTextOutlined style={{ fontSize: "24px", color: "#553CDF", marginRight: "12px" }} />
+                                <div>
+                                  <Text strong style={{ fontSize: "16px" }}>{submission.note.title}</Text>
+                                  <div><Text type="secondary">Study Notes</Text></div>
+                                </div>
+                              </div>
+                              <Button
+                                disabled={!submission.note.pdfUrl}
+                                type="primary"
+                                onClick={() => viewPdf(submission.note.pdfUrl)}
+                                style={{ 
+                                  width: "100%", 
+                                  backgroundColor: "#553CDF",
+                                  borderRadius: "6px",
+                                  height: "40px",
+                                  marginTop: "auto"
+                                }}
+                              >
+                                View Notes PDF
+                              </Button>
+                            </div>
+                          ) : activeTabKey === "tab3" && submission.video ? (
+                            <div className="tab-content" style={{ height: "100%" }}>
+                              <div style={{ display: "flex", alignItems: "flex-start", marginBottom: "16px" }}>
+                                {submission.video.imageUrl ? (
+                                  <Image
+                                    width={100}
+                                    height={60}
+                                    src={submission.video.imageUrl}
+                                    alt="Video Thumbnail"
+                                    style={{ objectFit: "cover", borderRadius: "6px", marginRight: "12px" }}
+                                  />
+                                ) : (
+                                  <div style={{ 
+                                    width: 100, 
+                                    height: 60, 
+                                    background: "#f0f0f0", 
+                                    display: "flex", 
+                                    alignItems: "center", 
+                                    justifyContent: "center",
+                                    borderRadius: "6px",
+                                    marginRight: "12px"
+                                  }}>
+                                    <VideoCameraOutlined style={{ fontSize: "24px", color: "#553CDF" }} />
+                                  </div>
+                                )}
+                                <div>
+                                  <Text strong style={{ fontSize: "16px" }}>{submission.video.title}</Text>
+                                  {submission.video.description && (
+                                    <Text type="secondary" style={{ display: "block", marginTop: "4px" }}>
+                                      {submission.video.description.length > 60 
+                                        ? `${submission.video.description.substring(0, 60)}...` 
+                                        : submission.video.description}
+                                    </Text>
+                                  )}
+                                </div>
+                              </div>
                               {submission.video.videoUrl && (
                                 <Button
                                   type="primary"
-                                  onClick={() =>
-                                    openVideoLink(submission.video.videoUrl)
-                                  }
+                                  onClick={() => openVideoLink(submission.video.videoUrl)}
+                                  style={{ 
+                                    width: "100%", 
+                                    backgroundColor: "#553CDF",
+                                    borderRadius: "6px",
+                                    height: "40px",
+                                    marginTop: "auto"
+                                  }}
+                                  icon={<VideoCameraOutlined />}
                                 >
                                   Watch Video
                                 </Button>
                               )}
                             </div>
-                          </div>
-                        )}
-                      </Card>
-                    );
-                  })
-                ) : (
-                  <p>No submissions available</p>
-                )}
-              </div>
-            </div>
+                          ) : (
+                            <div style={{ textAlign: "center", padding: "20px 0" }}>
+                              <Text type="secondary">No {activeTabKey === "tab1" ? "PYQ" : activeTabKey === "tab2" ? "Notes" : "Video"} available</Text>
+                            </div>
+                          )}
+                        </div>
+                      </Card> 
+                    </Col>
+                  );
+                })
+              ) : (
+                <Col span={24}>
+                  <div style={{ 
+                    textAlign: "center", 
+                    padding: "40px", 
+                    background: "white", 
+                    borderRadius: "12px",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)"
+                  }}>
+                    <Title level={4} style={{ color: "#553CDF" }}>No resources found</Title>
+                    <Text type="secondary">Try adjusting your filters or add new resources</Text>
+                  </div>
+                </Col>
+              )}
+            </Row>
           </div>
         </div>
-      </Layout>
+      </Content>
     </Layout>
   );
 };

@@ -7,13 +7,13 @@ import HomePage from "./pages/HomePage";
 import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
 import LearningMaterial from "./Components/EngineersLibrary/EngineersLibrary";
+
 import RegisterPage from "./pages/RegistrationPage";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ProfilePage from "./pages/Profile";
 import DeveloperDetailPage from "./Components/DevelopersHub/DeveloperResources/DeveloperDetailPage";
-
 function App() {
   return (
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
