@@ -76,8 +76,8 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
   const handleThumbnailChange = (info) => {
     const file = info.fileList[0]?.originFileObj;
     if (file && file.type.startsWith("image/")) {
-      const imageURL = URL.createObjectURL(file);
-      setThumbnailPreview(imageURL);
+      // const imageURL = URL.createObjectURL(file);
+      setThumbnailPreview(file);
     } else {
       message.error("Please upload a valid image file for the thumbnail.");
     }
@@ -111,6 +111,8 @@ const AddResource = ({ onClose, onSubmit, initialValues }) => {
   formData.append('pyqFile', pyqFile); // pyqFile should be a file object
   formData.append('noteFile', noteFile); // noteFile should be a file object
   formData.append('videoImage', thumbnailPreview); // assuming thumbnailPreview is a file
+  
+  console.log(form)
 
   try {
     // Make an API request using Axios
