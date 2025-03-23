@@ -448,15 +448,8 @@ const Dashboard = () => {
                           borderBottom: "1px solid #eee"
                         } }
                       >
-                        <div style={ {
-                          padding: "16px",
-                          flex: 1,
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: hasContent ? "space-between" : "center"
-                        } }>
+                        <div className="flex flex-col h-full p-4">
                           {/* PYQ Tab Content */ }
-                          {/* PYQ Tab Content with Tailwind CSS */ }
                           { activeTabKey === "tab1" && (
                             <>
                               { submission.pyq && submission.pyq.pdfUrl ? (
@@ -489,97 +482,89 @@ const Dashboard = () => {
                             </>
                           ) }
 
-                          {/* Notes Tab Content */ }
-                          { activeTabKey === "tab2" ? (
-                            submission.note && submission.note.pdfUrl ? (
-                              <div className="tab-content" style={ { height: "100%" } }>
-                                <div style={ { display: "flex", alignItems: "center", marginBottom: "16px" } }>
-                                  <FileTextOutlined style={ { fontSize: "24px", color: "#553CDF", marginRight: "12px" } } />
-                                  <div>
-                                    <Text strong style={ { fontSize: "16px" } }>{ submission.note.title || "Study Notes" }</Text>
-                                    <div><Text type="secondary">Study Notes</Text></div>
-                                  </div>
-                                </div>
-                                <Button
-                                  type="primary"
-                                  onClick={ () => viewPdf(submission.note.pdfUrl) }
-                                  style={ {
-                                    width: "100%",
-                                    backgroundColor: "#553CDF",
-                                    borderRadius: "6px",
-                                    height: "40px",
-                                    marginTop: "auto"
-                                  } }
-                                >
-                                  View Notes PDF
-                                </Button>
-                              </div>
-                            ) : (
-                              <div style={ { textAlign: "center", padding: "20px 0" } }>
-                                <Text type="secondary">No Notes available</Text>
-                              </div>
-                            )
-                          ) : null }
-
-                          {/* Video Tab Content */ }
-                          { activeTabKey === "tab3" ? (
-                            submission.video && submission.video.videoUrl ? (
-                              <div className="tab-content" style={ { height: "100%" } }>
-                                <div style={ { display: "flex", alignItems: "flex-start", marginBottom: "16px" } }>
-                                  { submission.video.imageUrl ? (
-                                    <Image
-                                      width={ 100 }
-                                      height={ 60 }
-                                      src={ submission.video.imageUrl }
-                                      alt="Video Thumbnail"
-                                      style={ { objectFit: "cover", borderRadius: "6px", marginRight: "12px" } }
-                                    />
-                                  ) : (
-                                    <div style={ {
-                                      width: 100,
-                                      height: 60,
-                                      background: "#f0f0f0",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      borderRadius: "6px",
-                                      marginRight: "12px"
-                                    } }>
-                                      <VideoCameraOutlined style={ { fontSize: "24px", color: "#553CDF" } } />
-                                    </div>
-                                  ) }
-                                  <div>
-                                    <Text strong style={ { fontSize: "16px" } }>{ submission.video.title || "Video Resource" }</Text>
-                                    { submission.video.description && (
-                                      <Text type="secondary" style={ { display: "block", marginTop: "4px" } }>
-                                        { submission.video.description.length > 60
-                                          ? `${submission.video.description.substring(0, 60)}...`
-                                          : submission.video.description }
+                          {/* Notes Tab Content - Updated to match tab1 styling */ }
+                          { activeTabKey === "tab2" && (
+                            <>
+                              { submission.note && submission.note.pdfUrl ? (
+                                <div className="flex flex-col h-full justify-between">
+                                  <div className="flex items-center mb-4">
+                                    <FileTextOutlined className="text-2xl text-indigo-600 mr-3" />
+                                    <div>
+                                      <Text strong className="text-base">
+                                        { submission.note.title || "Study Notes" }
                                       </Text>
-                                    ) }
+                                      <div><Text type="secondary">Study Notes</Text></div>
+                                    </div>
+                                  </div>
+                                  <Button
+                                    type="primary"
+                                    onClick={ () => viewPdf(submission.note.pdfUrl) }
+                                    className="w-full h-10 rounded-md font-medium mt-auto"
+                                    style={ { backgroundColor: "#553CDF" } }
+                                  >
+                                    View Notes PDF
+                                  </Button>
+                                </div>
+                              ) : (
+                                <div className="flex items-center justify-center h-full">
+                                  <div className="text-center py-4 px-3 bg-gray-100 rounded-md w-full">
+                                    <Text type="secondary" strong>No Notes available</Text>
                                   </div>
                                 </div>
-                                <Button
-                                  type="primary"
-                                  onClick={ () => openVideoLink(submission.video.videoUrl) }
-                                  style={ {
-                                    width: "100%",
-                                    backgroundColor: "#553CDF",
-                                    borderRadius: "6px",
-                                    height: "40px",
-                                    marginTop: "auto"
-                                  } }
-                                  icon={ <VideoCameraOutlined /> }
-                                >
-                                  Watch Video
-                                </Button>
-                              </div>
-                            ) : (
-                              <div style={ { textAlign: "center", padding: "20px 0" } }>
-                                <Text type="secondary">No Video available</Text>
-                              </div>
-                            )
-                          ) : null }
+                              ) }
+                            </>
+                          ) }
+
+                          {/* Video Tab Content - Updated to match tab1 styling */ }
+                          { activeTabKey === "tab3" && (
+                            <>
+                              { submission.video && submission.video.videoUrl ? (
+                                <div className="flex flex-col h-full justify-between">
+                                  <div className="flex items-start mb-4">
+                                    { submission.video.imageUrl ? (
+                                      <img
+                                        width={ 100 }
+                                        height={ 60 }
+                                        src={ `http://localhost:5000${submission.video.imageUrl}` }
+                                        alt="Video Thumbnail"
+                                        className="object-cover rounded-md mr-3"
+                                      />
+                                    ) : (
+                                      <div className="flex items-center justify-center w-24 h-16 bg-gray-100 rounded-md mr-3">
+                                        <VideoCameraOutlined className="text-2xl text-indigo-600" />
+                                      </div>
+                                    ) }
+                                    <div>
+                                      <Text strong className="text-base">
+                                        { submission.video.title || "Video Resource" }
+                                      </Text>
+                                      { submission.video.description && (
+                                        <Text type="secondary" className="block mt-1">
+                                          { submission.video.description.length > 60
+                                            ? `${submission.video.description.substring(0, 60)}...`
+                                            : submission.video.description }
+                                        </Text>
+                                      ) }
+                                    </div>
+                                  </div>
+                                  <Button
+                                    type="primary"
+                                    onClick={ () => openVideoLink(submission.video.videoUrl) }
+                                    className="w-full h-10 rounded-md font-medium mt-auto flex items-center justify-center"
+                                    style={ { backgroundColor: "#553CDF" } }
+                                  >
+                                    <VideoCameraOutlined className="mr-2" /> Watch Video
+                                  </Button>
+                                </div>
+                              ) : (
+                                <div className="flex items-center justify-center h-full">
+                                  <div className="text-center py-4 px-3 bg-gray-100 rounded-md w-full">
+                                    <Text type="secondary" strong>No Video available</Text>
+                                  </div>
+                                </div>
+                              ) }
+                            </>
+                          ) }
                         </div>
                       </Card>
                     </Col>
@@ -598,7 +583,7 @@ const Dashboard = () => {
                     <Text type="secondary">Try adjusting your filters or add new resources</Text>
                   </div>
                 </Col>
-              ) }s
+              ) }
             </Row>
           </div>
         </div>
