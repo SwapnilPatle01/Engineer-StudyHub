@@ -6,8 +6,8 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
-import LearningMaterial from "./Components/EngineersLibrary/EngineersLibrary";
-
+import StudyMaterials from "./Components/StudyMaterials/StudyMaterials";
+import CompanyDashboard from "./Components/Clients/CompanyDashboard/CompanyDashboard";
 import RegisterPage from "./pages/RegistrationPage";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
