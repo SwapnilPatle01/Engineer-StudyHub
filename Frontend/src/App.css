@@ -1,0 +1,15 @@
+.ant-menu-item-selected {
+  background-color: transparent !important;
+  color: #6441a3;
+  border-bottom: 5px solid #000;
+}
+
+.ant-menu-item-selected a {
+  color: #6441a3 !important;
+}
+
+@media (max-width: 400px) {
+  .highlights {
+    flex-direction: column;
+  }
+}

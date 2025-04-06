@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React , {useState, useEffect} from "react";
 import { Button, Carousel, Typography, Row, Col, Input } from "antd";
 
 import "../Home.css";
@@ -8,26 +8,26 @@ const { Title, Paragraph } = Typography;
 
 const HeroSlider = () => {
   const [isMobile, setIsMobile] = useState(false);
-
+  
   //To trigger CSS whenever screen size changes
   useEffect(() => {
-    const updateSize = () => {
-      setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
-    };
-    // Initial check
-    updateSize();
-    // Add resize event listener
-    window.addEventListener("resize", updateSize);
-    // Cleanup event listener on component unmount
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+      const updateSize = () => {
+        setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
+      };
+        // Initial check
+        updateSize();
+        // Add resize event listener
+        window.addEventListener("resize", updateSize);
+        // Cleanup event listener on component unmount
+        return () => window.removeEventListener("resize", updateSize);
+      }, []);
 
   return (
     <Carousel autoplay style={{
-      width: "100%",
-      overflowX: "hidden",
-      boxSizing: "border-box",
-
+        width: "100%",
+        overflowX: "hidden",
+        boxSizing: "border-box",
+      
     }}>
       <div className="slide-container">
         <Row
@@ -38,8 +38,8 @@ const HeroSlider = () => {
             backgroundColor: "#F9F8FF",
             margin: 0,
             width: "100%",
-
-
+          
+            
           }}
         >
           {/* Left Section - Appears first on all screen sizes */}
@@ -51,30 +51,51 @@ const HeroSlider = () => {
             className="left-main"
           >
             <div className="left-section">
-              <p style={{ color: "#553CDF" }}>Empowering you with the right resources</p>
+              {/* Search Bar */}
+              <div
+                className="search-bar"
+                style={{
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                  display: "block",
+                  backgroundColor: "transparent",
+                }}
+              >
+                <Input.Search
+                  placeholder="Search PYQs, Notes, Syllabus..."
+                  enterButton="Explore"
+                  size="large"
+                  style={{
+                    maxWidth: isMobile? "100%" : "55%",
+                    borderRadius: "0px",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0)",
+                    border:"none",
+                  }}
+                  onSearch={(value) => console.log(`Search for: ${value}`)}
+                />
+              </div>
               <Title
                 level={1}
                 className="slide-heading"
                 style={{
-                  fontSize: window.innerWidth <= 768 ? "38px" : "40px",
-                  color: "#000",
-                  fontWeight: "600",
+                  fontSize:window.innerWidth <=768? "38px":"45px",
+                  color: "#ff914d",
+                  fontWeight: "400",
                   lineHeight: "50px",
                   marginTop: "5px",
-                  marginBottom: "30px",
                   position: "relative",
-                  fontFamily: "Poppins",
+                  fontFamily: "Cherry Bomb One",
                 }}
               >
-                Complete <span style={{ color: "#553CDF" }}> Learning and Career Hub </span> Designed for <span style={{ color: "#553CDF" }}>Engineers</span>
+                Your Ultimate Destination for Engineering Success!
               </Title>
               <Paragraph
                 className="slide-title"
                 style={{
                   fontSize: "18px",
-                  color: "#000",
+                  color: "#737477",
                   width: "80%",
-                 
+                  marginTop: "-19px",
                 }}
               >
                 Access essential resources like subject notes, PYQs, and video
@@ -89,7 +110,7 @@ const HeroSlider = () => {
                   type="primary"
                   size="large"
                   style={{
-                    backgroundColor: "#553CDF",
+                    backgroundColor: "#ff914d",
                     color: "#fff",
                     marginRight: "10px",
                     padding: "14px 34px",
@@ -109,14 +130,13 @@ const HeroSlider = () => {
                     padding: "14px 34px",
                     borderRadius: "4px",
                     transition: "0.3s",
-                    border: "2px solid #553CDF",
                     fontWeight: "500",
                     width: "auto",
-                    backgroundColor: "transparent",
-                    color: "#553CDF",
+                    backgroundColor: "#553CDF",
+                    color: "#fff",
                   }}
                 >
-                  Explore Job Opportunities
+                  Get Started with Free Resources
                 </Button>
               </div>
 
@@ -126,7 +146,10 @@ const HeroSlider = () => {
                 style={{ marginTop: "20px", backgroundColor: "white" }}
               ></div>
 
-
+              <Paragraph style={{ textAlign: "left", marginTop: "10px" }}>
+                Stay ahead in your academics and career. Learn. Practice.
+                Achieve.
+              </Paragraph>
             </div>
           </Col>
 

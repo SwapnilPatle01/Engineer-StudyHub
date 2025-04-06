@@ -16,7 +16,7 @@ const MainLayout = () => {
     "/homePage": "1",
     "/learning-material": "2",
     "/JobPortal": "3",
-    "/Company/Dashbaord": "4",
+    "/EngineersCarrerHub-DashBoard": "4",
     "/DevelopersHub": "5",
     "/Dashboard": "6",
     "/AboutUs": "7",
@@ -90,6 +90,30 @@ const MainLayout = () => {
         ),
       },
       {
+        key: "3",
+        label: (
+          <Link
+            to="/JobPortal"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
+            Find Job
+          </Link>
+        ),
+      },
+      {
+        key: "5",
+        label: (
+          <Link
+            to="/DevelopersHub"
+            className="menu-link"
+            onClick={() => setDrawerVisible(false)}
+          >
+            Development
+          </Link>
+        ),
+      },
+      {
         key: "7",
         label: (
           <Link
@@ -114,64 +138,48 @@ const MainLayout = () => {
         ),
       },
     ];
-  
-    if (role !== "company") {
-      baseItems.splice(2, 0,  // Insert these items after Study Material
+
+    if (role === "admin") {
+      return [
+        ...baseItems,
+        // {
+        //   key: "4",
+        //   label: (
+        //     <Link to="/company-dashboard" className="menu-link" onClick={()=>setDrawerVisible(false)}>
+        //       Company Dashboard
+        //     </Link>
+        //   ),
+        // },
         {
-          key: "3",
+          key: "6",
           label: (
             <Link
-              to="/JobPortal"
+              to="/Dashboard"
               className="menu-link"
               onClick={() => setDrawerVisible(false)}
             >
-              Find Jobs
+              Admin Dashboard
             </Link>
           ),
         },
+      ];
+    } else if (role === "company") {
+      return [
+        ...baseItems,
         {
-          key: "5",
+          key: "4",
           label: (
             <Link
-              to="/DevelopersHub"
+              to="/company-dashboard"
               className="menu-link"
               onClick={() => setDrawerVisible(false)}
             >
-              Development
+              Company Dashboard
             </Link>
           ),
-        }
-      );
+        },
+      ];
     }
-  
-    if (role === "admin") {
-      baseItems.push({
-        key: "6",
-        label: (
-          <Link
-            to="/Dashboard"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Admin Dashboard
-          </Link>
-        ),
-      });
-    } else if (role === "company") {
-      baseItems.push({
-        key: "4",
-        label: (
-          <Link
-            to="/Company/Dashboard"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Company Dashboard
-          </Link>
-        ),
-      });
-    }
-  
     return baseItems;
   };
 
@@ -200,7 +208,6 @@ const MainLayout = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent:"space-between",
           backgroundColor: "#ffffff",
           width: "100%",
           color: "#6441A3",
