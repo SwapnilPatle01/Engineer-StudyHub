@@ -13,12 +13,14 @@ import axios from "axios";
 import { Link } from "react-router-dom"; // Updated import
 import "../../styles/LoginPage.css";
 import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate function
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -32,14 +34,21 @@ const LoginPage = () => {
           role: values.role,
         }
       );
+
       console.log(response);
-      // Store the JWT token
+      // Store the JWT token and role
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", values.role);
+
       // Notify the user of success
       notification.success({ message: "Login successful" });
-      // Redirect or update UI as needed
-      // For example, navigate to a dashboard:
-      window.location.href = "/homePage";
+
+      // Navigate based on role
+      if (values.role === "company") {
+        navigate("/Company/Dashboard");
+      } else {
+        navigate("/homePage");
+      }
     } catch (error) {
       notification.error({
         message: "Login failed",
@@ -90,7 +99,7 @@ const LoginPage = () => {
             >
               <Select size="large" placeholder="Select role">
                 <Option value="student">Student</Option>
-                <Option value="company">Company</Option>
+                <Option value="company">Recruiter</Option>
                 <Option value="admin">Admin</Option>
               </Select>
             </Form.Item>
