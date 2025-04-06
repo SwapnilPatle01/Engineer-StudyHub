@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table, Space, Modal, Input } from "antd";
+import { Button, Table, Space, Modal, Input, message  } from "antd";
 import axios from "axios";
 
 const Companies = () => {
@@ -7,6 +7,7 @@ const Companies = () => {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [editingCompany, setEditingCompany] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -21,11 +22,14 @@ const Companies = () => {
     const fetchCompanies = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/v1/company/get", {
-          headers: {
-            Authorization: token,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/company/get",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
 
         if (response.data.success) {
           setCompanies(response.data.companies);
@@ -51,26 +55,34 @@ const Companies = () => {
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/company/register",
-        {
-          name: formData.name,
-          description: formData.description,
-          website: formData.website,
-          location: formData.location,
-          logo: formData.logo, // Accepting logo as a URL
+      const url = editingCompany
+        ? `http://localhost:5000/api/v1/company/update/${editingCompany._id}`
+        : "http://localhost:5000/api/v1/company/register";
+
+      const response = await axios({
+        method: editingCompany ? "put" : "post",
+        url,
+        data: formData,
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-  
+      });
+
       if (response.data.success) {
-        setCompanies([...companies, response.data.company]);
+        if (editingCompany) {
+          setCompanies(
+            companies.map((c) =>
+              c._id === editingCompany._id ? response.data.company : c
+            )
+          );
+          message.success("Company updated successfully");
+        } else {
+          setCompanies([...companies, response.data.company]);
+          message.success("Company created successfully");
+        }
         setIsModalOpen(false);
+        setEditingCompany(null);
         setFormData({
           name: "",
           description: "",
@@ -78,15 +90,38 @@ const Companies = () => {
           location: "",
           logo: "",
         });
-      } else {
-        console.error("Company registration failed:", response.data.message);
       }
     } catch (error) {
-      console.error("Error registering company:", error);
+      message.error("Error saving company");
     }
   };
-  
-  
+
+  // handleEdit
+  const handleEdit = (company) => {
+    setEditingCompany(company);
+    setFormData(company);
+    setIsModalOpen(true);
+  };
+
+  //handleDelete
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(
+        "http://localhost:5000/api/v1/company/delete",
+        {
+          data: { id },
+          headers: { Authorization: token },
+        }
+      );
+      if (response.data.success) {
+        setCompanies(companies.filter((c) => c._id !== id));
+        message.success("Company deleted successfully");
+      }
+    } catch (error) {
+      message.error("Error deleting company");
+    }
+  };
 
   // Table Columns
   const columns = [
@@ -95,7 +130,11 @@ const Companies = () => {
       dataIndex: "logo",
       key: "logo",
       render: (logo) => (
-        <img src={logo} alt="Company Logo" style={{ width: 50, height: 50, borderRadius: "50%" }} />
+        <img
+          src={logo}
+          alt="Company Logo"
+          style={{ width: 50, height: 50, borderRadius: "50%" }}
+        />
       ),
     },
     {
@@ -105,7 +144,9 @@ const Companies = () => {
       render: (text, record) => (
         <div>
           <span style={{ fontWeight: "bold", color: "#553CDF" }}>{text}</span>
-          <div style={{ fontSize: "12px", color: "gray" }}>{record.description}</div>
+          <div style={{ fontSize: "12px", color: "gray" }}>
+            {record.description}
+          </div>
         </div>
       ),
     },
@@ -124,8 +165,12 @@ const Companies = () => {
       key: "actions",
       render: (_, record) => (
         <Space>
-          <Button type="link">Edit</Button>
-          <Button type="link" danger>Delete</Button>
+          <Button type="link" onClick={() => handleEdit(record)}>
+            Edit
+          </Button>
+          <Button type="link" danger onClick={() => handleDelete(record._id)}>
+            Delete
+          </Button>
         </Space>
       ),
     },
@@ -136,7 +181,6 @@ const Companies = () => {
     key: index,
     createdAt: new Date(company.createdAt).toLocaleDateString(),
   }));
-
 
   return (
     <div style={{ padding: "20px" }}>
@@ -163,17 +207,27 @@ const Companies = () => {
         </Button>
       </div>
 
-      {loading ? <p>Loading...</p> : error ? <p>{error}</p> : (
-        <Table columns={columns} dataSource={dataWithDate} pagination={{ pageSize: 5 }} />
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={dataWithDate}
+          pagination={{ pageSize: 5 }}
+        />
       )}
 
       {/* Modal for Creating New Company */}
       <Modal
-        title="Setup New Company"
+        title={editingCompany ? "Edit Company" : "Setup New Company"}
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setEditingCompany(null);
+        }}
         footer={null}
-        centered
       >
         <div
           style={{
@@ -251,13 +305,13 @@ const Companies = () => {
             width: "100%",
             padding: "18px 25px",
             borderRadius: "6px",
-            marginTop:"10px",
+            marginTop: "10px",
             color: "#fff",
             border: "1px solid #553CDF",
             background: "linear-gradient( #553CDF, #1a2980)",
           }}
         >
-          Create Company
+         {editingCompany ? "Update" : "Create"} Company
         </Button>
       </Modal>
     </div>

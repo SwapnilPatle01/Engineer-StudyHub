@@ -200,6 +200,7 @@ const MainLayout = () => {
         style={{
           display: "flex",
           alignItems: "center",
+          justifyContent:"space-between",
           backgroundColor: "#ffffff",
           width: "100%",
           color: "#6441A3",

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Modal, Input, Select, Form, Typography, Space } from "antd";
+import { Button, Modal, Input, Select, Typography, Space, Table, message } from "antd";
+import axios from "axios";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -8,129 +9,137 @@ const { Option } = Select;
 function JobPost() {
   const [showForm, setShowForm] = useState(false);
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({});
 
-  const [form] = Form.useForm();
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
-  const handleSubmit = (values) => {
-    setJobs([...jobs, { id: jobs.length + 1, ...values }]);
-    setShowForm(false);
-    form.resetFields();
+  const fetchJobs = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Authentication token is missing. Please log in.");
+      }
+
+      const { data } = await axios.get("http://localhost:5000/api/v1/job/get", {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      setJobs(data.jobs || []);
+    } catch (error) {
+      message.error(error.response?.data?.message || "Failed to fetch jobs.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSelectChange = (name, value) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (!formData.title || !formData.description || !formData.requirements || !formData.salary || !formData.location || !formData.jobType || !formData.experienceLevel || !formData.position) {
+        message.error("Please fill all required fields.");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        message.error("Authentication token is missing. Please log in.");
+        return;
+      }
+
+      const payload = {
+        title: formData.title,
+        description: formData.description,
+        requirements: formData.requirements.split(","),
+        salary: Number(formData.salary),
+        location: formData.location,
+        jobType: formData.jobType,
+        experienceLevel: Number(formData.experienceLevel),
+        position: Number(formData.position),
+      };
+
+      const { data } = await axios.post("http://localhost:5000/api/v1/job/post", payload, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
+
+      message.success("Job posted successfully!");
+      setShowForm(false);
+      fetchJobs();
+      setFormData({});
+    } catch (error) {
+      message.error(error.response?.data?.message || "Failed to post job.");
+    }
+  };
+
+  const columns = [
+    { title: "Job Title", dataIndex: "title", key: "title" },
+    { title: "Description", dataIndex: "description", key: "description" },
+    { title: "Salary (INR)", dataIndex: "salary", key: "salary" },
+    { title: "Experience (yrs)", dataIndex: "experienceLevel", key: "experienceLevel" },
+    { title: "Location", dataIndex: "location", key: "location" },
+    { title: "Job Type", dataIndex: "jobType", key: "jobType" },
+    { title: "Positions", dataIndex: "position", key: "position" },
+  ];
 
   return (
     <div style={{ padding: 24 }}>
-      <Space style={{ display: "flex", justifyContent: "space-between" }}>
-        <Title level={4}>Job Posts</Title>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setShowForm(true)}
-        >
+      <Space style={{ display: "flex", justifyContent: "space-between", marginBottom: 16 }}>
+        <Title level={3}>Job Posts</Title>
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => setShowForm(true)}>
           Create Job Post
         </Button>
       </Space>
 
-      <Modal
-        title="New Job Post"
-        open={showForm}
-        onCancel={() => setShowForm(false)}
-        footer={null}
-      >
-        <Form layout="vertical" form={form} onFinish={handleSubmit}>
-          <Form.Item
-            name="company"
-            label="Your Company Name"
-            rules={[{ required: true, message: "Please enter company name" }]}
-          >
-            <Input placeholder="Company Name" />
-          </Form.Item>
-          <Form.Item
-            name="title"
-            label="Job Title"
-            rules={[{ required: true, message: "Please enter job title" }]}
-          >
-            <Input placeholder="Job Title" />
-          </Form.Item>
+      <Table columns={columns} dataSource={jobs} rowKey="_id" loading={loading} bordered />
 
-          <Form.Item
-            name="description"
-            label="Job Description"
-            rules={[
-              { required: true, message: "Please enter job description" },
-            ]}
-          >
-            <Input.TextArea placeholder="Job Description" rows={3} />
-          </Form.Item>
+      <Modal title="New Job Post" open={showForm} onCancel={() => setShowForm(false)} footer={null}>
+        <label>Job Title</label>
+        <Input name="title" value={formData.title || ""} onChange={handleChange} />
 
-          <Form.Item
-            name="requirements"
-            label="Job Requirements"
-            rules={[
-              { required: true, message: "Please enter job requirements" },
-            ]}
-          >
-            <Input placeholder="Job Requirements (comma-separated)" rows={3} />
-          </Form.Item>
+        <label>Job Description</label>
+        <Input.TextArea name="description" rows={3} value={formData.description || ""} onChange={handleChange} />
 
-          <div className="flex gap-2">
-            <Form.Item
-              name="salary"
-              label="Salary (in INR)"
-              rules={[{ required: true, message: "Please enter salary" }]}
-            >
-              <Input type="number" placeholder="Salary" />
-            </Form.Item>
+        <label>Job Requirements (Comma Separated)</label>
+        <Input name="requirements" value={formData.requirements || ""} onChange={handleChange} />
 
-            <Form.Item
-              name="experienceLevel"
-              label="Min. Experience (yrs)"
-              rules={[
-                { required: true, message: "Please enter experience level" },
-              ]}
-            >
-              <Input type="number" placeholder="Experience Level" />
-            </Form.Item>
+        <label>Salary (INR)</label>
+        <Input type="number" name="salary" value={formData.salary || ""} onChange={handleChange} />
 
-            <Form.Item
-              name="location"
-              label="Location"
-              rules={[{ required: true, message: "Please enter location" }]}
-            >
-              <Input placeholder="Location" />
-            </Form.Item>
-          </div>
+        <label>Experience (yrs)</label>
+        <Input type="number" name="experienceLevel" value={formData.experienceLevel || ""} onChange={handleChange} />
 
-          <Form.Item
-            name="jobType"
-            label="Job Type"
-            rules={[{ required: true, message: "Please select job type" }]}
-          >
-            <Select placeholder="Select Job Type">
-              <Option value="Full-time">Full-time</Option>
-              <Option value="Part-time">Part-time</Option>
-              <Option value="Internship">Internship</Option>
-            </Select>
-          </Form.Item>
+        <label>Location</label>
+        <Input name="location" value={formData.location || ""} onChange={handleChange} />
 
-          <Form.Item
-            name="position"
-            label="Number of Positions"
-            rules={[
-              { required: true, message: "Please enter number of positions" },
-            ]}
-          >
-            <Input type="number" placeholder="Number of Positions" />
-          </Form.Item>
+        <label>Job Type</label>
+        <Select name="jobType" value={formData.jobType || ""} onChange={(value) => handleSelectChange("jobType", value)}>
+          <Option value="Full-time">Full-time</Option>
+          <Option value="Part-time">Part-time</Option>
+          <Option value="Internship">Internship</Option>
+        </Select>
 
-          <Form.Item>
-            <Space style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button onClick={() => setShowForm(false)}>Cancel</Button>
-              <Button type="primary" htmlType="submit">
-                Post Job
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
+        <label>Number of Positions</label>
+        <Input type="number" name="position" value={formData.position || ""} onChange={handleChange} />
+
+        <Space style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+          <Button onClick={() => setShowForm(false)}>Cancel</Button>
+          <Button type="primary" onClick={handleSubmit}>Post Job</Button>
+        </Space>
       </Modal>
     </div>
   );

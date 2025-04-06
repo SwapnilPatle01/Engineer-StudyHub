@@ -3,7 +3,6 @@ import "./Home.css";
 import Features from "./Features/Features";
 import HeroHeader from "./Hero/HeroHeader";
 import FAQ from "./Others/FAQ";
-import HeroSection from "./Hero/LandingForNotes";
 import CoursesSection from "./CourseSection/CoursesSection";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 import AboutUs from "./HomeAbout/HomeAbout";
@@ -16,7 +15,7 @@ const Home = () => {
       <HeroHeader />
       <UniversityLogoScroller />
       <AboutUs />
-      <HeroSection />
+     
       <CoursesSection />
       <VideoPlayer />
       <Features />
