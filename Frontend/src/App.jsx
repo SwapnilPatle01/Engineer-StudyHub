@@ -6,12 +6,8 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
-<<<<<<< HEAD
-import StudyMaterials from "./Components/StudyMaterials/StudyMaterials";
-=======
 import LearningMaterial from "./Components/EngineersLibrary/EngineersLibrary";
 
->>>>>>> main
 import RegisterPage from "./pages/RegistrationPage";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
@@ -21,11 +17,6 @@ import DashboardHome from "./Components/Clients/Tabs/DashboardHome";
 import JobPost from "./Components/Clients/Tabs/JobPost";
 import Companies from "./Components/Clients/Tabs/Companies";
 import DeveloperDetailPage from "./Components/DevelopersHub/DeveloperResources/DeveloperDetailPage";
-<<<<<<< HEAD
-import CompanyDashboard from "./Components/Clients/CompanyDashboard/CompanyDashboard";
-
-=======
->>>>>>> main
 function App() {
   return (
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
