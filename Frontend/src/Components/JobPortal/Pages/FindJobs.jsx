@@ -34,7 +34,7 @@ function AllOpportunities() {
         message.error("You must be logged in to apply.");
         return;
       }
-  
+
       const { data } = await axios.post(
         `http://localhost:5000/api/v1/application/apply/${jobId}`,
         {},
@@ -44,7 +44,7 @@ function AllOpportunities() {
           },
         }
       );
-  
+
       if (data.success) {
         const updatedAppliedJobs = [...appliedJobs, jobId];
         setAppliedJobs(updatedAppliedJobs);
@@ -59,12 +59,11 @@ function AllOpportunities() {
       );
     }
   };
-  
+
   useEffect(() => {
     const savedApplied = JSON.parse(localStorage.getItem("appliedJobs")) || [];
     setAppliedJobs(savedApplied);
   }, []);
-  
 
   const fetchJobs = async () => {
     setLoading(true);
@@ -148,7 +147,6 @@ function AllOpportunities() {
           Filter
         </Button>
       </div>
-
       {loading ? (
         <Spin size="large" style={{ margin: "auto" }} />
       ) : (
@@ -183,8 +181,9 @@ function AllOpportunities() {
                 {job.title}
               </h1>
               <p>
-                <strong>Company:</strong> {job.company}
+                <strong>Company:</strong> {job?.company?.name || "N/A"}
               </p>
+
               <p>
                 <strong>Location:</strong> {job.location}
               </p>

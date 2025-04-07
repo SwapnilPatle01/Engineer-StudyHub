@@ -48,35 +48,53 @@ function JobPost() {
 
   const handleSubmit = async () => {
     try {
-      if (!formData.title || !formData.description || !formData.requirements || !formData.salary || !formData.location || !formData.jobType || !formData.experienceLevel || !formData.position) {
-        message.error("Please fill all required fields.");
-        return;
+      const requiredFields = [
+        "title",
+        "description",
+        "requirements",
+        "salary",
+        "location",
+        "jobType",
+        "experience",
+        "position",
+      ];
+  
+      for (const field of requiredFields) {
+        if (!formData[field]) {
+          message.error("Please fill all required fields.");
+          return;
+        }
       }
-
+  
       const token = localStorage.getItem("token");
       if (!token) {
         message.error("Authentication token is missing. Please log in.");
         return;
       }
-
+  
       const payload = {
         title: formData.title,
         description: formData.description,
-        requirements: formData.requirements.split(","),
+        requirements: formData.requirements, // ✅ Keep as string
         salary: Number(formData.salary),
         location: formData.location,
         jobType: formData.jobType,
-        experienceLevel: Number(formData.experienceLevel),
-        position: Number(formData.position),
+        experience: formData.experience, // ✅ Keep as string
+        position: formData.position, // ✅ Keep as string or number depending on backend
+        companyId: "67ccfbbc44f03a0b9b04d15b", // ✅ backend expects companyId
       };
-
-      const { data } = await axios.post("http://localhost:5000/api/v1/job/post", payload, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      });
-
+  debugger;
+      const { data } = await axios.post(
+        "http://localhost:5000/api/v1/job/post",
+        payload,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
       message.success("Job posted successfully!");
       setShowForm(false);
       fetchJobs();
@@ -85,6 +103,8 @@ function JobPost() {
       message.error(error.response?.data?.message || "Failed to post job.");
     }
   };
+  
+  
 
   const columns = [
     { title: "Job Title", dataIndex: "title", key: "title" },
@@ -121,7 +141,8 @@ function JobPost() {
         <Input type="number" name="salary" value={formData.salary || ""} onChange={handleChange} />
 
         <label>Experience (yrs)</label>
-        <Input type="number" name="experienceLevel" value={formData.experienceLevel || ""} onChange={handleChange} />
+<Input type="number" name="experience" value={formData.experience || ""} onChange={handleChange} />
+
 
         <label>Location</label>
         <Input name="location" value={formData.location || ""} onChange={handleChange} />
