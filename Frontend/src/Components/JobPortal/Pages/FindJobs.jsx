@@ -205,7 +205,7 @@ function AllOpportunities() {
                   marginTop: "16px",
                 }}
               >
-                <Button
+                {/* <Button
                   type="default"
                   style={{
                     padding: "6px 16px",
@@ -214,7 +214,7 @@ function AllOpportunities() {
                   }}
                 >
                   Read More
-                </Button>
+                </Button> */}
                 <Button
                   type="primary"
                   disabled={appliedJobs.includes(job._id)}
