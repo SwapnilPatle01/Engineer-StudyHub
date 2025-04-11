@@ -18,8 +18,9 @@ import CreateJobPost from "./Components/CompanyDashboard/CompanyDashbordComponen
 import CreateEvent from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import Notifications from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import ProfilePage from "./pages/Profile";
-import CompanyDetail from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyDetail";
-import DeveloperDetailPage from "./Components/DevelopersHub/DeveloperResources/DeveloperDetailPage";
+// import CompanyDetail from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyDetail";
+import DeveloperDetailPage from './Components/DevelopersHub/DeveloperResources/DeveloperDetailPage';
+
 
 function App() {
   return (
@@ -34,7 +35,8 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="learning-material" element={<LearningMaterial />} />
             <Route path="DevelopersHub" element={<DeveloperPage />} />
-            <Route path="/resources/:key" element={<DeveloperDetailPage />} />
+            <Route path="resources/:categoryKey" element={<DeveloperDetailPage />} />
+            <Route path="resources/:categoryKey/:itemKey" element={<DeveloperDetailPage />} />
             <Route path="ContactUs" element={<ContactUs />} />
             <Route path="AboutUs" element={<AboutUs />} />
             <Route path="engineerLib" element={<LearningMaterial />} />

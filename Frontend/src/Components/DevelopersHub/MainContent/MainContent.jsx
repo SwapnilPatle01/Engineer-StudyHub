@@ -1,17 +1,16 @@
 import React from "react";
 import { Layout, Row, Col, Card, Button, Typography } from "antd";
-import { StarOutlined, ForkOutlined } from "@ant-design/icons";
-import { TwitterOutlined, GithubOutlined } from "@ant-design/icons";
+import { StarOutlined, ForkOutlined,TwitterOutlined, GithubOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { FaDiscord } from "react-icons/fa";
-import { ArrowRightOutlined } from "@ant-design/icons";
-import menuData from "../../../assets/data/menuData";
+// import menuData from "../../../assets/data/menuData";
+import categories from "../../../assets/data/categoryData";
 import { Link } from "react-router-dom";
 import "../DeveloperHub.css";
 
 const { Title, Text } = Typography;
 
-const MainContent = () => {
-  const socialLinks = [
+// Moved static data outside component
+const socialLinks = [
     {
       icon: <TwitterOutlined style={{ fontSize: "30px", color: "#1DA1F2" }} />,
       title: "Twitter",
@@ -28,6 +27,12 @@ const MainContent = () => {
       text: "Join us on GitHub to report issues, suggest features, and contribute.",
     },
   ];
+
+const MainContent = () => {
+
+  // Memoize categories to prevent recalculation
+  const memoizedCategories = React.useMemo(() => Object.values(categories), []);
+
   return (
     <Layout
       style={{
@@ -59,7 +64,7 @@ const MainContent = () => {
         </Text>
       </div>
       <Row
-        gutter={(24, 16)}
+        gutter={[24, 16]}  
         style={{
           marginTop: "20px",
           borderRadius: "25px",
@@ -214,20 +219,20 @@ const MainContent = () => {
       {/* // */}
       <div>
         <Row gutter={[16, 16]} style={{ marginTop: "24px", width: "100%" }}>
-          {socialLinks.map((link, index) => (
-            <Col xs={24} sm={12} md={8} key={index}>
+          {socialLinks.map((link) => (  // Changed from index to link as key
+            <Col xs={24} sm={12} md={8} key={link.title}> {/* Use title as key */}
               <Card
-                headStyle={{
-                  borderBottom: "none",
-                }}
+                className="social-card card-hover-effect" 
+                headStyle={{ borderBottom: "none" }}
                 style={{
                   minHeight: "200px",
-                  border: "none", // Ensuring no border
+                  border: "none",
                   background: "#F8F9FF",
                 }}
                 bordered={false}
                 hoverable
-                className="card-hover-effect"
+                // Remove this duplicate className because react will onlly use the last className declaration
+                // className="card-hover-effect"
                 title={
                   <Row align="middle">
                     <Col>{link.icon}</Col>
@@ -270,51 +275,52 @@ const MainContent = () => {
           at your own pace.
         </Text>
       </div>
+  
       <Row gutter={[16, 16]} style={{ marginTop: "24px" }}>
-        {menuData.map((topic, index) => (
-          <Col xs={24} sm={12} md={8} key={index}>
-            <Card
-              bordered={false}
-              hoverable
-              style={{
-                minHeight: "6px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                transition: "all 0.3s ease",
-                background: "#F8F9FF",
-              }}
-              className="hover-card"
-            >
-              <div
+        {memoizedCategories.map((category) => (
+          <Col xs={24} sm={12} md={8} key={category.key}>
+            <Link to={`/resources/${category.key}`} style={{ textDecoration: 'none', width: '100%', display: 'block' }}>
+              <Card
+                bordered={false}
+                hoverable
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  paddingTop: "5px",
+                  padding: "16px",
+                  boxShadow: "none",
+                  transition: "all 0.3s ease",
+                  background: "#F8F9FF",
+                  borderRadius: "12px",
+                  height: "100%",
                 }}
+                className="hover-card"
               >
-                <Text
+                <div
                   style={{
-                    fontSize: "18px",
-                    color: "#737477",
-                    fontWeight: "500",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
                   }}
                 >
-                  {topic.title}
-                </Text>
-                <Link
-                  to={`/resources/${topic.key}`}
-                  style={{ textDecoration: "none" }}
-                >
+                  <Text
+                    style={{
+                      fontSize: "18px",
+                      color: "#737477",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {category.title}
+                  </Text>
                   <ArrowRightOutlined
                     className="arrow-icon"
                     style={{
                       fontSize: "18px",
-                      fontWeight: "600",
+                      color: "#553cdf",
+                      opacity: 0.5,
                     }}
                   />
-                </Link>
-              </div>
-            </Card>
+                </div>
+              </Card>
+            </Link>
           </Col>
         ))}
       </Row>
@@ -322,4 +328,4 @@ const MainContent = () => {
   );
 };
 
-export default MainContent;
+export default React.memo(MainContent);
