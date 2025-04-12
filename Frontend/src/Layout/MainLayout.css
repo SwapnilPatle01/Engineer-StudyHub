@@ -69,14 +69,10 @@ Drawer and Menu Animations
   .avatar {
     display: none;
   }
-
   .mobile-menu-icon {
     display: inline-block;
     color: #6441a3;
-    position: relative;
-    left: 22px;
   }
-
   .logo-container {
     padding-right: 80px;
   }
@@ -85,23 +81,7 @@ Drawer and Menu Animations
 /* Small devices (max-width: 600px) */
 @media (max-width: 600px) {
   .logo-container {
-    padding-right: 100px;
-  }
-  .logo-container img {               
-    position: relative;           /* Adjust logo img to left of mobile screen */
-    right: 60px;
-  }
-}
-
-/* Medium devices (601px - 768px) */
-@media (min-width: 601px) and (max-width: 768px) {
-  .logo-container {
-    padding-right: 380px;
-  }
-  
-  .logo-container img {            
-    position: relative;           /* Adjust logo img to left of mobile screen */
-    right: 60px;
+    padding-right: 130px;
   }
 }
 
@@ -123,11 +103,15 @@ Drawer and Menu Animations
   }
 }
 
-/* Small devices (max-width: 600px) */
+/* Medium devices (601px - 768px) */
 @media (min-width: 500px) and (max-width: 600px) {
   .mobile-menu-icon {
     padding-left: 150px;
-    position: relative;
-    left:22px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+  .logo-container {
+    padding-right: 380px;
   }
 }

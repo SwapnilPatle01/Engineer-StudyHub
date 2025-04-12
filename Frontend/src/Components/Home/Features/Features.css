@@ -1,0 +1,228 @@
+/* Global Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  outline: none;
+}
+a,
+a:active,
+a:focus {
+  color: #333;
+  transition: color 0.2s ease-in-out;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+span,
+a {
+  display: inline-block;
+  color: inherit;
+}
+
+/* Section Header */
+.section-head {
+  margin-bottom: 60px;
+  text-align: center;
+}
+.section-head h4 {
+  position: relative;
+  font-size: 34px;
+  font-weight: 700;
+  color: #f91942;
+  margin-bottom: 30px;
+}
+.section-head h4::before {
+  content: "";
+  width: 60px;
+  height: 3px;
+  background: #f91942;
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+}
+.section-head p {
+  color: #818181;
+  font-size: 16px;
+  line-height: 28px;
+  text-align: center;
+}
+p.service_text {
+  color: #cccccc !important;
+  font-size: 16px;
+  line-height: 28px;
+  text-align: center;
+}
+
+/* Feature Box Styles */
+.feature-box {
+  text-align: center;
+  padding: 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.07);
+  transition: all 0.5s ease;
+}
+.feature-box:hover {
+  background-color: #553cdf;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.feature-box:hover h6,
+.feature-box:hover p {
+  color: white;
+}
+.feature-box .icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #f91942;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: inline-block;
+  transition: all 0.5s ease;
+}
+.feature-box:hover .icon {
+  background-color: white;
+  color: #f91942;
+}
+
+/* Feature Box Color Variants */
+.feature_box_col_one {
+  background-color: rgba(247, 198, 5, 0.2);
+}
+.feature_box_col_two {
+  background-color: rgba(255, 77, 28, 0.15);
+}
+.feature_box_col_three {
+  background-color: rgba(0, 147, 38, 0.15);
+}
+.feature_box_col_four {
+  background-color: rgba(0, 108, 255, 0.15);
+}
+.feature_box_col_five {
+  background-color: rgba(146, 39, 255, 0.15);
+}
+.feature_box_col_six {
+  background-color: rgba(23, 39, 246, 0.15);
+}
+
+/* Additional Elements for Text and Item Design */
+.extra-text {
+  font-size: 34px;
+  font-weight: 700;
+  color: #2f2f2f;
+  margin-bottom: 25px;
+  position: relative;
+  text-transform: none;
+}
+.extra-text::before {
+  content: "";
+  width: 60px;
+  height: 3px;
+  background: #f91942;
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+}
+.extra-text span {
+  color: #f91942;
+}
+
+/* Item Box */
+.item {
+  background: #fff;
+  padding: 30px 25px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.07);
+  transition: all 0.5s ease;
+}
+.item:hover {
+  background-color: #f91942;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.item:hover h6,
+.item:hover p {
+  color: #fff;
+}
+.item .icon {
+  font-size: 40px;
+  margin-bottom: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+  line-height: 90px;
+  width: 90px;
+  height: 90px;
+  color: #f91942;
+}
+.item p {
+  font-size: 15px;
+  line-height: 26px;
+}
+.item h6 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #2f2f2f;
+}
+
+/* Skill Bar Progress */
+.skills {
+  padding-top: 0;
+}
+.skills .prog-item {
+  margin-bottom: 25px;
+}
+.skills .prog-item p {
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.skills .skills-progress {
+  width: 100%;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  position: relative;
+}
+.skills .skills-progress span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #f91942;
+  border-radius: 10px;
+  transition: width 1s;
+}
+.skills .skills-progress span:after {
+  content: attr(data-value);
+  position: absolute;
+  top: -5px;
+  right: 0;
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 3px 7px;
+  border-radius: 30px;
+}

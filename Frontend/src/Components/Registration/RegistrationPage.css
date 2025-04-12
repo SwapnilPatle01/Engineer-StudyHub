@@ -1,177 +1,206 @@
-/* General Styles */
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f0f2f5;
-  margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
+/* Container layout */
 .register-container {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: auto;
-  margin: 50px 0px;
-  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: rgb(225, 239, 244);
 }
 
 .register-card {
+  display: flex;
   width: 100%;
-  background-color: #fff;
-  /* padding: 40px; */
-  height: auto;
-  margin: "50px 0px";
+  max-width: 400px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   animation: fadeIn 0.5s ease;
+  overflow: hidden;
+  margin: 40px 0;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.register-form {
+  flex: 1;
+  padding: 40px;
+  max-width: 500px;
 }
 
+/* Logo and Typography */
 .logo-container {
   text-align: center;
   margin-bottom: 20px;
+  align-items: center;
+  height: auto;
 }
 
-.logo-text {
-  color: #553cdf;
-  font-weight: 600;
-}
-
-.form-title {
-  text-align: center;
-  font-size: 18px;
-  color: #333;
-  margin-bottom: 30px;
-}
-
+/* Form elements */
 .ant-form-item {
   margin-bottom: 20px;
 }
 
+/* Input fields */
 .ant-input,
-.ant-select-selector {
-  height: 40px;
-  border-radius: 6px;
-}
-
 .ant-input-password {
-  height: 40px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  border: none;
+  height: 45px;
+  width: 100%;
+  box-shadow: none;
+  transition: all 0.3s ease;
 }
 
-.register-button {
+/* Select field */
+.ant-select .ant-select-selector {
+  background-color: #f5f5f5 !important;
+  border-radius: 8px !important;
+  border: none !important;
+  height: 45px !important;
   width: 100%;
-  background-color: #553cdf;
-  color: #fff;
+  box-shadow: none !important;
+  transition: all 0.3s ease;
+  padding: 0 12px !important;
+  display: flex;
+  align-items: center;
+}
+
+.ant-select-single .ant-select-selector .ant-select-selection-item,
+.ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+  line-height: 45px !important;
+  padding: 0 !important;
+}
+
+/* Password field */
+.ant-input-affix-wrapper {
+  background-color: #f5f5f5 !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  height: 45px !important;
+  padding: 0 12px !important;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.ant-input-affix-wrapper .ant-input {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: 100% !important;
+  border: none !important;
+}
+
+/* Input states */
+.ant-input:hover,
+.ant-input-password:hover,
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.ant-input-affix-wrapper:hover {
+  background-color: #ebebeb !important;
+}
+
+.ant-input:focus,
+.ant-input-password:focus,
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  background-color: #f5f5f5 !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.ant-input-affix-wrapper-focused .ant-input,
+.ant-input-affix-wrapper:focus .ant-input {
+  background-color: transparent !important;
+}
+
+/* Password icon */
+.ant-input-password-icon {
+  color: rgba(0, 0, 0, 0.45);
+  margin-left: 8px;
+}
+
+.ant-input-password-icon:hover {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+/* Button styling */
+.sign-up-btn {
+  border-radius: 100px !important;
+  height: 45px;
   font-size: 16px;
   font-weight: 500;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  width: 100%;
+  background-color: #1677ff;
+  border: none;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
 }
 
-.register-button:hover {
-  background-color: #553cdf;
+.sign-up-btn:hover {
+  background-color: #4096ff;
 }
 
-.form-navigation {
-  display: flex;
-  justify-content: space-between;
+/* Link styles */
+.link {
+  color: #1677ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-button {
+.link:hover {
+  color: #4096ff;
+}
+
+/* Error messages */
+.ant-form-item-explain-error {
+  color: #ff4d4f;
+  margin-top: 4px;
   font-size: 14px;
+}
+
+/* Notification styles */
+.ant-notification-notice {
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fff;
+}
+
+.ant-notification-notice-message {
+  font-size: 16px;
   font-weight: 500;
+  margin-bottom: 4px;
 }
 
-.ant-btn {
-  width: 100px;
-  border-radius: 6px;
-  height: 40px;
+.ant-notification-notice-description {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
 }
 
-.ant-btn-primary {
-  background-color: #553cdf;
-  border-color: #1890ff;
-}
-
-.ant-btn-primary:hover {
-  background-color: #6441a3;
-  border-color: #40a9ff;
-}
-
-.ant-btn:hover {
-  border-color: #d9d9d9;
-}
-
-/* Progress Bar Styling */
-.ant-progress-inner {
-  border-radius: 6px;
-}
-
-.ant-progress-bg {
-  height: 8px !important;
-  border-radius: 6px;
-  transition: width 0.6s ease;
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-  .register-card {
-    width: 90%;
-    padding: 20px;
-  }
-
-  .register-button {
-    font-size: 14px;
-  }
-
-  .ant-input,
-  .ant-select-selector {
-    height: 38px;
-  }
-
-  .ant-btn {
-    height: 38px;
-    font-size: 13px;
-  }
-}
-
-/* Animations for Form Steps */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.register-form .ant-form-item {
-  animation: slideIn 0.5s ease;
-}
-
-/* Custom Success Notification */
 .ant-notification-notice-success {
-  background-color: #f6ffed;
-  border: 1px solid #b7eb8f;
+  border-left: 4px solid #52c41a;
 }
 
-/* Success Message Animation */
-@keyframes successFade {
-  from {
+.ant-notification-notice-error {
+  border-left: 4px solid #ff4d4f;
+}
+
+.ant-notification-notice-close {
+  top: 16px;
+  right: 16px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { 
     opacity: 0;
     transform: translateY(-20px);
   }
@@ -181,48 +210,24 @@ button {
   }
 }
 
-.ant-notification-notice-message {
-  animation: successFade 0.3s ease;
-}
-.register-image {
-  flex: 1;
-  background-color: #f0f2f5;
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.register-image img {
-  max-width: 100%;
-}
-
 /* Responsive Design */
-@media (max-width: 768px) {
-  .register-container {
-    flex-direction: column;
-    height: auto;
-  }
+@media (max-width: 992px) {
   .register-card {
     flex-direction: column;
-    width: 100%;
+    max-width: 500px;
   }
-  .login-image {
-    height: 200px;
+}
+
+@media (max-width: 576px) {
+  .register-container {
+    padding: 10px;
   }
+  
   .register-form {
     padding: 20px;
   }
-  .logo-text {
-    font-size: 1.4rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .register-form {
-    padding: 15px;
-  }
+  
   .form-title {
-    font-size: 1.5rem;
+    font-size: 28px !important;
   }
 }

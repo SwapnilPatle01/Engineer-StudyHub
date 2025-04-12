@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Menu, Button, Dropdown, Avatar, Drawer } from "antd";
-import { LogoutOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  HomeOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  LogoutOutlined,
+  MenuOutlined,
+  UserOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import { jwtDecode } from "jwt-decode"; // Correct import
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./MainLayout.css";
+import FooterComponent from "../Components/Footer/FooterComponent";
 import logo from "../assets/images/Engineer_StudyHub_-removebg-preview.png";
 
 const { Header, Content } = Layout;
@@ -16,7 +26,7 @@ const MainLayout = () => {
     "/homePage": "1",
     "/learning-material": "2",
     "/JobPortal": "3",
-    "/Company/Dashbaord": "4",
+    "/EngineersCarrerHub-DashBoard": "4",
     "/DevelopersHub": "5",
     "/Dashboard": "6",
     "/AboutUs": "7",
@@ -30,20 +40,6 @@ const MainLayout = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState("");
   const [drawerVisible, setDrawerVisible] = useState(false); // Drawer state for mobile menu
-  const [isMobile, setIsMobile] = useState(false);
-
-  //To trigger CSS whenever screen size changes
-  useEffect(() => {
-    const updateSize = () => {
-      setIsMobile(window.innerWidth <= 768); // Mobile if width is 768px or smaller
-    };
-    // Initial check
-    updateSize();
-    // Add resize event listener
-    window.addEventListener("resize", updateSize);
-    // Cleanup event listener on component unmount
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -68,110 +64,86 @@ const MainLayout = () => {
       {
         key: "1",
         label: (
-          <Link
-            to="/homePage"
-            className="menu-link "
-            onClick={() => setDrawerVisible(false)}
-          >
-            Home
+          <Link to="/homePage" className="menu-link">
+            <HomeOutlined style={{ fontSize: "22px", marginTop: "10px" }} />
           </Link>
         ),
       },
       {
         key: "2",
         label: (
-          <Link
-            to="/learning-material"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Study Material
+          <Link to="/learning-material" className="menu-link">
+            Engineer’s Library
+          </Link>
+        ),
+      },
+      {
+        key: "3",
+        label: (
+          <Link to="/JobPortal" className="menu-link">
+            Engineer's CareerHub
+          </Link>
+        ),
+      },
+      {
+        key: "5",
+        label: (
+          <Link to="/DevelopersHub" className="menu-link">
+            Development Hub
           </Link>
         ),
       },
       {
         key: "7",
         label: (
-          <Link
-            to="/AboutUs"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            About
+          <Link to="/AboutUs" className="menu-link">
+            About Us
           </Link>
         ),
       },
       {
         key: "8",
         label: (
-          <Link
-            to="/ContactUs"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Contact
+          <Link to="/ContactUs" className="menu-link">
+            Contact Us
           </Link>
         ),
       },
     ];
-  
-    if (role !== "company") {
-      baseItems.splice(2, 0,  // Insert these items after Study Material
+
+    if (role === "admin") {
+      return [
+        ...baseItems,
         {
-          key: "3",
+          key: "4",
           label: (
-            <Link
-              to="/JobPortal"
-              className="menu-link"
-              onClick={() => setDrawerVisible(false)}
-            >
-              Find Jobs
+            <Link to="/company-dashboard" className="menu-link">
+              Company Dashboard
             </Link>
           ),
         },
         {
-          key: "5",
+          key: "6",
           label: (
-            <Link
-              to="/DevelopersHub"
-              className="menu-link"
-              onClick={() => setDrawerVisible(false)}
-            >
-              Development
+            <Link to="/Dashboard" className="menu-link">
+              Admin Dashboard
             </Link>
           ),
-        }
-      );
-    }
-  
-    if (role === "admin") {
-      baseItems.push({
-        key: "6",
-        label: (
-          <Link
-            to="/Dashboard"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Admin Dashboard
-          </Link>
-        ),
-      });
+        },
+      ];
     } else if (role === "company") {
-      baseItems.push({
-        key: "4",
-        label: (
-          <Link
-            to="/Company/Dashboard"
-            className="menu-link"
-            onClick={() => setDrawerVisible(false)}
-          >
-            Company Dashboard
-          </Link>
-        ),
-      });
+      return [
+        ...baseItems,
+        {
+          key: "4",
+          label: (
+            <Link to="/company-dashboard" className="menu-link">
+              Company Dashboard
+            </Link>
+          ),
+        },
+      ];
     }
-  
     return baseItems;
   };
 
@@ -193,14 +165,70 @@ const MainLayout = () => {
   const closeDrawer = () => {
     setDrawerVisible(false);
   };
-
+  // Added this check for login/signup pages
+  const hideFooter = location.pathname === '/login' || location.pathname === '/register';
   return (
     <Layout style={{ margin: 0, padding: "0px" }}>
+      <div
+        style={{ background:"linear-gradient(90deg, #553CDF, #1a2980)", width: "100%", height: "45px" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            maxWidth: "1400px",
+            margin: "0 auto",
+            padding: "0px",
+            fontSize: "12px",
+            color: "#fff",
+            height: "100%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
+              <MailOutlined
+                style={{
+                  paddingRight: "5px",
+                  fontSize: "18px",
+                  color: "#fff",
+                }}
+              />
+              info@engineerstudyhub.in
+            </p>
+            <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
+              <PhoneOutlined
+                style={{
+                  paddingRight: "5px",
+                  fontSize: "18px",
+                  color: "#fff",
+                }}
+              />
+              +91 9876543210
+            </p>
+          </div>
+
+          <div
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
+            <p style={{ margin: 0, display: "flex", alignItems: "center" }}>
+              <DownOutlined style={{ paddingRight: "5px", fontSize: "14px" }} />
+              India
+            </p>
+          </div>
+        </div>
+      </div>
       <Header
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent:"space-between",
           backgroundColor: "#ffffff",
           width: "100%",
           color: "#6441A3",
@@ -312,7 +340,7 @@ const MainLayout = () => {
               />
               <span style={{ marginLeft: "8px", fontSize: "16px" }}></span>
             </div>
-          </Dropdown>
+          </Dropdown> 
         ) : (
           <>
             <Button
@@ -324,7 +352,7 @@ const MainLayout = () => {
                 color: "#fff",
                 marginRight: "10px",
                 border: "1px solid #553CDF",
-                background: "linear-gradient( #553CDF, #1a2980)",
+                background:"linear-gradient( #553CDF, #1a2980)",
               }}
             >
               Login
@@ -351,6 +379,7 @@ const MainLayout = () => {
       <Content style={{ padding: "0px" }}>
         <Outlet />
       </Content>
+      {!hideFooter && <FooterComponent />}
     </Layout>
   );
 };

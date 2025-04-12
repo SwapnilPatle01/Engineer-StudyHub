@@ -1,0 +1,49 @@
+.review-slider {
+  padding: 20px;
+  background: linear-gradient(135deg, #e0f7fa, #80deea);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.slider-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #00695c;
+  animation: fadeIn 1s ease;
+}
+
+.review-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.review-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #004d40;
+}
+
+.review-text {
+  font-style: italic;
+  color: #555;
+}
+
+.review-rating {
+  font-weight: bold;
+  color: #ffab00;
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

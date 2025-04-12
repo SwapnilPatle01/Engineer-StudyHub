@@ -1,0 +1,45 @@
+/* AddCompany.css */
+
+/* Form container */
+.company-form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* Form items */
+.ant-form-item-label > label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Input fields */
+.ant-input,
+.ant-textarea {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+/* Buttons */
+.ant-btn {
+  border-radius: 6px;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  /* width: 100%; */
+}
+
+.ant-btn-primary:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}

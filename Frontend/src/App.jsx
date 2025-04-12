@@ -6,42 +6,50 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import JobPortalPage from "./pages/JobPortalPage";
 import DeveloperPage from "./pages/DeveloperPage";
-import StudyMaterials from "./Components/StudyMaterials/StudyMaterials";
-import CompanyDashboard from "./Components/Clients/CompanyDashboard/CompanyDashboard";
+import LearningMaterial from "./Components/EngineersLibrary/EngineersLibrary";
 import RegisterPage from "./pages/RegistrationPage";
+import CareerDashboard from "./Components/JobPortal/CareerDashboard";
 import Dashboardpage from "./pages/Dashboardpage";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import AboutUs from "./Components/AboutUs/AboutUs";
+import CompanyDashboardPage from "./pages/CompanyDashboardPage";
+import CompanyProfile from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyProfile";
+import CreateJobPost from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateJobPost";
+import CreateEvent from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
+import Notifications from "./Components/CompanyDashboard/CompanyDashbordComponents/CreateEvent";
 import ProfilePage from "./pages/Profile";
-import DashboardHome from "./Components/Clients/Tabs/DashboardHome";
-import JobPost from "./Components/Clients/Tabs/JobPost";
-import Companies from "./Components/Clients/Tabs/Companies";
-import DeveloperDetailPage from "./Components/DevelopersHub/DeveloperResources/DeveloperDetailPage";
+// import CompanyDetail from "./Components/CompanyDashboard/CompanyDashbordComponents/CompanyDetail";
+import DeveloperDetailPage from './Components/DevelopersHub/DeveloperResources/DeveloperDetailPage';
+
+
 function App() {
   return (
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            {/* Menu Items */}
             <Route index element={<HomePage />} />
             <Route path="homePage" element={<HomePage />} />
             <Route path="Dashboard" element={<Dashboardpage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
-            <Route path="learning-material" element={<StudyMaterials />} />
+            <Route path="learning-material" element={<LearningMaterial />} />
             <Route path="DevelopersHub" element={<DeveloperPage />} />
-            <Route path="/resources/:key" element={<DeveloperDetailPage />} />
+            <Route path="resources/:categoryKey" element={<DeveloperDetailPage />} />
+            <Route path="resources/:categoryKey/:itemKey" element={<DeveloperDetailPage />} />
             <Route path="ContactUs" element={<ContactUs />} />
             <Route path="AboutUs" element={<AboutUs />} />
+            <Route path="engineerLib" element={<LearningMaterial />} />
             <Route path="profile" element={<ProfilePage />} />
-            <Route path="JobPortal" element={<JobPortalPage />} />
+            <Route path="*" element={<JobPortalPage />} />
 
-            <Route path="/" element={<CompanyDashboard />}>
-              {/* Nested Routes - These will be displayed inside <Outlet /> in CompanyDashboard */}
-              <Route path="Company/Dashboard/" element={<DashboardHome />} />
-              <Route path="job-post" element={<JobPost />} />
-              <Route path="companies" element={<Companies />}/>
+            {/* Nested Routes for CompanyDashboard */}
+            <Route path="/company-dashboard" element={<CompanyDashboardPage />}>
+              <Route path="company-profile" element={<CompanyProfile />} />
+              <Route path="create-company" element={<CareerDashboard />} />
+              <Route path="create-job-post" element={<CreateJobPost />} />
+              <Route path="create-event" element={<CreateEvent />} />
+              <Route path="view-notifications" element={<Notifications />} />
             </Route>
           </Route>
         </Routes>

@@ -15,8 +15,7 @@ const { Title, Text, Link } = Typography;
 const FooterComponent = () => {
   return (
     <Footer
-      className="main-footer"
-      style={{ backgroundColor: "#000", color: "#fff"}}
+      style={{ backgroundColor: "#000", color: "#fff", padding: "40px 50px" }}
     >
       <div className="footer-logo flex" style={{ width: "100%" }}>
         <img
@@ -149,11 +148,11 @@ const FooterComponent = () => {
         }}
       >
         <Col xs={24} sm={12}>
-          <Text style={{ color: "#fff", textAlign: "center" }}>
+          <Text style={{ color: "#fff" }}>
             ©2024 Engineers StudyHub. All rights reserved.
           </Text>
         </Col>
-        <Col xs={18} sm={12} style={{ textAlign: "right" }}>
+        <Col xs={24} sm={12} style={{ textAlign: "right" }}>
           <Link href="#" style={{ color: "#fff", marginRight: "10px" }}>
             Privacy Policy
           </Link>

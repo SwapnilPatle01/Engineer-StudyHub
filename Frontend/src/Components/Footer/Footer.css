@@ -14,13 +14,4 @@
   .Footer-social-icons a:hover {
     color: #2baffc;
   }
-
-  .main-footer{
-    padding : 40px 50px;
-  }
-
-  @media (max-width: 768px) {
-    .main-footer{
-    padding : 40px 30px;
-  }
-}
+  

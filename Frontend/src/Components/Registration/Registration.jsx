@@ -6,13 +6,12 @@ import {
   Typography,
   notification,
   Select,
-  Progress,
 } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../redux/authSlice"; // Assuming you have an authSlice for handling loading state
-import logo from "../../assets/images/Engineer_StudyHub_-removebg-preview.png";
+import "./RegistrationPage.css";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -24,276 +23,304 @@ const RegisterPage = () => {
     email: "",
     password: "",
     role: "",
+    companyName: "",
+    companyEmail: "",
+    linkedinProfile: "",
+    websiteUrl: "",
+    hiringType: "",
   });
-  const [currentStep, setCurrentStep] = useState(1);
-  const [submitted, setSubmitted] = useState(false); // Track if form is submitted
+  const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
-  const { loading, user } = useSelector((store) => store.auth);
+  const { loading } = useSelector((store) => store.auth);
   const navigate = useNavigate();
 
-  const changeEventHandler = (e) => {
+  const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-  };
-
-  // i only add this
-  useEffect(() => {
-    if (submitted) {
-      const timer = setTimeout(() => {
-        console.log("Navigating to login after submission...");
-        navigate("/login");
-      }, 2000); // Delay to show success message
-
-      return () => clearTimeout(timer); // Cleanup the timeout on component unmount or on subsequent renders
-    }
-  }, [submitted, navigate]);
-
-  const onFinish = async () => {
-    const formData = new FormData();
-    formData.append("firstName", input.firstName);
-    formData.append("lastName", input.lastName);
-    formData.append("email", input.email);
-    formData.append("password", input.password);
-    formData.append("role", input.role);
-
-    // if (input.role === "company") {
-    //   formData.append("companyName", input.companyName);
-    //   formData.append("companyEmail", input.companyEmail);
-    //   formData.append("linkedinProfile", input.linkedinProfile);
-    //   formData.append("websiteUrl", input.websiteUrl);
-    //   formData.append("hiringType", input.hiringType);
-    // }
-
-    // add this for store company data in database
-    // if (input.role === "company") {
-    //   formData.append("companyDetails[companyName]", input.companyName);
-    //   formData.append("companyDetails[companyEmail]", input.companyEmail);
-    //   formData.append("companyDetails[linkedinProfile]", input.linkedinProfile);
-    //   formData.append("companyDetails[websiteUrl]", input.websiteUrl);
-    //   formData.append("companyDetails[hiringType]", input.hiringType);
-    // }
-
-    try {
-      dispatch(setLoading(true)); // Show loader
-      const res = await axios.post(
-        "http://localhost:5000/api/v1/user/register",
-        formData,
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-
-      // if (res.data.success) {          //i comment this
-
-      notification.success({
-        message: "Account created successfully!",
-        description: "Redirecting you to the login page...",
-      });
-      setSubmitted(true); // Mark form as submitted
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000); // Delay for 2 seconds to show success message
-      // }
-    } catch (error) {
-      notification.error({
-        message: "Registration failed",
-        description: error.response?.data?.message || "An error occurred",
-      });
-    } finally {
-      dispatch(setLoading(false)); // Hide loader
-    }
-  };
-
-  useEffect(() => {
-    if (user) {
-      navigate("/"); // If user is already logged in, redirect to home
-    }
-  }, [user, navigate]);
-
-  const next = () => {
-    if (currentStep < (input.role === "company" ? 3 : 2)) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const previous = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
   };
 
   const handleRoleChange = (value) => {
     setInput({ ...input, role: value });
-    setCurrentStep(1); // Reset the form to step 1 on role change
   };
 
+  const handleHiringTypeChange = (value) => {
+    setInput({ ...input, hiringType: value });
+  };
+
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitted, navigate]);
+  const onFinish = async () => {
+    if (!input.firstName || !input.lastName || !input.email || !input.password || !input.role) {
+      notification.error({
+        message: "Registration failed",
+        description: "Please fill in all required fields",
+      });
+      return;
+    }
+    const requestData = {
+      firstName: input.firstName,
+      lastName: input.lastName,
+      email: input.email,
+      password: input.password,
+      role: input.role
+    };
+    if (input.role === "company") {
+      if (!input.companyName || !input.hiringType) {
+        notification.error({
+          message: "Registration failed",
+          description: "Please fill in all company details",
+        });
+        return;
+      }
+      requestData.companyDetails = {
+        companyName: input.companyName,
+        companyEmail: input.companyEmail || "",
+        linkedinProfile: input.linkedinProfile || "",
+        websiteUrl: input.websiteUrl || "",
+        hiringType: input.hiringType
+      };
+    }
+    console.log("Request Data:", requestData); // Debugging: Log the request data
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/user/register",
+        requestData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+  
+      console.log("Response Data:", response.data);
+  
+      // Modified success check
+      if (response.status === 201 || response.status === 200) {
+        notification.success({
+          message: "Registration successful",
+          description: "Redirecting to login page...",
+          duration: 3,
+          placement: 'topRight'
+        });
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      notification.error({
+        message: "Registration failed",
+        description: error.response?.data?.message || "Please try again later",
+        duration: 3,
+        placement: 'topRight'
+      });
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
   return (
-    <div
-      className="register-container"
-      style={{ width: "100%", height: "auto", margin: "50px 0px" }}
-    >
-      <div
-        className="register-card"
-        style={{ backgroundColor: "#fff", maxWidth: "80%" }}
-      >
-        <div className="login-image">
-          <img
-            src="https://img.freepik.com/free-vector/cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection_1150-37328.jpg?semt=ais_hybrid"
-            alt="login"
-            className="rounded-image"
-          />
-        </div>
-        <div className="register-form">
-          <div
-            className="logo-container"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <img
-              src={logo}
-              alt="logo"
-              style={{ width: "220px", padding: "0px", margin: "0px" }}
-            />
-            <Title level={4} className="form-title" style={{ margin: "0px" }}>
-              Join Engineer Study Hub!
-            </Title>
-            <Title level={5} className="form-title" style={{ margin: "0px" }}>
-              Create an account to explore study materials, video lectures, and
-              more.
+    <div className="register-container">
+      <div className="register-card">
+        <div className="register-form" style={{ maxWidth: "400px", margin: "0 auto", width: "100%" }}>
+          <div className="logo-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <Title level={3} className="register-form-title" style={{ textAlign: 'center', marginBottom: '15px', fontSize: '32px', display: 'block', width: '100%' }}>
+              Create an account
             </Title>
           </div>
 
-          <Progress percent={currentStep === 1 ? 50 : 100} />
+          <Form
+            name="register"
+            layout="vertical"
+            onFinish={onFinish}
+            requiredMark={false}
+          >
+            <div style={{ display: 'flex', gap: '15px' }}>
+              <Form.Item
+                label="First Name"
+                name="firstName"
+                rules={[{ required: true, message: "Please input your first name!" }]}
+              >
+                <Input
+                  name="firstName"
+                  value={input.firstName}
+                  onChange={handleChange}
+                  placeholder="Enter your first name"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Last Name"
+                name="lastName"
+                rules={[{ required: true, message: "Please input your last name!" }]}
+              >
+                <Input
+                  name="lastName"
+                  value={input.lastName}
+                  onChange={handleChange}
+                  placeholder="Enter your last name"
+                />
+              </Form.Item>
+            </div>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                { required: true, message: "Please input your email!" },
+                { type: "email", message: "Please enter a valid email!" }
+              ]}
+            >
+              <Input
+                name="email"
+                value={input.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Select your role"
+              name="role"
+              rules={[{ required: true, message: "Please select your role!" }]}
+            >
+              <Select
+                value={input.role}
+                onChange={handleRoleChange}
+                placeholder="Select your role"
+              >
+                <Option value="student">Student</Option>
+                <Option value="company">Company</Option>
+                <Option value="admin">Admin</Option>
+              </Select>
+            </Form.Item>
 
-          <Form name="register" layout="vertical" onFinish={onFinish}>
-            {currentStep === 1 && (
-              <>
-                <Form.Item
-                  label="First Name"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your first name!",
-                    },
-                  ]}
-                >
-                  <Input
-                    name="firstName"
-                    value={input.firstName}
-                    onChange={changeEventHandler}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Last Name"
-                  rules={[
-                    { required: true, message: "Please input your last name!" },
-                  ]}
-                >
-                  <Input
-                    name="lastName"
-                    value={input.lastName}
-                    onChange={changeEventHandler}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Email"
-                  rules={[
-                    { required: true, message: "Please input your email!" },
-                  ]}
-                >
-                  <Input
-                    name="email"
-                    value={input.email}
-                    onChange={changeEventHandler}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Select your role"
-                  rules={[
-                    { required: true, message: "Please select your role!" },
-                  ]}
-                >
-                  <Select
-                    value={input.role}
-                    onChange={handleRoleChange}
-                    placeholder="Select role"
-                  >
-                    <Option value="student">Student</Option>
-                    <Option value="company">Company</Option>
-                    <Option value="admin">Admin</Option>
-                  </Select>
-                </Form.Item>
-              </>
+            {input.role !== "company" && (
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  { required: true, message: "Please input your password!" },
+                  { min: 6, message: "Password must be at least 6 characters!" }
+                ]}
+              >
+                <Input.Password
+                  name="password"
+                  value={input.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                />
+              </Form.Item>
             )}
 
-            {currentStep === 2 && (
+            {input.role === "company" && (
               <>
                 <Form.Item
+                  label="Company Name"
+                  name="companyName"
+                  rules={[{ required: true, message: "Please input company name!" }]}
+                >
+                  <Input
+                    name="companyName"
+                    value={input.companyName}
+                    onChange={handleChange}
+                    placeholder="Enter company name"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Company Email"
+                  name="companyEmail"
+                  rules={[{ type: "email", message: "Please enter a valid email!" }]}
+                >
+                  <Input
+                    name="companyEmail"
+                    value={input.companyEmail}
+                    onChange={handleChange}
+                    placeholder="Enter company email"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="LinkedIn Profile"
+                  name="linkedinProfile"
+                  rules={[{ type: "url", message: "Please enter a valid URL!" }]}
+                >
+                  <Input
+                    name="linkedinProfile"
+                    value={input.linkedinProfile}
+                    onChange={handleChange}
+                    placeholder="Enter LinkedIn profile URL"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Website URL"
+                  name="websiteUrl"
+                  rules={[{ type: "url", message: "Please enter a valid URL!" }]}
+                >
+                  <Input
+                    name="websiteUrl"
+                    value={input.websiteUrl}
+                    onChange={handleChange}
+                    placeholder="Enter company website URL"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Hiring Type"
+                  name="hiringType"
+                  rules={[{ required: true, message: "Please select hiring type!" }]}
+                >
+                  <Select
+                    name="hiringType"
+                    value={input.hiringType}
+                    onChange={handleHiringTypeChange}
+                    placeholder="Select hiring type"
+                  >
+                    <Option value="fulltime">Full Time</Option>
+                    <Option value="internship">Internship</Option>
+                    <Option value="both">Both</Option>
+                  </Select>
+                </Form.Item>
+                <Form.Item
                   label="Password"
-                  rules={[{ required: true, min: 6 }]}
+                  name="password"
+                  rules={[
+                    { required: true, message: "Please input your password!" },
+                    { min: 6, message: "Password must be at least 6 characters!" }
+                  ]}
                 >
                   <Input.Password
                     name="password"
                     value={input.password}
-                    onChange={changeEventHandler}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
                   />
-                </Form.Item>
-                <Form.Item
-                  label="Confirm Password"
-                  rules={[
-                    {
-                      required: true,
-                      validator: (_, value) =>
-                        value === input.password
-                          ? Promise.resolve()
-                          : Promise.reject("The two passwords do not match!"),
-                    },
-                  ]}
-                >
-                  <Input.Password />
                 </Form.Item>
               </>
             )}
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              size="large"
+              className="sign-up-btn"
+            >
+              Sign Up
+            </Button>
 
-            {!submitted && (
-              <div className="form-navigation">
-                {currentStep > 1 && (
-                  <Button onClick={previous} disabled={loading} size="large">
-                    Previous
-                  </Button>
-                )}
-                {currentStep < 2 && (
-                  <Button onClick={next} disabled={loading} size="large">
-                    Next
-                  </Button>
-                )}
-                {currentStep === 2 && (
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={loading}
-                    size="large"
-                  >
-                    Register
-                  </Button>
-                )}
-              </div>
-            )}
+            <div className="terms-text" style={{ textAlign: 'left', marginBottom: '15px', fontSize: '14px', color: '#666' }}>
+              By signing up, you agree to our{' '}
+              <Link to="/terms" className="link">Terms and Service</Link>{' '}
+              and{' '}
+              <Link to="/privacy" className="link">Privacy Policy</Link>
+            </div>
 
-            <div className="login-redirect" style={{ textAlign: "center" }}>
-              <Title level={5}>
-                By signing up, you agree to our Terms of Service and Privacy
-                Policy.
-              </Title>
-              Already have an account?{" "}
-              <Link to="/login" className="register-link">
-                Log In here
-              </Link>
+            <div className="login-redirect">
+              <p>
+                Already have an account?{" "}
+                <Link to="/login" className="link">
+                  Log In
+                </Link>
+              </p>
             </div>
           </Form>
         </div>

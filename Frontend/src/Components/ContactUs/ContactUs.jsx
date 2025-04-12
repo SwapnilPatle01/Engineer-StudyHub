@@ -1,125 +1,336 @@
 import React from "react";
 import {
-  FaFacebook,
-  FaTwitter,
-  FaLinkedin,
-  FaPinterest,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-} from "react-icons/fa";
+  Layout,
+  Row,
+  Col,
+  Form,
+  Input,
+  Select,
+  Button,
+  Typography,
+  Card,
+} from "antd";
+import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
+import "./ContactUs.css";
+
+const { Header, Content } = Layout;
+const { Title, Paragraph } = Typography;
+const { Option } = Select;
+const { TextArea } = Input;
 
 function ContactUs() {
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Left Sidebar */}
-      <div className="bg-purple-800 text-white p-8 w-1/3 h-screen">
-        <h2 className="text-2xl font-semibold mb-4 text-left">Get in Touch</h2>
-        <p className="text-lg mb-8 text-left">
-          At Engineer Study Hub, we are committed to providing the best learning
-          resources for aspiring developers and engineers. Whether you need
-          support, have a query, or want to collaborate, feel free to reach out!
-       
-        </p>
-
-        <div className="mb-6 text-left">
-          <h3 className="text-2xl font-semibold">Contact Us</h3>
-          <p className="text-lg">info@engineerstudyhub.in</p>
-          <p className="text-lg">+91 8275877976</p>
-        </div>
-
-        <div className="mb-6 text-left">
-          <h3 className="text-2xl font-semibold">Address</h3>
-          <p className="text-lg">
-            Chatrapati Square, Nagpur, Maharashtra, India
-          </p>
-        </div>
-
-        <div className="mb-6 text-left">
-          <div className="flex space-x-4 mt-8 text-2xl text-left">
-            <FaFacebook />
-            <FaTwitter />
-            <FaLinkedin />
-          </div>
-        </div>
-      </div>
-
-      {/* Right Form Section */}
-      <div className="bg-white p-8 w-2/3 h-screen">
-        <h2 className="text-3xl font-semibold mb-4">
-          Have Questions? We're Here to Help!
-        </h2>
-        <p className="mb-8">
-          You can reach us anytime via{" "}
-          <a href="mailto:info@engineerstudyhub.in" className="text-blue-600">
-            info@engineerstudyhub.in
-          </a>
-        </p>
-
-        <form>
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter your Name"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter a valid email address"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="phone"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Phone
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter your phone (eg. +91 8275877976)"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="message"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              How can we help?
-            </label>
-            <textarea
-              id="message"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </div>
-          <button
-            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
+    <>
+      <Layout style={{ minHeight: "100vh", background: "#ffffff" }}>
+        {/* Header Section */}
+        <Header
+          style={{
+            backgroundColor: "#6f57f7",
+            color: "#fff",
+            textAlign: "center",
+            padding: "1rem 0",
+            height: "160px",
+          }}
+        >
+          <Title
+            className="contact-title"
+            level={2}
+            style={{ color: "#fff", margin: "10px" }}
           >
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
+            We're here to help!
+          </Title>
+          <Paragraph
+            className="contact-paragraph"
+            style={{ color: "#fff", fontSize: "1.4rem", margin: "10px" }}
+          >
+            Please contact us in case of any query. We are happy to help.
+          </Paragraph>
+        </Header>
+
+        {/* Main Content Section */}
+        <Content style={{ padding: "1rem" }}>
+          <Title style={{ textAlign: "center", color: "#1b1c1d" }}>
+            Contact Us
+          </Title>
+          <Row gutter={32} justify="center">
+            {/* Left Side - Contact Information */}
+            <Col xs={24} md={10}>
+              <div style={{ marginTop: "10px" }}>
+                <Title level={2}>Get in Touch</Title>
+                <Paragraph
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "400",
+                    lineHeight: "1.6",
+                  }}
+                >
+                  Leave your query and we’ll reach out to you. For admissions
+                  related query, our expert learning consultant will help you
+                  carve a career path for you.
+                </Paragraph>
+                <div style={{ marginTop: "2rem" }}>
+                  <div
+                    style={{
+                      marginBottom: "1rem",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <MailOutlined
+                      style={{
+                        fontSize: "1.5rem",
+                        marginRight: "0.5rem",
+                        color: "#000",
+                      }}
+                    />
+                    <Paragraph
+                      style={{ margin: 0, fontSize: "18px", fontWeight: "500" }}
+                    >
+                      Email:{" "}
+                      <span style={{ color: "#553cdf", fontSize: "16px" }}>
+                        support@engineerstudyhub.in
+                      </span>
+                    </Paragraph>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <PhoneOutlined
+                      style={{
+                        fontSize: "1.5rem",
+                        marginRight: "0.4rem",
+                        color: "#000",
+                      }}
+                    />
+                    <Paragraph
+                      style={{
+                        margin: 0,
+                        fontSize: "18px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Phone No:{" "}
+                      <span style={{ color: "#553cdf", fontSize: "16px" }}>
+                        +91 9876543210
+                      </span>
+                    </Paragraph>
+                  </div>
+                </div>
+              </div>
+
+              {/* card section */}
+              <Card
+                title="Our Office Location"
+                style={{
+                  marginTop: "1rem",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  border: "none",
+                  backgroundColor: "transparent",
+                }}
+                bordered={false}
+              >
+                <Row gutter={16}>
+                  <Col span={24}>
+                    {/* Embed iframe for Google Maps */}
+                    <iframe
+                      title="Office Location"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722.5445682960717!2d79.12093257525832!3d21.090844680574005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4b93e3a7d07bb%3A0x129e3ef542beaf4e!2sXenosis%20IT%20Solutions!5e0!3m2!1sen!2sin!4v1730954814800!5m2!1sen!2sin"
+                      width="100%"
+                      height="200"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+
+            {/* Right Side - Contact Form */}
+            <Col xs={24} md={14}>
+              <div style={{ marginTop: "2rem" }}>
+                <Form layout="vertical">
+                  <Row
+                    gutter={[16, 6]}
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "space-around",
+                      marginTop: "0px",
+                    }}
+                  >
+                    <Col xs={24} md={11}>
+                      <Form.Item
+                        label={<span style={{ fontSize: "1rem" }}>Name</span>}
+                        name="name"
+                        rules={[
+                          { required: true, message: "Please enter your name" },
+                        ]}
+                      >
+                        <Input
+                          placeholder="e.g. John Doe"
+                          style={{ fontSize: "18px", border: "1px solid grey" }}
+                        />
+                      </Form.Item>
+                    </Col>
+
+                    <Col xs={24} md={11}>
+                      <Form.Item
+                        label={<span style={{ fontSize: "1rem" }}>Email</span>}
+                        name="email"
+                        rules={[
+                          {
+                            required: true,
+                            type: "email",
+                            message: "Please enter a valid email",
+                          },
+                        ]}
+                      >
+                        <Input
+                          placeholder="e.g example@gmail.com"
+                          style={{ fontSize: "18px", border: "1px solid grey" }}
+                        />
+                      </Form.Item>
+                    </Col>
+
+                    <Col xs={24} md={11}>
+                      <Form.Item
+                        label={
+                          <span style={{ fontSize: "1rem" }}>
+                            Mobile Number
+                          </span>
+                        }
+                        name="phone"
+                      >
+                        <Input
+                          addonBefore="+91"
+                          placeholder="Mobile No"
+                          style={{
+                            fontSize: "18px",
+                            border: "1px solid grey",
+                            borderRadius: "10px",
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+
+                    <Col xs={24} md={11}>
+                      <Form.Item
+                        label={
+                          <span style={{ fontSize: "1rem" }}>Enquiry Type</span>
+                        }
+                        name="enquiry"
+                      >
+                        <Select
+                          placeholder="Select an Enquiry Type"
+                          className="custom-select"
+                          style={{
+                            fontSize: "18px",
+                            border: "1px solid grey",
+                            borderRadius: "10px",
+                            height: "40px",
+                          }}
+                        >
+                          <Option value="general">General Inquiry</Option>
+                          <Option value="support">Support</Option>
+                          <Option value="feedback">Feedback</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+
+                    <Col
+                      xs={24}
+                      sm={24}
+                      md={24}
+                      lg={24}
+                      xl={24}
+                      style={{
+                        paddingLeft: window.innerWidth > 1200 ? "24px" : "0px",
+                      }}
+                    >
+                      <Form.Item
+                        label={
+                          <span style={{ fontSize: "1rem" }}>Your Message</span>
+                        }
+                        name="message"
+                        style={{ width: "100%" }}
+                      >
+                        <TextArea
+                          rows={6}
+                          placeholder="Type your message here..."
+                          style={{
+                            padding: "4px",
+                            fontSize: "18px",
+                            border: "1px solid grey",
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+
+                    <Col xs={24}>
+                      <Paragraph
+                        style={{
+                          fontSize: "13px",
+                          lineHeight: "1.6",
+                          margin: 0,
+                          paddingLeft: "16px",
+                          marginTop: "0",
+                        }}
+                      >
+                        By submitting this form, you consent to our{" "}
+                        <a
+                          href="/terms-of-use"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            textDecoration: "underline",
+                            color: "#1890ff",
+                          }}
+                        >
+                          Terms of Use
+                        </a>{" "}
+                        &{" "}
+                        <a
+                          href="/privacy-policy"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            textDecoration: "underline",
+                            color: "#1890ff",
+                          }}
+                        >
+                          Privacy Policy
+                        </a>{" "}
+                        and agree to be contacted by us via Email, Call,
+                        WhatsApp, or SMS.
+                      </Paragraph>
+                    </Col>
+
+                    <Col xs={24}>
+                      <Form.Item
+                        style={{ paddingLeft: "16px", marginTop: "6px" }}
+                      >
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          style={{
+                            width: "22%",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            backgroundColor: "#553CDF",
+                          }}
+                        >
+                          Submit
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Form>
+              </div>
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
+    </>
   );
 }
 
