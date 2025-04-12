@@ -10,7 +10,7 @@ const { Content } = Layout;
 const DeveloperDetailPage = () => {
   const { categoryKey, itemKey } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
 
   
   const category = React.useMemo(() => categories[categoryKey], [categoryKey]);
@@ -36,7 +36,7 @@ const DeveloperDetailPage = () => {
     if (!category) return [];
     if (selectedItem) return [selectedItem];
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, category.items.length);
     return category.items.slice(startIndex, endIndex);
   }, [selectedItem, currentPage, category, itemsPerPage]);
 
@@ -95,12 +95,14 @@ const DeveloperDetailPage = () => {
                     border: "1px solid #F8F9FF",
                     borderRadius: "14px",
                     background: "#F8F9FF",
-                    flex: "1",
+                    flex: 1,
+                    minHeight: "300px"
                   }}
                   bodyStyle={{
                     flex: 1,
                     display: "flex",
                     flexDirection: "column",
+                    
                   }}
                 >
                   <p style={{ 
@@ -113,7 +115,6 @@ const DeveloperDetailPage = () => {
                     {item.description}
                   </p>
                   <div style={{ 
-                    marginTop: "20px", 
                     display: "flex", 
                     justifyContent: "space-between",
                     marginTop: "auto"
