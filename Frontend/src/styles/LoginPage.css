@@ -1,0 +1,160 @@
+/* Base styles */
+.login-page {
+  font-family: Arial, sans-serif;
+}
+
+/* Container layout */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: rgb(225, 239, 244);
+}
+
+.login-card {
+  display: flex;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  animation: fadeIn 0.5s ease;
+  overflow: hidden;
+}
+
+.login-form {
+  flex: 1;
+  padding: 40px;
+  max-width: 500px;
+}
+
+/* Logo and Typography */
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+.ant-input,
+.ant-input-password {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  border: none;
+  height: 45px;
+  width: 100%;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+/* Password field */
+.ant-input-affix-wrapper {
+  background-color: #f5f5f5 !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  height: 45px !important;
+  padding: 0 12px !important;
+  display: flex;
+  align-items: center;
+}
+
+.ant-input-affix-wrapper .ant-input {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: 100% !important;
+}
+
+/* Input states */
+.ant-input:hover,
+.ant-input-password:hover,
+.ant-input-affix-wrapper:hover {
+  background-color: #ebebeb !important;
+}
+
+.ant-input:focus,
+.ant-input-password:focus {
+  background-color: #f5f5f5 !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+/* Button styles */
+.login-btn {
+  border-radius: 100px !important;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  background-color: #1677ff;
+  border: none;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.login-btn:hover {
+  background-color: #4096ff !important;
+}
+
+.ant-btn-primary {
+  height: 45px;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  background-color: #1677ff;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.ant-btn-primary:hover {
+  background-color: #4096ff !important;
+}
+
+/* Links */
+.link {
+  color: #1677ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #4096ff;
+}
+
+.login-text {
+  margin-top: 15px;
+  color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .login-card {
+    flex-direction: column;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-container {
+    padding: 10px;
+  }
+  
+  .login-form {
+    padding: 20px;
+  }
+}
