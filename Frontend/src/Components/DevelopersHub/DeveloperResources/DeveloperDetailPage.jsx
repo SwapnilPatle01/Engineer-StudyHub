@@ -12,7 +12,11 @@ const DeveloperDetailPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
-  
+  // Added this effect to reset page when category changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [categoryKey]);
+
   const category = React.useMemo(() => categories[categoryKey], [categoryKey]);
   const selectedItem = React.useMemo(
     () => (itemKey ? category?.items.find(item => item.key === itemKey) : null),
